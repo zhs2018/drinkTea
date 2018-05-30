@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.shouhou.mapper.ShouhouServiceMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" id="ShouhouServiceMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="money" column="MONEY" />
+		<result property="reason" column="REASON" />
+		<result property="stat" column="STAT" />
+		<result property="remark" column="remark" />
+		<result property="noReason" column="NO_REASON" />
+	</resultMap>
+
+	<sql id="allShouhouServiceItems">
+		tmp.`ID`,tmp.`GOODS_ID`,tmp.`ORDER_ID`,tmp.`USER_ID`,tmp.`MONEY`,tmp.`REASON`,tmp.`STAT`,tmp.`remark`,tmp.`no_reason`
+	</sql>
+
+	<sql id="allShouhouServiceByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="goodsId != null"> tmp.GOODS_ID = #{goodsId} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="orderId != null"> tmp.ORDER_ID = #{orderId} AND</if>
+        <if test="money != null"> tmp.MONEY = #{money} AND</if>
+        <if test="reason != null"> tmp.REASON = #{reason} AND</if>
+        <if test="stat != null"> tmp.STAT = #{stat} AND</if>
+        <if test="remark != null"> tmp.STAT = #{remark} AND</if>
+        <if test="noReason != null"> tmp.no_reason = #{noReason} AND</if>
+	</sql>
+
+	<select id="getListById" parameterType="java.lang.Integer" resultMap="ShouhouServiceMap">
+	   SELECT
+		wu.user_name as wuUserName,
+		wu.phone as wuPhone,
+		ss.reason as reason,
+		ss.stat as stat
+		from shouhou_service ss
+		left join web_user wu on ss.`user_id` = wu.`id`
+		where
+		ss.`id` = #{id}
+	</select>
+
+	<!-- <select id="getPageListReturn" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouService" resultMap="ShouhouServiceMap">
+		SELECT <include refid="allShouhouServiceItems" /> from shouhou_service tmp
+		where order_state = '50' OR order_state = '60'
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select> -->
+
+	<!-- 退货用
+	<select id="getReturnOrderNumber" resultType="java.lang.Double" >
+		SELECT order_number from product_order where order_state = '50' OR order_state = '60'
+	</select> -->
+
+
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultMap="ShouhouServiceMap">
+		SELECT <include refid="allShouhouServiceItems" /> from shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean"
+	resultType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean">
+ 		select
+ 		ss.`id` as id,
+ 		ss.`goods_id` as goodsId,
+ 		ss.`user_id` as userId,
+ 		ss.`money` as money,
+ 		ss.`reason` as reason,
+ 		ss.`stat` as stat,
+ 		ss.`order_id` as orderNumber,
+ 		ss.`remark` as remark,
+ 		ss.`no_reason` as noReason,
+ 		wu.`user_name` as userName,
+ 		mp.`name` as goodsName
+ 		from shouhou_service ss
+ 		left join web_user wu on wu.`id` = ss.`user_id`
+ 		left join manage_products mp on mp.`id` = ss.`goods_id`
+ 		where 1=1
+ 		<if test="stat != null">
+ 			and ss.`stat` = #{stat}
+ 		</if>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultType="java.lang.Integer">
+		SELECT count(*) from shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allShouhouServiceLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="goodsId != null">GOODS_ID like '%${goodsId}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="money != null">MONEY like '%${money}%' AND </if>
+		<if test="orderId != null">ORDER_ID like '%${orderId}%' AND </if>
+		<if test="reason != null">REASON like '%${reason}%' AND </if>
+		<if test="stat != null">STAT like '%${stat}%' AND </if>
+		<if test="remark != null">STAT like '%${remark}%' AND </if>
+		<if test="noReason != null">no_reason like '%${noReason}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultMap="ShouhouServiceMap">
+		SELECT <include refid="allShouhouServiceItems" /> from shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultMap="ShouhouServiceMap">
+		SELECT <include refid="allShouhouServiceItems" /> from shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultType="java.lang.Integer">
+		SELECT count(*) from shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ShouhouServiceMap">
+			SELECT <include refid="allShouhouServiceItems" /> FROM shouhou_service tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" resultMap="ShouhouServiceMap">
+		SELECT <include refid="allShouhouServiceItems" /> FROM shouhou_service tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShouhouServiceByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO shouhou_service
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="goodsId != null">GOODS_ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="money != null">MONEY,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="reason != null">REASON,</if>
+			<if test="stat != null">STAT,</if>
+			<if test="remark != null">remark,</if>
+			<if test="noReason != null">no_reason,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="goodsId != null">#{goodsId},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="orderId != null">#{orderId},</if>
+			<if test="money != null">#{money},</if>
+			<if test="reason != null">#{reason},</if>
+			<if test="stat != null">#{stat},</if>
+			<if test="remark != null">#{remark},</if>
+			<if test="noReason != null">#{noReason},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean">
+		<![CDATA[delete from shouhou_service where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean">
+		delete from shouhou_service
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="goodsId != null"> GOODS_ID = #{goodsId} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="orderId != null"> ORDER_ID = #{orderId} AND</if>
+            <if test="money != null"> MONEY = #{money} AND</if>
+            <if test="reason != null"> REASON = #{reason} AND</if>
+            <if test="stat != null"> STAT = #{stat} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shouhou.model.ShouhouBean">
+		update shouhou_service
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="goodsId != null">GOODS_ID=#{goodsId},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="orderId != null">ORDER_ID=#{orderId},</if>
+			<if test="money != null">MONEY=#{money},</if>
+			<if test="reason != null">REASON=#{reason},</if>
+			<if test="stat != null">STAT=#{stat},</if>
+			<if test="noReason != null">no_reason=#{noReason},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

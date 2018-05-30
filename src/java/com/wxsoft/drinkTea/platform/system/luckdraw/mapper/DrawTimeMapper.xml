@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.luckdraw.mapper.DrawTimeMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" id="DrawTimeMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="startIme" column="START_IME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="visible" column="VISIBLE" />
+	</resultMap>
+
+	<sql id="allDrawTimeItems">
+		tmp.`ID`,tmp.`START_IME`,tmp.`END_TIME`,tmp.`VISIBLE`
+	</sql>
+
+	<sql id="allDrawTimeByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="startIme != null"> tmp.START_IME = #{startIme} AND</if>
+		<if test="endTime != null"> (tmp.END_TIME is null or tmp.END_TIME &gt;= #{endTime}) AND</if>
+        <if test="visible != null"> tmp.VISIBLE = #{visible} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultMap="DrawTimeMap">
+		SELECT <include refid="allDrawTimeItems" /> from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultMap="DrawTimeMap">
+		SELECT <include refid="allDrawTimeItems" /> from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultType="java.lang.Integer">
+		SELECT count(*) from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allDrawTimeLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="startIme != null">START_IME like '%${startIme}%' AND </if>
+		<if test="endTime != null">END_TIME like '%${endTime}%' AND </if>
+		<if test="visible != null">VISIBLE like '%${visible}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultMap="DrawTimeMap">
+		SELECT <include refid="allDrawTimeItems" /> from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultMap="DrawTimeMap">
+		SELECT <include refid="allDrawTimeItems" /> from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultType="java.lang.Integer">
+		SELECT count(*) from draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="DrawTimeMap">
+			SELECT <include refid="allDrawTimeItems" /> FROM draw_time tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" resultMap="DrawTimeMap">
+		SELECT <include refid="allDrawTimeItems" /> FROM draw_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allDrawTimeByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO draw_time
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="startIme != null">START_IME,</if>
+			<if test="endTime != null">END_TIME,</if>
+			<if test="visible != null">VISIBLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="startIme != null">#{startIme},</if>
+			<if test="endTime != null">#{endTime},</if>
+			<if test="visible != null">#{visible},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime">
+		<![CDATA[delete from draw_time where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime">
+		delete from draw_time
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="startIme != null"> START_IME = #{startIme} AND</if>
+            <if test="endTime != null"> END_TIME = #{endTime} AND</if>
+            <if test="visible != null"> VISIBLE = #{visible} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.luckdraw.model.DrawTime">
+		update draw_time
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="startIme != null">START_IME=#{startIme},</if>
+			<if test="endTime != null">END_TIME=#{endTime},</if>
+			<if test="visible != null">VISIBLE=#{visible},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

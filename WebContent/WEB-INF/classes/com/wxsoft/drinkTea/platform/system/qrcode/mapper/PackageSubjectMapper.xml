@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.qrcode.mapper.PackageSubjectMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" id="PackageSubjectMap">
+		<id property="id" column="ID" />
+		<result property="smlPakId" column="SML_PAK_ID" />
+		<result property="subId" column="SUB_ID" />
+		<result property="id" column="ID" />
+		<result property="optionId" column="option_id" />
+		<result property="visable" column="visable" />
+		<result property="signId" column="SIGN_ID" />
+	</resultMap>
+
+	<sql id="allPackageSubjectItems">
+		tmp.`SML_PAK_ID`,tmp.`SUB_ID`,tmp.`ID`,tmp.`option_id`,tmp.`visable`,tmp.`SIGN_ID`
+	</sql>
+
+	<sql id="allPackageSubjectByConditions">
+        <if test="smlPakId != null"> tmp.SML_PAK_ID = #{smlPakId} AND</if>
+        <if test="subId != null"> tmp.SUB_ID = #{subId} AND</if>
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="optionId != null"> tmp.option_id = #{optionId} AND</if>
+        <if test="visable != null"> tmp.visable = #{visable} AND</if>
+          <if test="signId != null"> tmp.SIGN_ID = #{signId} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultMap="PackageSubjectMap">
+		SELECT <include refid="allPackageSubjectItems" /> from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultMap="PackageSubjectMap">
+		 SELECT <include refid="allPackageSubjectItems" /> from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+ 		<!--select
+ 		ps.*,
+ 		so.`option` as optionName
+ 		from package_subject ps
+ 		left join sub_option so on so.`id` = ps.`option_id`
+ 		where ps.visable = 1 and so.visable = 1-->
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultType="java.lang.Integer">
+		SELECT count(*) from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allPackageSubjectLikeConditions">
+		<if test="smlPakId != null">SML_PAK_ID like '%${smlPakId}%' AND </if>
+		<if test="subId != null">SUB_ID like '%${subId}%' AND </if>
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="optionId != null">option_id like '%${optionId}%' AND </if>
+		<if test="visable != null">visable like '%${visable}%' AND </if>
+		<if test="signId != null">SIGN_ID like '%${signId}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultMap="PackageSubjectMap">
+		SELECT <include refid="allPackageSubjectItems" /> from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultMap="PackageSubjectMap">
+		SELECT <include refid="allPackageSubjectItems" /> from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultType="java.lang.Integer">
+		SELECT count(*) from package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="PackageSubjectMap">
+			SELECT <include refid="allPackageSubjectItems" /> FROM package_subject tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" resultMap="PackageSubjectMap">
+		SELECT <include refid="allPackageSubjectItems" /> FROM package_subject tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPackageSubjectByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO package_subject
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="smlPakId != null">SML_PAK_ID,</if>
+			<if test="subId != null">SUB_ID,</if>
+			<if test="id != null">ID,</if>
+			<if test="optionId != null">option_id,</if>
+			<if test="signId != null">sign_id,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="smlPakId != null">#{smlPakId},</if>
+			<if test="subId != null">#{subId},</if>
+			<if test="id != null">#{id},</if>
+			<if test="optionId != null">#{optionId},</if>
+			<if test="signId != null">#{signId},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject">
+		<![CDATA[delete from package_subject where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject">
+		delete from package_subject
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="smlPakId != null"> SML_PAK_ID = #{smlPakId} AND</if>
+            <if test="subId != null"> SUB_ID = #{subId} AND</if>
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="optionId != null"> option_id = #{optionId} AND</if>
+            <if test="visable != null"> visable = #{visable} AND</if>
+            <if test="signId != null"> SIGN_ID = #{signId} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.PackageSubject">
+		update package_subject
+		<set>
+			<if test="smlPakId != null">SML_PAK_ID=#{smlPakId},</if>
+			<if test="subId != null">SUB_ID=#{subId},</if>
+			<if test="id != null">ID=#{id},</if>
+			<if test="optionId != null">option_id=#{optionId},</if>
+			<if test="visable != null">visable=#{visable},</if>
+			<if test="signId != null">SIGN_ID=#{signId},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

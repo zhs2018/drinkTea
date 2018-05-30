@@ -1,0 +1,148 @@
+@charset "UTF-8"; /*css reset*/
+body, nav, dl, dt, dd, p, h1, h2, h3, h4, h5, ul, ol, li, input, button, textarea, footer {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 黑体, "Microsoft YaHei", "微软雅黑";
+    -webkit-overflow-scrolling: touch;
+    font-size: 1rem;
+    background: #eee;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+i {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: #222;
+}
+
+.block {
+    display: block !important;
+}
+
+.salesman-ul {
+    float: left;
+    width: 100%;
+    background: #fff;
+    /*margin-top: 0.9875rem;*/
+}
+
+.salesman-ul li {
+    position: relative;
+    margin: 0 0.75rem;
+    height: 2.1875rem;
+    line-height: 2.1875rem;
+    border-bottom: 1px solid #eee;
+    font-size:0.875rem;
+}
+
+.salesman-ul li:after {
+    content: '';
+    position: absolute;
+    height: 0.625rem;
+    width: 0.625rem;
+    right: 0.3125rem;
+    top: 0.78125rem;
+    background: url(" ../../image/weixin/no-c.png");
+    background-size: 100% 100%;
+}
+
+.salesman-ul li.active:after {
+    content: '';
+    position: absolute;
+    height: 0.625rem;
+    width: 0.625rem;
+    right: 0.3125rem;
+    top: 0.78125rem;
+    background: url(" ../../image/weixin/c.png");
+    background-size: 100% 100%;
+}
+
+.salesman-title {
+    line-height: 2.625rem;
+    font-size: 1.125rem;
+    padding: 0 0.75rem;
+}
+
+.salesman-info {
+    background: #fff;
+}
+
+.salesman-info div {
+    height: 2.1875rem;
+    line-height: 2.1875rem;
+    border-bottom: 1px solid #eee;
+    margin: 0 0.75rem;
+}
+
+.salesman-info div label {
+
+}
+
+.salesman-info div input {
+    border: none;
+}
+.salesman-info div span{
+    position: relative;
+    display: inline-block;
+    height: 2.1875rem;
+    line-height: 2.1875rem;
+    margin-left: 2rem;
+}
+.salesman-info div span:before{
+    content: '';
+    position: absolute;
+    height: 0.625rem;
+    width: 0.625rem;
+    left:-0.8125rem;
+    top: 0.78125rem;
+    background: url(" ../../image/weixin/no-c.png");
+    background-size: 100% 100%;
+}
+.salesman-info div span.active:before{
+    content: '';
+    position: absolute;
+    height: 0.625rem;
+    width: 0.625rem;
+    left:-0.8125rem;
+    top: 0.78125rem;
+    background: url(" ../../image/weixin/c.png");
+    background-size: 100% 100%;
+}
+.salesman-xz{
+    float: right;
+    color: #999;
+    margin-right: 1rem;
+    position: relative;
+}
+.salesman-xz:after{
+    content:"";
+    position: absolute;
+    right: -0.625rem;
+    height: 0.8125rem;
+    width:0.4375rem ;
+    top: 0.6875rem;
+    background: url(" ../../image/weixin/go.png");
+    background-size: 100% 100%;
+}
+.salesman-btn{
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 3rem;
+    line-height:3rem ;
+    background:#66af2d ;
+    color:#fff;
+    text-align: center;
+    font-size: 1.125rem;
+}

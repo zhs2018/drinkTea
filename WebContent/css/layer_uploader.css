@@ -1,0 +1,50 @@
+.layer-upload-poster {
+    padding: 30px;
+    text-align: center;
+}
+.poster-bg {
+    display: inline-block;
+    width: 250px;
+    height: 370px;
+    text-align: center;
+    background-color: #f8f8f8;
+    border: 1px solid #E5E5E5;
+}
+.upload-img {
+    cursor: pointer;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    cursor: pointer;
+    display: inline-block;
+    width: 182px;
+    height: 178px;
+    position: relative;
+    margin-top: 70px;
+}
+.upload-img input[type="file"] {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 182px;
+    height: 178px;
+    font-size: 100px;
+    overflow: hidden;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+.poster-bg p {
+    line-height: 25px;
+}
+.submit-upload {
+    margin-top: 30px;
+    margin: 30px auto 0px;
+    width: 71px;
+    height: 34px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+    text-align: center;
+}

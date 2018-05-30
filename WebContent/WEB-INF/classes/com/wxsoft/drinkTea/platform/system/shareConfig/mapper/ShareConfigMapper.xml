@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.shareConfig.mapper.ShareConfigMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" id="ShareConfigMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="firstTitle" column="FIRST_TITLE" />
+		<result property="shareTitle" column="SHARE_TITLE" />
+		<result property="shareDesc" column="SHARE_DESC" />
+		<result property="sharePic" column="SHARE_PIC" />
+	</resultMap>
+
+	<sql id="allShareConfigItems">
+		tmp.`ID`,tmp.`FIRST_TITLE`,tmp.`SHARE_TITLE`,tmp.`SHARE_DESC`,tmp.`SHARE_PIC`
+	</sql>
+
+	<sql id="allShareConfigByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="firstTitle != null"> tmp.FIRST_TITLE = #{firstTitle} AND</if>
+        <if test="shareTitle != null"> tmp.SHARE_TITLE = #{shareTitle} AND</if>
+        <if test="shareDesc != null"> tmp.SHARE_DESC = #{shareDesc} AND</if>
+        <if test="sharePic != null"> tmp.SHARE_PIC = #{sharePic} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultMap="ShareConfigMap">
+		SELECT <include refid="allShareConfigItems" /> from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultMap="ShareConfigMap">
+		SELECT <include refid="allShareConfigItems" /> from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultType="java.lang.Integer">
+		SELECT count(*) from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allShareConfigLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="firstTitle != null">FIRST_TITLE like '%${firstTitle}%' AND </if>
+		<if test="shareTitle != null">SHARE_TITLE like '%${shareTitle}%' AND </if>
+		<if test="shareDesc != null">SHARE_DESC like '%${shareDesc}%' AND </if>
+		<if test="sharePic != null">SHARE_PIC like '%${sharePic}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultMap="ShareConfigMap">
+		SELECT <include refid="allShareConfigItems" /> from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultMap="ShareConfigMap">
+		SELECT <include refid="allShareConfigItems" /> from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultType="java.lang.Integer">
+		SELECT count(*) from share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ShareConfigMap">
+			SELECT <include refid="allShareConfigItems" /> FROM share_config tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" resultMap="ShareConfigMap">
+		SELECT <include refid="allShareConfigItems" /> FROM share_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allShareConfigByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO share_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="firstTitle != null">FIRST_TITLE,</if>
+			<if test="shareTitle != null">SHARE_TITLE,</if>
+			<if test="shareDesc != null">SHARE_DESC,</if>
+			<if test="sharePic != null">SHARE_PIC,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="firstTitle != null">#{firstTitle},</if>
+			<if test="shareTitle != null">#{shareTitle},</if>
+			<if test="shareDesc != null">#{shareDesc},</if>
+			<if test="sharePic != null">#{sharePic},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig">
+		<![CDATA[delete from share_config where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig">
+		delete from share_config
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="firstTitle != null"> FIRST_TITLE = #{firstTitle} AND</if>
+            <if test="shareTitle != null"> SHARE_TITLE = #{shareTitle} AND</if>
+            <if test="shareDesc != null"> SHARE_DESC = #{shareDesc} AND</if>
+            <if test="sharePic != null"> SHARE_PIC = #{sharePic} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ShareConfig">
+		update share_config
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="firstTitle != null">FIRST_TITLE=#{firstTitle},</if>
+			<if test="shareTitle != null">SHARE_TITLE=#{shareTitle},</if>
+			<if test="shareDesc != null">SHARE_DESC=#{shareDesc},</if>
+			<if test="sharePic != null">SHARE_PIC=#{sharePic},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

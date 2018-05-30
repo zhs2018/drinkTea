@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.KingBaseInfoMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" id="KingBaseInfoMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="startTime" column="START_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="role" column="ROLE" />
+		<result property="type" column="TYPE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="num" column="NUM" />
+		<result property="subIds" column="SUB_IDS" />
+		<result property="visable" column="VISABLE" />
+	</resultMap>
+
+	<sql id="allKingBaseInfoItems">
+		tmp.`ID`,tmp.`START_TIME`,tmp.`END_TIME`,tmp.`ROLE`,tmp.`TYPE`,tmp.`CREATE_TIME`,tmp.`NUM`,tmp.`SUB_IDS`,tmp.`VISABLE`
+	</sql>
+
+	<sql id="allKingBaseInfoByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="startTime != null"> tmp.START_TIME = #{startTime} AND</if>
+        <if test="endTime != null"> tmp.END_TIME = #{endTime} AND</if>
+        <if test="role != null"> tmp.ROLE = #{role} AND</if>
+        <if test="type != null"> tmp.TYPE = #{type} AND</if>
+        <if test="createTime != null"> tmp.CREATE_TIME = #{createTime} AND</if>
+        <if test="num != null"> tmp.NUM = #{num} AND</if>
+        <if test="subIds != null"> tmp.SUB_IDS = #{subIds} AND</if>
+        tmp.VISABLE = 1 AND
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultMap="KingBaseInfoMap">
+		SELECT <include refid="allKingBaseInfoItems" /> from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultMap="KingBaseInfoMap">
+		SELECT <include refid="allKingBaseInfoItems" /> from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID asc
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultType="java.lang.Integer">
+		SELECT count(*) from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allKingBaseInfoLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="startTime != null">START_TIME like '%${startTime}%' AND </if>
+		<if test="endTime != null">END_TIME like '%${endTime}%' AND </if>
+		<if test="role != null">ROLE like '%${role}%' AND </if>
+		<if test="type != null">TYPE like '%${type}%' AND </if>
+		<if test="createTime != null">CREATE_TIME like '%${createTime}%' AND </if>
+		<if test="num != null">NUM like '%${num}%' AND </if>
+		<if test="subIds != null">SUB_IDS like '%${subIds}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultMap="KingBaseInfoMap">
+		SELECT <include refid="allKingBaseInfoItems" /> from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultMap="KingBaseInfoMap">
+		SELECT <include refid="allKingBaseInfoItems" /> from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultType="java.lang.Integer">
+		SELECT count(*) from king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="KingBaseInfoMap">
+			SELECT <include refid="allKingBaseInfoItems" /> FROM king_base_info tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" resultMap="KingBaseInfoMap">
+		SELECT <include refid="allKingBaseInfoItems" /> FROM king_base_info tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingBaseInfoByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO king_base_info
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="startTime != null">START_TIME,</if>
+			<if test="endTime != null">END_TIME,</if>
+			<if test="role != null">ROLE,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="num != null">NUM,</if>
+			<if test="subIds != null">SUB_IDS,</if>
+			<if test="visable != null">VISABLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="startTime != null">#{startTime},</if>
+			<if test="endTime != null">#{endTime},</if>
+			<if test="role != null">#{role},</if>
+			<if test="type != null">#{type},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="num != null">#{num},</if>
+			<if test="subIds != null">#{subIds},</if>
+			<if test="visable != null">#{visable},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo">
+		<![CDATA[delete from king_base_info where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo">
+		delete from king_base_info
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="startTime != null"> START_TIME = #{startTime} AND</if>
+            <if test="endTime != null"> END_TIME = #{endTime} AND</if>
+            <if test="role != null"> ROLE = #{role} AND</if>
+            <if test="type != null"> TYPE = #{type} AND</if>
+            <if test="createTime != null"> CREATE_TIME = #{createTime} AND</if>
+            <if test="num != null"> NUM = #{num} AND</if>
+            <if test="subIds != null"> SUB_IDS = #{subIds} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingBaseInfo">
+		update king_base_info
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="startTime != null">START_TIME=#{startTime},</if>
+			<if test="endTime != null">END_TIME=#{endTime},</if>
+			<if test="role != null">ROLE=#{role},</if>
+			<if test="type != null">TYPE=#{type},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="num != null">NUM=#{num},</if>
+			<if test="subIds != null">SUB_IDS=#{subIds},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

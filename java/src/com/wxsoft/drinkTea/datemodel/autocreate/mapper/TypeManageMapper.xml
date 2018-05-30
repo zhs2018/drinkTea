@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.TypeManageMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" id="TypeManageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="typeName" column="TYPE_NAME" />
+		<result property="typeSort" column="TYPE_SORT" />
+		<result property="typeListImg" column="TYPE_LIST_IMG" />
+		<result property="typeListImgFirst" column="TYPE_LIST_IMG_FIRST" />
+		<result property="addTime" column="ADD_TIME" />
+	</resultMap>
+
+	<sql id="allTypeManageItems">
+		tmp.`ID`,tmp.`TYPE_NAME`,tmp.`TYPE_SORT`,tmp.`TYPE_LIST_IMG`,tmp.`TYPE_LIST_IMG_FIRST`,tmp.`ADD_TIME`
+	</sql>
+
+	<sql id="allTypeManageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="typeName != null"> tmp.TYPE_NAME = #{typeName} AND</if>
+        <if test="typeSort != null"> tmp.TYPE_SORT = #{typeSort} AND</if>
+        <if test="typeListImg != null"> tmp.TYPE_LIST_IMG = #{typeListImg} AND</if>
+        <if test="typeListImgFirst != null"> tmp.TYPE_LIST_IMG_FIRST = #{typeListImgFirst} AND</if>
+        <if test="addTime != null"> tmp.ADD_TIME = #{addTime} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultMap="TypeManageMap">
+		SELECT <include refid="allTypeManageItems" /> from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultMap="TypeManageMap">
+		SELECT <include refid="allTypeManageItems" /> from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultType="java.lang.Integer">
+		SELECT count(*) from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allTypeManageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="typeName != null">TYPE_NAME like '%${typeName}%' AND </if>
+		<if test="typeSort != null">TYPE_SORT like '%${typeSort}%' AND </if>
+		<if test="typeListImg != null">TYPE_LIST_IMG like '%${typeListImg}%' AND </if>
+		<if test="typeListImgFirst != null">TYPE_LIST_IMG_FIRST like '%${typeListImgFirst}%' AND </if>
+		<if test="addTime != null">ADD_TIME like '%${addTime}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultMap="TypeManageMap">
+		SELECT <include refid="allTypeManageItems" /> from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultMap="TypeManageMap">
+		SELECT <include refid="allTypeManageItems" /> from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultType="java.lang.Integer">
+		SELECT count(*) from type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="TypeManageMap">
+			SELECT <include refid="allTypeManageItems" /> FROM type_manage tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" resultMap="TypeManageMap">
+		SELECT <include refid="allTypeManageItems" /> FROM type_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTypeManageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO type_manage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="typeName != null">TYPE_NAME,</if>
+			<if test="typeSort != null">TYPE_SORT,</if>
+			<if test="typeListImg != null">TYPE_LIST_IMG,</if>
+			<if test="typeListImgFirst != null">TYPE_LIST_IMG_FIRST,</if>
+			<if test="addTime != null">ADD_TIME,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="typeName != null">#{typeName},</if>
+			<if test="typeSort != null">#{typeSort},</if>
+			<if test="typeListImg != null">#{typeListImg},</if>
+			<if test="typeListImgFirst != null">#{typeListImgFirst},</if>
+			<if test="addTime != null">#{addTime},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage">
+		<![CDATA[delete from type_manage where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage">
+		delete from type_manage
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="typeName != null"> TYPE_NAME = #{typeName} AND</if>
+            <if test="typeSort != null"> TYPE_SORT = #{typeSort} AND</if>
+            <if test="typeListImg != null"> TYPE_LIST_IMG = #{typeListImg} AND</if>
+            <if test="typeListImgFirst != null"> TYPE_LIST_IMG_FIRST = #{typeListImgFirst} AND</if>
+            <if test="addTime != null"> ADD_TIME = #{addTime} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.TypeManage">
+		update type_manage
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="typeName != null">TYPE_NAME=#{typeName},</if>
+			<if test="typeSort != null">TYPE_SORT=#{typeSort},</if>
+			<if test="typeListImg != null">TYPE_LIST_IMG=#{typeListImg},</if>
+			<if test="typeListImgFirst != null">TYPE_LIST_IMG_FIRST=#{typeListImgFirst},</if>
+			<if test="addTime != null">ADD_TIME=#{addTime},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

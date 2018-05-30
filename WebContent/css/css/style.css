@@ -1,0 +1,131 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+
+a {
+	text-decoration: none;
+}
+
+img {
+	border: none;
+}
+
+li {
+	list-style: none outside none;
+}
+
+body { /* background:#000; */
+	font-size: 14px;
+	font-family: "ËÎÌו";
+}
+
+.myBox {
+
+}
+/* .myBox{margin:100px auto 0;} */
+.myBox ul {
+	margin: 0 auto;
+	height: 500px;
+	width: 82% !important;
+/* 	border:2px solid #000; */
+	border-radius: 5px;
+	position: absolute !important;
+	top: 24px;
+	border-radius: 5px;
+	position: absolute !important;
+	top: 24px;
+	left: 30px;
+	position: absolute !important;
+	top: 30px;
+	left: 30px;
+}
+
+.myBox li {
+	width: 69px;
+	height:69px;
+	text-align: center;
+	line-height: 80px;
+	font-size: 40px;
+	color: #fff;
+	background:url('../../image/weixin/draw/06.png');
+
+}
+
+.myBox li.on {
+	background:url('../../image/weixin/draw/05.png');
+}
+
+.text {
+	height: 50px;
+	overflow: hidden;
+	width: 100px;
+	margin: 20px auto 0;
+	font-size: 20px;
+	line-height: 50px;
+	text-align: center;
+}
+
+.bt, .jg, .zt {
+	float: left;
+	width: 500px;
+}
+
+.bt {
+	width: 100px;
+	height: 50px;
+	background: rgb(200, 100, 55);
+	color: #fff;
+	cursor: pointer;
+	border-radius: 5px
+}
+
+em {
+	font-size: 30px;
+	font-style: normal;
+	color: red;
+}
+
+.form {
+	height: 5px;
+}
+
+.beijing {
+	background: url('../../image/weixin/draw/04.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 570px;
+	padding:20px 0;
+}
+
+.cj-back {
+	background: url('../../image/weixin/draw/03.png');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	height: 350px;
+	margin: 0 10px;
+	background-position: center center;
+	position: relative
+}
+
+.luck {
+	position: absolute;
+	top: 29%;
+	left: 31%
+}
+
+.luck img {
+	width: 60%;
+	height: 135px
+}
+.click{
+	width:100%;
+	height:80px;
+	text-align:center;
+	margin:0 auto;
+	margin-top:40px;
+}
+.click img{
+	width:135px;
+	height:60px
+}

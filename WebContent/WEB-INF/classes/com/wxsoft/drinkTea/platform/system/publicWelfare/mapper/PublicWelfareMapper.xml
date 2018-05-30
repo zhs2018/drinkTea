@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.publicWelfare.mapper.PublicWelfareMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" id="PublicWelfareMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="intro" column="INTRO" />
+		<result property="time" column="TIME" />
+		<result property="sign" column="SIGN" />
+	    <result property="title" column="TITLE" />
+	</resultMap>
+
+	<sql id="allPublicWelfareItems">
+		tmp.`ID`,tmp.`INTRO`,tmp.`TIME`,tmp.`SIGN`,tmp.`TITLE`
+	</sql>
+
+	<sql id="allPublicWelfareByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="intro != null"> tmp.INTRO = #{intro} AND</if>
+        <if test="time != null"> tmp.TIME = #{time} AND</if>
+        <if test="sign != null"> tmp.SIGN = #{sign} AND</if>
+        <if test="title != null"> tmp.TITLE = #{title} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultMap="PublicWelfareMap">
+		SELECT <include refid="allPublicWelfareItems" /> from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultMap="PublicWelfareMap">
+		SELECT <include refid="allPublicWelfareItems" /> from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultType="java.lang.Integer">
+		SELECT count(*) from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allPublicWelfareLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="intro != null">INTRO like '%${intro}%' AND </if>
+		<if test="time != null">TIME like '%${time}%' AND </if>
+		<if test="sign != null">SIGN like '%${sign}%' AND </if>
+		<if test="title != null">TITLE like '%${title}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultMap="PublicWelfareMap">
+		SELECT <include refid="allPublicWelfareItems" /> from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultMap="PublicWelfareMap">
+		SELECT <include refid="allPublicWelfareItems" /> from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultType="java.lang.Integer">
+		SELECT count(*) from public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="PublicWelfareMap">
+			SELECT <include refid="allPublicWelfareItems" /> FROM public_welfare tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" resultMap="PublicWelfareMap">
+		SELECT <include refid="allPublicWelfareItems" /> FROM public_welfare tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPublicWelfareByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO public_welfare
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="intro != null">INTRO,</if>
+			<if test="time != null">TIME,</if>
+			<if test="sign != null">SIGN,</if>
+			<if test="title != null">TITLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="intro != null">#{intro},</if>
+			<if test="time != null">#{time},</if>
+			<if test="sign != null">#{sign},</if>
+			<if test="title != null">#{title},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare">
+		<![CDATA[delete from public_welfare where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare">
+		delete from public_welfare
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="intro != null"> INTRO = #{intro} AND</if>
+            <if test="time != null"> TIME = #{time} AND</if>
+            <if test="sign != null"> SIGN = #{sign} AND</if>
+            <if test="title != null"> TITLE = #{title} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.publicWelfare.model.PublicWelfare">
+		update public_welfare
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="intro != null">INTRO=#{intro},</if>
+			<if test="time != null">TIME=#{time},</if>
+			<if test="sign != null">SIGN=#{sign},</if>
+			<if test="title != null">TITLE=#{title},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

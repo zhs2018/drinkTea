@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.company.mapper.CompanyProMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" id="CompanyProMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="address" column="ADDRESS" />
+		<result property="companyPhone" column="COMPANY_PHONE" />
+		<result property="picture" column="PICTURE" />
+		<result property="content" column="CONTENT" />
+		<result property="people" column="PEOPLE" />
+		<result property="phone" column="PHONE" />
+		<result property="qrCode" column="QR_CODE" />
+		<result property="isCashOnDelivery" column="IS_CASH_ON_DELIVERY" />
+	</resultMap>
+
+	<sql id="allCompanyProItems">
+		tmp.`ID`,tmp.`NAME`,tmp.`ADDRESS`,tmp.`COMPANY_PHONE`,tmp.`PICTURE`,tmp.`CONTENT`,tmp.`PEOPLE`,tmp.`PHONE`,tmp.`QR_CODE`,tmp.`IS_CASH_ON_DELIVERY`
+	</sql>
+
+	<sql id="allCompanyProByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="address != null"> tmp.ADDRESS = #{address} AND</if>
+        <if test="companyPhone != null"> tmp.COMPANY_PHONE = #{companyPhone} AND</if>
+        <if test="picture != null"> tmp.PICTURE = #{picture} AND</if>
+        <if test="content != null"> tmp.CONTENT = #{content} AND</if>
+        <if test="people != null"> tmp.PEOPLE = #{people} AND</if>
+        <if test="phone != null"> tmp.PHONE = #{phone} AND</if>
+        <if test="qrCode != null"> tmp.QR_CODE = #{qrCode} AND</if>
+        <if test="isCashOnDelivery != null"> tmp.IS_CASH_ON_DELIVERY = #{isCashOnDelivery} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultMap="CompanyProMap">
+		SELECT <include refid="allCompanyProItems" /> from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultMap="CompanyProMap">
+		SELECT <include refid="allCompanyProItems" /> from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultType="java.lang.Integer">
+		SELECT count(*) from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allCompanyProLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="address != null">ADDRESS like '%${address}%' AND </if>
+		<if test="companyPhone != null">COMPANY_PHONE like '%${companyPhone}%' AND </if>
+		<if test="picture != null">PICTURE like '%${picture}%' AND </if>
+		<if test="content != null">CONTENT like '%${content}%' AND </if>
+		<if test="people != null">PEOPLE like '%${people}%' AND </if>
+		<if test="phone != null">PHONE like '%${phone}%' AND </if>
+		<if test="qrCode != null">QR_CODE like '%${qrCode}%' AND </if>
+		<if test="isCashOnDelivery != null">IS_CASH_ON_DELIVERY like '%${isCashOnDelivery}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultMap="CompanyProMap">
+		SELECT <include refid="allCompanyProItems" /> from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultMap="CompanyProMap">
+		SELECT <include refid="allCompanyProItems" /> from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultType="java.lang.Integer">
+		SELECT count(*) from company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="CompanyProMap">
+			SELECT <include refid="allCompanyProItems" /> FROM company_pro tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" resultMap="CompanyProMap">
+		SELECT <include refid="allCompanyProItems" /> FROM company_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCompanyProByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO company_pro
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="address != null">ADDRESS,</if>
+			<if test="companyPhone != null">COMPANY_PHONE,</if>
+			<if test="picture != null">PICTURE,</if>
+			<if test="content != null">CONTENT,</if>
+			<if test="people != null">PEOPLE,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="qrCode != null">QR_CODE,</if>
+			<if test="isCashOnDelivery != null">IS_CASH_ON_DELIVERY,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="address != null">#{address},</if>
+			<if test="companyPhone != null">#{companyPhone},</if>
+			<if test="picture != null">#{picture},</if>
+			<if test="content != null">#{content},</if>
+			<if test="people != null">#{people},</if>
+			<if test="phone != null">#{phone},</if>
+			<if test="qrCode != null">#{qrCode},</if>
+			<if test="isCashOnDelivery != null">#{isCashOnDelivery},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro">
+		<![CDATA[delete from company_pro where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro">
+		delete from company_pro
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="address != null"> ADDRESS = #{address} AND</if>
+            <if test="companyPhone != null"> COMPANY_PHONE = #{companyPhone} AND</if>
+            <if test="picture != null"> PICTURE = #{picture} AND</if>
+            <if test="content != null"> CONTENT = #{content} AND</if>
+            <if test="people != null"> PEOPLE = #{people} AND</if>
+            <if test="phone != null"> PHONE = #{phone} AND</if>
+            <if test="qrCode != null"> QR_CODE = #{qrCode} AND</if>
+            <if test="isCashOnDelivery != null"> IS_CASH_ON_DELIVERY = #{isCashOnDelivery} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.company.model.CompanyPro">
+		update company_pro
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="address != null">ADDRESS=#{address},</if>
+			<if test="companyPhone != null">COMPANY_PHONE=#{companyPhone},</if>
+			<if test="picture != null">PICTURE=#{picture},</if>
+			<if test="content != null">CONTENT=#{content},</if>
+			<if test="people != null">PEOPLE=#{people},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+			<if test="qrCode != null">QR_CODE=#{qrCode},</if>
+			<if test="isCashOnDelivery != null">IS_CASH_ON_DELIVERY=#{isCashOnDelivery},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

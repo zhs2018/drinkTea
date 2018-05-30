@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.IdeaTicklingMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" id="IdeaTicklingMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="contents" column="CONTENTS" />
+		<result property="phone" column="PHONE" />
+		<result property="commodityId" column="COMMODITY_ID" />
+		<result property="state" column="STATE" />
+	</resultMap>
+
+	<sql id="allIdeaTicklingItems">
+		tmp.`ID`,tmp.`CONTENTS`,tmp.`PHONE`,tmp.`COMMODITY_ID`,tmp.`STATE`
+	</sql>
+
+	<sql id="allIdeaTicklingByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="contents != null"> tmp.CONTENTS = #{contents} AND</if>
+        <if test="phone != null"> tmp.PHONE = #{phone} AND</if>
+        <if test="commodityId != null"> tmp.COMMODITY_ID = #{commodityId} AND</if>
+        <if test="state != null"> tmp.STATE = #{state} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultMap="IdeaTicklingMap">
+		SELECT <include refid="allIdeaTicklingItems" /> from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultMap="IdeaTicklingMap">
+		SELECT <include refid="allIdeaTicklingItems" /> from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultType="java.lang.Integer">
+		SELECT count(*) from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allIdeaTicklingLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="contents != null">CONTENTS like '%${contents}%' AND </if>
+		<if test="phone != null">PHONE like '%${phone}%' AND </if>
+		<if test="commodityId != null">COMMODITY_ID like '%${commodityId}%' AND </if>
+		<if test="state != null">STATE like '%${state}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultMap="IdeaTicklingMap">
+		SELECT <include refid="allIdeaTicklingItems" /> from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultMap="IdeaTicklingMap">
+		SELECT <include refid="allIdeaTicklingItems" /> from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultType="java.lang.Integer">
+		SELECT count(*) from idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="IdeaTicklingMap">
+			SELECT <include refid="allIdeaTicklingItems" /> FROM idea_tickling tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" resultMap="IdeaTicklingMap">
+		SELECT <include refid="allIdeaTicklingItems" /> FROM idea_tickling tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allIdeaTicklingByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO idea_tickling
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="contents != null">CONTENTS,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="commodityId != null">COMMODITY_ID,</if>
+			<if test="state != null">STATE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="contents != null">#{contents},</if>
+			<if test="phone != null">#{phone},</if>
+			<if test="commodityId != null">#{commodityId},</if>
+			<if test="state != null">#{state},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling">
+		<![CDATA[delete from idea_tickling where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling">
+		delete from idea_tickling
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="contents != null"> CONTENTS = #{contents} AND</if>
+            <if test="phone != null"> PHONE = #{phone} AND</if>
+            <if test="commodityId != null"> COMMODITY_ID = #{commodityId} AND</if>
+            <if test="state != null"> STATE = #{state} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.IdeaTickling">
+		update idea_tickling
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="contents != null">CONTENTS=#{contents},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+			<if test="commodityId != null">COMMODITY_ID=#{commodityId},</if>
+			<if test="state != null">STATE=#{state},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.SysMenuMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" id="SysMenuMap">
+		<id property="" column="" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="parentId" column="PARENT_ID" />
+		<result property="sort" column="SORT" />
+		<result property="icon" column="ICON" />
+		<result property="linkUrl" column="LINK_URL" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="visable" column="VISABLE" />
+	</resultMap>
+
+	<sql id="allSysMenuItems">
+		tmp.`ID`,tmp.`NAME`,tmp.`PARENT_ID`,tmp.`SORT`,tmp.`ICON`,tmp.`LINK_URL`,tmp.`ROLE_ID`,tmp.`VISABLE`
+	</sql>
+
+	<sql id="allSysMenuByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="parentId != null"> tmp.PARENT_ID = #{parentId} AND</if>
+        <if test="sort != null"> tmp.SORT = #{sort} AND</if>
+        <if test="icon != null"> tmp.ICON = #{icon} AND</if>
+        <if test="linkUrl != null"> tmp.LINK_URL = #{linkUrl} AND</if>
+        <if test="roleId != null"> tmp.ROLE_ID = #{roleId} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultMap="SysMenuMap">
+		SELECT <include refid="allSysMenuItems" /> from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY  DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultMap="SysMenuMap">
+		SELECT <include refid="allSysMenuItems" /> from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY  DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultType="java.lang.Integer">
+		SELECT count(*) from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSysMenuLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="parentId != null">PARENT_ID like '%${parentId}%' AND </if>
+		<if test="sort != null">SORT like '%${sort}%' AND </if>
+		<if test="icon != null">ICON like '%${icon}%' AND </if>
+		<if test="linkUrl != null">LINK_URL like '%${linkUrl}%' AND </if>
+		<if test="roleId != null">ROLE_ID like '%${roleId}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultMap="SysMenuMap">
+		SELECT <include refid="allSysMenuItems" /> from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY  DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultMap="SysMenuMap">
+		SELECT <include refid="allSysMenuItems" /> from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY  DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultType="java.lang.Integer">
+		SELECT count(*) from sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SysMenuMap">
+			SELECT <include refid="allSysMenuItems" /> FROM sys_menu tmp WHERE tmp. = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" resultMap="SysMenuMap">
+		SELECT <include refid="allSysMenuItems" /> FROM sys_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysMenuByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu" useGeneratedKeys="true" keyProperty="">
+		INSERT INTO sys_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="parentId != null">PARENT_ID,</if>
+			<if test="sort != null">SORT,</if>
+			<if test="icon != null">ICON,</if>
+			<if test="linkUrl != null">LINK_URL,</if>
+			<if test="roleId != null">ROLE_ID,</if>
+			<if test="visable != null">VISABLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="parentId != null">#{parentId},</if>
+			<if test="sort != null">#{sort},</if>
+			<if test="icon != null">#{icon},</if>
+			<if test="linkUrl != null">#{linkUrl},</if>
+			<if test="roleId != null">#{roleId},</if>
+			<if test="visable != null">#{visable},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu">
+		<![CDATA[delete from sys_menu where =#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu">
+		delete from sys_menu
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="parentId != null"> PARENT_ID = #{parentId} AND</if>
+            <if test="sort != null"> SORT = #{sort} AND</if>
+            <if test="icon != null"> ICON = #{icon} AND</if>
+            <if test="linkUrl != null"> LINK_URL = #{linkUrl} AND</if>
+            <if test="roleId != null"> ROLE_ID = #{roleId} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysMenu">
+		update sys_menu
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="parentId != null">PARENT_ID=#{parentId},</if>
+			<if test="sort != null">SORT=#{sort},</if>
+			<if test="icon != null">ICON=#{icon},</if>
+			<if test="linkUrl != null">LINK_URL=#{linkUrl},</if>
+			<if test="roleId != null">ROLE_ID=#{roleId},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+		</set>
+		where  = #{}
+	</update>
+
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.RedMoneyMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" id="RedMoneyMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="moneyNum" column="MONEY_NUM" />
+		<result property="moneyNums" column="MONEY_NUMS" />
+		<result property="countWeb" column="COUNT_WEB" />
+	</resultMap>
+
+	<sql id="allRedMoneyItems">
+		tmp.`ID`,tmp.`MONEY_NUM`,tmp.`MONEY_NUMS`,tmp.`COUNT_WEB`
+	</sql>
+
+	<sql id="allRedMoneyByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="moneyNum != null"> tmp.MONEY_NUM = #{moneyNum} AND</if>
+        <if test="moneyNums != null"> tmp.MONEY_NUMS = #{moneyNums} AND</if>
+        <if test="countWeb != null"> tmp.COUNT_WEB = #{countWeb} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultMap="RedMoneyMap">
+		SELECT <include refid="allRedMoneyItems" /> from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultMap="RedMoneyMap">
+		SELECT <include refid="allRedMoneyItems" /> from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultType="java.lang.Integer">
+		SELECT count(*) from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allRedMoneyLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="moneyNum != null">MONEY_NUM like '%${moneyNum}%' AND </if>
+		<if test="moneyNums != null">MONEY_NUMS like '%${moneyNums}%' AND </if>
+		<if test="countWeb != null">COUNT_WEB like '%${countWeb}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultMap="RedMoneyMap">
+		SELECT <include refid="allRedMoneyItems" /> from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultMap="RedMoneyMap">
+		SELECT <include refid="allRedMoneyItems" /> from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultType="java.lang.Integer">
+		SELECT count(*) from red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="RedMoneyMap">
+			SELECT <include refid="allRedMoneyItems" /> FROM red_money tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" resultMap="RedMoneyMap">
+		SELECT <include refid="allRedMoneyItems" /> FROM red_money tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRedMoneyByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO red_money
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="moneyNum != null">MONEY_NUM,</if>
+			<if test="moneyNums != null">MONEY_NUMS,</if>
+			<if test="countWeb != null">COUNT_WEB,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="moneyNum != null">#{moneyNum},</if>
+			<if test="moneyNums != null">#{moneyNums},</if>
+			<if test="countWeb != null">#{countWeb},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney">
+		<![CDATA[delete from red_money where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney">
+		delete from red_money
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="moneyNum != null"> MONEY_NUM = #{moneyNum} AND</if>
+            <if test="moneyNums != null"> MONEY_NUMS = #{moneyNums} AND</if>
+            <if test="countWeb != null"> COUNT_WEB = #{countWeb} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.RedMoney">
+		update red_money
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="moneyNum != null">MONEY_NUM=#{moneyNum},</if>
+			<if test="moneyNums != null">MONEY_NUMS=#{moneyNums},</if>
+			<if test="countWeb != null">COUNT_WEB=#{countWeb},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

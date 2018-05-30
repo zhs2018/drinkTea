@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.ProductOrderMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" id="ProductOrderMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="orderNumber" column="ORDER_NUMBER" />
+		<result property="userId" column="USER_ID" />
+		<result property="giftBoxId" column="GIFT_BOX_ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="count" column="COUNT" />
+		<result property="price" column="PRICE" />
+		<result property="orderTime" column="ORDER_TIME" />
+		<result property="applyTime" column="APPLY_TIME" />
+		<result property="goodsTime" column="GOODS_TIME" />
+		<result property="goodsAddress" column="GOODS_ADDRESS" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="orderState" column="ORDER_STATE" />
+		<result property="customerMessage" column="CUSTOMER_MESSAGE" />
+		<result property="orderSerialNum" column="ORDER_SERIAL_NUM" />
+		<result property="applyMethod" column="APPLY_METHOD" />
+		<result property="tempprice" column="TEMPPRICE" />
+		<result property="companyId" column="COMPANY_ID" />
+		<result property="startTime" column="START_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="acceptTime" column="ACCEPT_TIME" />
+		<result property="caiwuId" column="CAIWU_ID" />
+		<result property="shouhouId" column="SHOUHOU_ID" />
+	</resultMap>
+
+	<sql id="allProductOrderItems">
+		tmp.`ID`,tmp.`ORDER_NUMBER`,tmp.`USER_ID`,tmp.`GIFT_BOX_ID`,tmp.`GOODS_ID`,tmp.`COUNT`,tmp.`PRICE`,tmp.`ORDER_TIME`,tmp.`APPLY_TIME`,tmp.`GOODS_TIME`,tmp.`GOODS_ADDRESS`,tmp.`ADDRESS_ID`,tmp.`ORDER_STATE`,tmp.`CUSTOMER_MESSAGE`,tmp.`ORDER_SERIAL_NUM`,tmp.`APPLY_METHOD`,tmp.`TEMPPRICE`,tmp.`COMPANY_ID`,tmp.`START_TIME`,tmp.`END_TIME`,tmp.`ACCEPT_TIME`,tmp.`CAIWU_ID`,tmp.`SHOUHOU_ID`
+	</sql>
+
+	<sql id="allProductOrderByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="orderNumber != null"> tmp.ORDER_NUMBER = #{orderNumber} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="giftBoxId != null"> tmp.GIFT_BOX_ID = #{giftBoxId} AND</if>
+        <if test="goodsId != null"> tmp.GOODS_ID = #{goodsId} AND</if>
+        <if test="count != null"> tmp.COUNT = #{count} AND</if>
+        <if test="price != null"> tmp.PRICE = #{price} AND</if>
+        <if test="orderTime != null"> tmp.ORDER_TIME = #{orderTime} AND</if>
+        <if test="applyTime != null"> tmp.APPLY_TIME = #{applyTime} AND</if>
+        <if test="goodsTime != null"> tmp.GOODS_TIME = #{goodsTime} AND</if>
+        <if test="goodsAddress != null"> tmp.GOODS_ADDRESS = #{goodsAddress} AND</if>
+        <if test="addressId != null"> tmp.ADDRESS_ID = #{addressId} AND</if>
+        <if test="orderState != null"> tmp.ORDER_STATE = #{orderState} AND</if>
+        <if test="customerMessage != null"> tmp.CUSTOMER_MESSAGE = #{customerMessage} AND</if>
+        <if test="orderSerialNum != null"> tmp.ORDER_SERIAL_NUM = #{orderSerialNum} AND</if>
+        <if test="applyMethod != null"> tmp.APPLY_METHOD = #{applyMethod} AND</if>
+        <if test="tempprice != null"> tmp.TEMPPRICE = #{tempprice} AND</if>
+        <if test="companyId != null"> tmp.COMPANY_ID = #{companyId} AND</if>
+        <if test="startTime != null"> (tmp.START_TIME is null or tmp.START_TIME &lt;= #{startTime}) AND</if>
+		<if test="endTime != null"> (tmp.END_TIME is null or tmp.END_TIME &gt;= #{endTime}) AND</if>
+        <if test="acceptTime != null"> tmp.ACCEPT_TIME = #{acceptTime} AND</if>
+        <if test="caiwuId != null"> tmp.CAIWU_ID = #{caiwuId} AND</if>
+        <if test="shouhouId != null"> tmp.SHOUHOU_ID = #{shouhouId} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultMap="ProductOrderMap">
+		SELECT <include refid="allProductOrderItems" /> from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultMap="ProductOrderMap">
+		SELECT <include refid="allProductOrderItems" /> from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultType="java.lang.Integer">
+		SELECT count(*) from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allProductOrderLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="orderNumber != null">ORDER_NUMBER like '%${orderNumber}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="giftBoxId != null">GIFT_BOX_ID like '%${giftBoxId}%' AND </if>
+		<if test="goodsId != null">GOODS_ID like '%${goodsId}%' AND </if>
+		<if test="count != null">COUNT like '%${count}%' AND </if>
+		<if test="price != null">PRICE like '%${price}%' AND </if>
+		<if test="orderTime != null">ORDER_TIME like '%${orderTime}%' AND </if>
+		<if test="applyTime != null">APPLY_TIME like '%${applyTime}%' AND </if>
+		<if test="goodsTime != null">GOODS_TIME like '%${goodsTime}%' AND </if>
+		<if test="goodsAddress != null">GOODS_ADDRESS like '%${goodsAddress}%' AND </if>
+		<if test="addressId != null">ADDRESS_ID like '%${addressId}%' AND </if>
+		<if test="orderState != null">ORDER_STATE like '%${orderState}%' AND </if>
+		<if test="customerMessage != null">CUSTOMER_MESSAGE like '%${customerMessage}%' AND </if>
+		<if test="orderSerialNum != null">ORDER_SERIAL_NUM like '%${orderSerialNum}%' AND </if>
+		<if test="applyMethod != null">APPLY_METHOD like '%${applyMethod}%' AND </if>
+		<if test="tempprice != null">TEMPPRICE like '%${tempprice}%' AND </if>
+		<if test="companyId != null">COMPANY_ID like '%${companyId}%' AND </if>
+		<if test="startTime != null">START_TIME like '%${startTime}%' AND </if>
+		<if test="endTime != null">END_TIME like '%${endTime}%' AND </if>
+		<if test="acceptTime != null">ACCEPT_TIME like '%${acceptTime}%' AND </if>
+		<if test="caiwuId != null">CAIWU_ID like '%${caiwuId}%' AND </if>
+		<if test="shouhouId != null">SHOUHOU_ID like '%${shouhouId}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultMap="ProductOrderMap">
+		SELECT <include refid="allProductOrderItems" /> from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultMap="ProductOrderMap">
+		SELECT <include refid="allProductOrderItems" /> from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultType="java.lang.Integer">
+		SELECT count(*) from product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ProductOrderMap">
+			SELECT <include refid="allProductOrderItems" /> FROM product_order tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" resultMap="ProductOrderMap">
+		SELECT <include refid="allProductOrderItems" /> FROM product_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allProductOrderByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO product_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="orderNumber != null">ORDER_NUMBER,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="giftBoxId != null">GIFT_BOX_ID,</if>
+			<if test="goodsId != null">GOODS_ID,</if>
+			<if test="count != null">COUNT,</if>
+			<if test="price != null">PRICE,</if>
+			<if test="orderTime != null">ORDER_TIME,</if>
+			<if test="applyTime != null">APPLY_TIME,</if>
+			<if test="goodsTime != null">GOODS_TIME,</if>
+			<if test="goodsAddress != null">GOODS_ADDRESS,</if>
+			<if test="addressId != null">ADDRESS_ID,</if>
+			<if test="orderState != null">ORDER_STATE,</if>
+			<if test="customerMessage != null">CUSTOMER_MESSAGE,</if>
+			<if test="orderSerialNum != null">ORDER_SERIAL_NUM,</if>
+			<if test="applyMethod != null">APPLY_METHOD,</if>
+			<if test="tempprice != null">TEMPPRICE,</if>
+			<if test="companyId != null">COMPANY_ID,</if>
+			<if test="startTime != null">START_TIME,</if>
+			<if test="endTime != null">END_TIME,</if>
+			<if test="acceptTime != null">ACCEPT_TIME,</if>
+			<if test="caiwuId != null">CAIWU_ID,</if>
+			<if test="shouhouId != null">SHOUHOU_ID,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="orderNumber != null">#{orderNumber},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="giftBoxId != null">#{giftBoxId},</if>
+			<if test="goodsId != null">#{goodsId},</if>
+			<if test="count != null">#{count},</if>
+			<if test="price != null">#{price},</if>
+			<if test="orderTime != null">#{orderTime},</if>
+			<if test="applyTime != null">#{applyTime},</if>
+			<if test="goodsTime != null">#{goodsTime},</if>
+			<if test="goodsAddress != null">#{goodsAddress},</if>
+			<if test="addressId != null">#{addressId},</if>
+			<if test="orderState != null">#{orderState},</if>
+			<if test="customerMessage != null">#{customerMessage},</if>
+			<if test="orderSerialNum != null">#{orderSerialNum},</if>
+			<if test="applyMethod != null">#{applyMethod},</if>
+			<if test="tempprice != null">#{tempprice},</if>
+			<if test="companyId != null">#{companyId},</if>
+			<if test="startTime != null">#{startTime},</if>
+			<if test="endTime != null">#{endTime},</if>
+			<if test="acceptTime != null">#{acceptTime},</if>
+			<if test="caiwuId != null">#{caiwuId},</if>
+			<if test="shouhouId != null">#{shouhouId},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder">
+		<![CDATA[delete from product_order where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder">
+		delete from product_order
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="orderNumber != null"> ORDER_NUMBER = #{orderNumber} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="giftBoxId != null"> GIFT_BOX_ID = #{giftBoxId} AND</if>
+            <if test="goodsId != null"> GOODS_ID = #{goodsId} AND</if>
+            <if test="count != null"> COUNT = #{count} AND</if>
+            <if test="price != null"> PRICE = #{price} AND</if>
+            <if test="orderTime != null"> ORDER_TIME = #{orderTime} AND</if>
+            <if test="applyTime != null"> APPLY_TIME = #{applyTime} AND</if>
+            <if test="goodsTime != null"> GOODS_TIME = #{goodsTime} AND</if>
+            <if test="goodsAddress != null"> GOODS_ADDRESS = #{goodsAddress} AND</if>
+            <if test="addressId != null"> ADDRESS_ID = #{addressId} AND</if>
+            <if test="orderState != null"> ORDER_STATE = #{orderState} AND</if>
+            <if test="customerMessage != null"> CUSTOMER_MESSAGE = #{customerMessage} AND</if>
+            <if test="orderSerialNum != null"> ORDER_SERIAL_NUM = #{orderSerialNum} AND</if>
+            <if test="applyMethod != null"> APPLY_METHOD = #{applyMethod} AND</if>
+            <if test="tempprice != null"> TEMPPRICE = #{tempprice} AND</if>
+            <if test="companyId != null"> COMPANY_ID = #{companyId} AND</if>
+            <if test="startTime != null"> START_TIME = #{startTime} AND</if>
+            <if test="endTime != null"> END_TIME = #{endTime} AND</if>
+            <if test="acceptTime != null"> ACCEPT_TIME = #{acceptTime} AND</if>
+            <if test="caiwuId != null"> CAIWU_ID = #{caiwuId} AND</if>
+            <if test="shouhouId != null"> SHOUHOU_ID = #{shouhouId} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ProductOrder">
+		update product_order
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="orderNumber != null">ORDER_NUMBER=#{orderNumber},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="giftBoxId != null">GIFT_BOX_ID=#{giftBoxId},</if>
+			<if test="goodsId != null">GOODS_ID=#{goodsId},</if>
+			<if test="count != null">COUNT=#{count},</if>
+			<if test="price != null">PRICE=#{price},</if>
+			<if test="orderTime != null">ORDER_TIME=#{orderTime},</if>
+			<if test="applyTime != null">APPLY_TIME=#{applyTime},</if>
+			<if test="goodsTime != null">GOODS_TIME=#{goodsTime},</if>
+			<if test="goodsAddress != null">GOODS_ADDRESS=#{goodsAddress},</if>
+			<if test="addressId != null">ADDRESS_ID=#{addressId},</if>
+			<if test="orderState != null">ORDER_STATE=#{orderState},</if>
+			<if test="customerMessage != null">CUSTOMER_MESSAGE=#{customerMessage},</if>
+			<if test="orderSerialNum != null">ORDER_SERIAL_NUM=#{orderSerialNum},</if>
+			<if test="applyMethod != null">APPLY_METHOD=#{applyMethod},</if>
+			<if test="tempprice != null">TEMPPRICE=#{tempprice},</if>
+			<if test="companyId != null">COMPANY_ID=#{companyId},</if>
+			<if test="startTime != null">START_TIME=#{startTime},</if>
+			<if test="endTime != null">END_TIME=#{endTime},</if>
+			<if test="acceptTime != null">ACCEPT_TIME=#{acceptTime},</if>
+			<if test="caiwuId != null">CAIWU_ID=#{caiwuId},</if>
+			<if test="shouhouId != null">SHOUHOU_ID=#{shouhouId},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

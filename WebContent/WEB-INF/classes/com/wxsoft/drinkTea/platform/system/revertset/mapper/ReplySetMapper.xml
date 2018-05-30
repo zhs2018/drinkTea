@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.revertset.mapper.ReplySetMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" id="ReplySetMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="keyWord" column="KEY_WORD" />
+		<result property="replyPattern" column="REPLY_PATTERN" />
+		<result property="title" column="TITLE" />
+		<result property="img" column="IMG" />
+		<result property="describe" column="DESCRIBE" />
+		<result property="replyMessage" column="REPLY_MESSAGE" />
+		<result property="musicUrl" column="MUSIC_URL" />
+		<result property="superMusicUrl" column="SUPER_MUSIC_URL" />
+		<result property="replyType" column="REPLY_TYPE" />
+		<result property="likess" column="LIKESS" />
+	</resultMap>
+
+	<sql id="allReplySetItems">
+		tmp.`ID`,tmp.`KEY_WORD`,tmp.`REPLY_PATTERN`,tmp.`TITLE`,tmp.`IMG`,tmp.`DESCRIBE`,tmp.`REPLY_MESSAGE`,tmp.`MUSIC_URL`,tmp.`SUPER_MUSIC_URL`,tmp.`REPLY_TYPE`,tmp.`LIKESS`
+	</sql>
+
+	<sql id="allReplySetByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="keyWord != null"> tmp.KEY_WORD = #{keyWord} AND</if>
+        <if test="replyPattern != null"> tmp.REPLY_PATTERN = #{replyPattern} AND</if>
+        <if test="title != null"> tmp.TITLE = #{title} AND</if>
+        <if test="img != null"> tmp.IMG = #{img} AND</if>
+        <if test="describe != null"> tmp.DESCRIBE = #{describe} AND</if>
+        <if test="replyMessage != null"> tmp.REPLY_MESSAGE = #{replyMessage} AND</if>
+        <if test="musicUrl != null"> tmp.MUSIC_URL = #{musicUrl} AND</if>
+        <if test="superMusicUrl != null"> tmp.SUPER_MUSIC_URL = #{superMusicUrl} AND</if>
+        <if test="replyType != null"> tmp.REPLY_TYPE = #{replyType} AND</if>
+        <if test="likess != null"> tmp.LIKESS = #{likess} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultMap="ReplySetMap">
+		SELECT <include refid="allReplySetItems" /> from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultMap="ReplySetMap">
+		SELECT <include refid="allReplySetItems" /> from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultType="java.lang.Integer">
+		SELECT count(*) from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allReplySetLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="keyWord != null">KEY_WORD like '%${keyWord}%' AND </if>
+		<if test="replyPattern != null">REPLY_PATTERN like '%${replyPattern}%' AND </if>
+		<if test="title != null">TITLE like '%${title}%' AND </if>
+		<if test="img != null">IMG like '%${img}%' AND </if>
+		<if test="describe != null">DESCRIBE like '%${describe}%' AND </if>
+		<if test="replyMessage != null">REPLY_MESSAGE like '%${replyMessage}%' AND </if>
+		<if test="musicUrl != null">MUSIC_URL like '%${musicUrl}%' AND </if>
+		<if test="superMusicUrl != null">SUPER_MUSIC_URL like '%${superMusicUrl}%' AND </if>
+		<if test="replyType != null">REPLY_TYPE like '%${replyType}%' AND </if>
+		<if test="likess != null">LIKESS like '%${likess}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultMap="ReplySetMap">
+		SELECT <include refid="allReplySetItems" /> from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultMap="ReplySetMap">
+		SELECT <include refid="allReplySetItems" /> from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultType="java.lang.Integer">
+		SELECT count(*) from reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ReplySetMap">
+			SELECT <include refid="allReplySetItems" /> FROM reply_set tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" resultMap="ReplySetMap">
+		SELECT <include refid="allReplySetItems" /> FROM reply_set tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allReplySetByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO reply_set
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="keyWord != null">KEY_WORD,</if>
+			<if test="replyPattern != null">REPLY_PATTERN,</if>
+			<if test="title != null">TITLE,</if>
+			<if test="img != null">IMG,</if>
+			<if test="describe != null">DESCRIBE,</if>
+			<if test="replyMessage != null">REPLY_MESSAGE,</if>
+			<if test="musicUrl != null">MUSIC_URL,</if>
+			<if test="superMusicUrl != null">SUPER_MUSIC_URL,</if>
+			<if test="replyType != null">REPLY_TYPE,</if>
+			<if test="likess != null">LIKESS,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="keyWord != null">#{keyWord},</if>
+			<if test="replyPattern != null">#{replyPattern},</if>
+			<if test="title != null">#{title},</if>
+			<if test="img != null">#{img},</if>
+			<if test="describe != null">#{describe},</if>
+			<if test="replyMessage != null">#{replyMessage},</if>
+			<if test="musicUrl != null">#{musicUrl},</if>
+			<if test="superMusicUrl != null">#{superMusicUrl},</if>
+			<if test="replyType != null">#{replyType},</if>
+			<if test="likess != null">#{likess},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet">
+		<![CDATA[delete from reply_set where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet">
+		delete from reply_set
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="keyWord != null"> KEY_WORD = #{keyWord} AND</if>
+            <if test="replyPattern != null"> REPLY_PATTERN = #{replyPattern} AND</if>
+            <if test="title != null"> TITLE = #{title} AND</if>
+            <if test="img != null"> IMG = #{img} AND</if>
+            <if test="describe != null"> DESCRIBE = #{describe} AND</if>
+            <if test="replyMessage != null"> REPLY_MESSAGE = #{replyMessage} AND</if>
+            <if test="musicUrl != null"> MUSIC_URL = #{musicUrl} AND</if>
+            <if test="superMusicUrl != null"> SUPER_MUSIC_URL = #{superMusicUrl} AND</if>
+            <if test="replyType != null"> REPLY_TYPE = #{replyType} AND</if>
+            <if test="likess != null"> LIKESS = #{likess} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.revertset.model.ReplySet">
+		update reply_set
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="keyWord != null">KEY_WORD=#{keyWord},</if>
+			<if test="replyPattern != null">REPLY_PATTERN=#{replyPattern},</if>
+			<if test="title != null">TITLE=#{title},</if>
+			<if test="img != null">IMG=#{img},</if>
+			<if test="describe != null">DESCRIBE=#{describe},</if>
+			<if test="replyMessage != null">REPLY_MESSAGE=#{replyMessage},</if>
+			<if test="musicUrl != null">MUSIC_URL=#{musicUrl},</if>
+			<if test="superMusicUrl != null">SUPER_MUSIC_URL=#{superMusicUrl},</if>
+			<if test="replyType != null">REPLY_TYPE=#{replyType},</if>
+			<if test="likess != null">LIKESS=#{likess},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

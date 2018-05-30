@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.SmallPackageMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" id="SmallPackageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+	</resultMap>
+
+	<sql id="allSmallPackageItems">
+		tmp.`ID`,tmp.`NAME`,tmp.`CREATE_TIME`,tmp.`UPDATE_TIME`
+	</sql>
+
+	<sql id="allSmallPackageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="createTime != null"> tmp.CREATE_TIME = #{createTime} AND</if>
+        <if test="updateTime != null"> tmp.UPDATE_TIME = #{updateTime} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultType="java.lang.Integer">
+		SELECT count(*) from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSmallPackageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="createTime != null">CREATE_TIME like '%${createTime}%' AND </if>
+		<if test="updateTime != null">UPDATE_TIME like '%${updateTime}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultType="java.lang.Integer">
+		SELECT count(*) from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SmallPackageMap">
+			SELECT <include refid="allSmallPackageItems" /> FROM small_package tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> FROM small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO small_package
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="updateTime != null">UPDATE_TIME,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="updateTime != null">#{updateTime},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage">
+		<![CDATA[delete from small_package where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage">
+		delete from small_package
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="createTime != null"> CREATE_TIME = #{createTime} AND</if>
+            <if test="updateTime != null"> UPDATE_TIME = #{updateTime} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SmallPackage">
+		update small_package
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="updateTime != null">UPDATE_TIME=#{updateTime},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

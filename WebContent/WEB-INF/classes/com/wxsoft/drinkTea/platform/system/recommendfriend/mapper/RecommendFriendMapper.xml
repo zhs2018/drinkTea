@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.recommendfriend.mapper.RecommendFriendMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" id="RecommendFriendMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="recommendId" column="RECOMMEND_ID" />
+		<result property="recommendedId" column="RECOMMENDED_ID" />
+		<result property="visible" column="VISIBLE" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="delTime" column="DEL_TIME" />
+		<result property="type" column="TYPE" />
+	</resultMap>
+
+	<sql id="allRecommendFriendItems">
+		tmp.`ID`,tmp.`RECOMMEND_ID`,tmp.`RECOMMENDED_ID`,tmp.`VISIBLE`,tmp.`CREATE_TIME`,tmp.`DEL_TIME`,tmp.`TYPE`
+	</sql>
+
+	<sql id="allRecommendFriendByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="recommendId != null"> tmp.RECOMMEND_ID = #{recommendId} AND</if>
+        <if test="recommendedId != null"> tmp.RECOMMENDED_ID = #{recommendedId} AND</if>
+        <if test="visible != null"> tmp.VISIBLE = #{visible} AND</if>
+        <if test="createTime != null"> tmp.CREATE_TIME = #{createTime} AND</if>
+        <if test="delTime != null"> tmp.DEL_TIME = #{delTime} AND</if>
+        <if test="type != null"> tmp.TYPE = #{type} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultMap="RecommendFriendMap">
+		SELECT <include refid="allRecommendFriendItems" /> from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultMap="RecommendFriendMap">
+		SELECT <include refid="allRecommendFriendItems" /> from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultType="java.lang.Integer">
+		SELECT count(*) from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allRecommendFriendLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="recommendId != null">RECOMMEND_ID like '%${recommendId}%' AND </if>
+		<if test="recommendedId != null">RECOMMENDED_ID like '%${recommendedId}%' AND </if>
+		<if test="visible != null">VISIBLE like '%${visible}%' AND </if>
+		<if test="createTime != null">CREATE_TIME like '%${createTime}%' AND </if>
+		<if test="delTime != null">DEL_TIME like '%${delTime}%' AND </if>
+		<if test="type != null">TYPE like '%${type}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultMap="RecommendFriendMap">
+		SELECT <include refid="allRecommendFriendItems" /> from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultMap="RecommendFriendMap">
+		SELECT <include refid="allRecommendFriendItems" /> from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultType="java.lang.Integer">
+		SELECT count(*) from recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="RecommendFriendMap">
+			SELECT <include refid="allRecommendFriendItems" /> FROM recommend_friend tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" resultMap="RecommendFriendMap">
+		SELECT <include refid="allRecommendFriendItems" /> FROM recommend_friend tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRecommendFriendByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO recommend_friend
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="recommendId != null">RECOMMEND_ID,</if>
+			<if test="recommendedId != null">RECOMMENDED_ID,</if>
+			<if test="visible != null">VISIBLE,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="delTime != null">DEL_TIME,</if>
+			<if test="type != null">TYPE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="recommendId != null">#{recommendId},</if>
+			<if test="recommendedId != null">#{recommendedId},</if>
+			<if test="visible != null">#{visible},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="delTime != null">#{delTime},</if>
+			<if test="type != null">#{type},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend">
+		<![CDATA[delete from recommend_friend where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend">
+		delete from recommend_friend
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="recommendId != null"> RECOMMEND_ID = #{recommendId} AND</if>
+            <if test="recommendedId != null"> RECOMMENDED_ID = #{recommendedId} AND</if>
+            <if test="visible != null"> VISIBLE = #{visible} AND</if>
+            <if test="createTime != null"> CREATE_TIME = #{createTime} AND</if>
+            <if test="delTime != null"> DEL_TIME = #{delTime} AND</if>
+             <if test="type != null"> TYPE = #{type} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.recommendfriend.model.RecommendFriend">
+		update recommend_friend
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="recommendId != null">RECOMMEND_ID=#{recommendId},</if>
+			<if test="recommendedId != null">RECOMMENDED_ID=#{recommendedId},</if>
+			<if test="visible != null">VISIBLE=#{visible},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="delTime != null">DEL_TIME=#{delTime},</if>
+			<if test="type != null">TYPE=#{type},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

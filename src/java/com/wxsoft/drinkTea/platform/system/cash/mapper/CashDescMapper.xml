@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.cash.mapper.CashDescMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" id="CashDescMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="cashTitle" column="CASH_TITLE" />
+		<result property="cashDesc" column="CASH_DESC" />
+		<result property="cashImage" column="CASH_IMAGE" />
+	</resultMap>
+
+	<sql id="allCashDescItems">
+		tmp.`ID`,tmp.`CASH_TITLE`,tmp.`CASH_DESC`,tmp.`CASH_IMAGE`
+	</sql>
+
+	<sql id="allCashDescByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="cashTitle != null"> tmp.CASH_TITLE = #{cashTitle} AND</if>
+        <if test="cashDesc != null"> tmp.CASH_DESC = #{cashDesc} AND</if>
+        <if test="cashImage != null"> tmp.CASH_IMAGE = #{cashImage} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultMap="CashDescMap">
+		SELECT <include refid="allCashDescItems" /> from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultMap="CashDescMap">
+		SELECT <include refid="allCashDescItems" /> from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultType="java.lang.Integer">
+		SELECT count(*) from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allCashDescLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="cashTitle != null">CASH_TITLE like '%${cashTitle}%' AND </if>
+		<if test="cashDesc != null">CASH_DESC like '%${cashDesc}%' AND </if>
+		<if test="cashImage != null">CASH_IMAGE like '%${cashImage}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultMap="CashDescMap">
+		SELECT <include refid="allCashDescItems" /> from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultMap="CashDescMap">
+		SELECT <include refid="allCashDescItems" /> from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultType="java.lang.Integer">
+		SELECT count(*) from cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="CashDescMap">
+			SELECT <include refid="allCashDescItems" /> FROM cash_desc tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" resultMap="CashDescMap">
+		SELECT <include refid="allCashDescItems" /> FROM cash_desc tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashDescByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cash_desc
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="cashTitle != null">CASH_TITLE,</if>
+			<if test="cashDesc != null">CASH_DESC,</if>
+			<if test="cashImage != null">CASH_IMAGE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="cashTitle != null">#{cashTitle},</if>
+			<if test="cashDesc != null">#{cashDesc},</if>
+			<if test="cashImage != null">#{cashImage},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc">
+		<![CDATA[delete from cash_desc where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc">
+		delete from cash_desc
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="cashTitle != null"> CASH_TITLE = #{cashTitle} AND</if>
+            <if test="cashDesc != null"> CASH_DESC = #{cashDesc} AND</if>
+            <if test="cashImage != null"> CASH_IMAGE = #{cashImage} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashDesc">
+		update cash_desc
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="cashTitle != null">CASH_TITLE=#{cashTitle},</if>
+			<if test="cashDesc != null">CASH_DESC=#{cashDesc},</if>
+			<if test="cashImage != null">CASH_IMAGE=#{cashImage},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

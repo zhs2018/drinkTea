@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:tx="http://www.springframework.org/schema/tx" xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd
+    http://www.springframework.org/schema/tx
+    http://www.springframework.org/schema/tx/spring-tx.xsd
+    http://www.springframework.org/schema/task
+    http://www.springframework.org/schema/task/spring-task.xsd">
+
+	<!-- 属性文件位置  -->
+	<context:property-placeholder location="classpath:/conf/jdbc.properties" />
+
+	<!-- 启动组件扫描，排除@Controller组件，该组件由SpringMVC配置文件扫描 -->
+	<context:component-scan base-package="com.wxsoft.drinkTea">
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+	<!-- 异步定时任务 -->
+	<task:annotation-driven></task:annotation-driven>
+
+	<!-- 引入缓存配置 -->
+	<import resource="spring-cache.xml"></import>
+	<!-- 引入消息国际化配置 -->
+	<import resource="spring-message.xml"></import>
+	<!-- 引入验证码图片配置 -->
+	<import resource="spring-jcaptcha.xml"></import>
+
+	<!-- 默认数据源 -->
+	<bean id="defaultDataSource" class="com.alibaba.druid.pool.DruidDataSource" init-method="init" destroy-method="close">
+		<!-- 数据库基本信息配置 -->
+		<property name="url" value="${default.mysql.url}" />
+		<property name="username" value="${default.mysql.username}" />
+		<property name="password" value="${default.mysql.password}" />
+		<property name="testWhileIdle" value="${default.mysql.testWhileIdle}" />
+		<property name="validationQuery" value="${default.mysql.validationQuery}" />
+		<property name="filters" value="stat" />
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="defaultDataSource" />
+		<qualifier value="treasure"/>
+	</bean>
+	<!-- 声明式事务管理 -->
+	<tx:annotation-driven transaction-manager="transactionManager" proxy-target-class="true"/>
+
+	<!-- MyBatis在spring中Bean的配置，都是固定的 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="defaultDataSource" />
+		<property name="configLocation" value="classpath:conf/mybatis-config.xml" />
+		<property name="mapperLocations" value="classpath*:com/wxsoft/**/*.xml" />
+		<property name="typeAliasesPackage" value="com.wxsoft.drinkTea" />
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory" />
+	</bean>
+
+	<!-- 查找类路径下面的映射器并自动将他们创建成MapperFactoryBean -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="annotationClass" value="org.springframework.stereotype.Repository" />
+		<property name="basePackage" value="com.wxsoft.drinkTea" />
+	</bean>
+
+</beans>

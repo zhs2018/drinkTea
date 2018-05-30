@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.refundtime.mapper.RefundTimeMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" id="RefundTimeMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="time" column="TIME" />
+	</resultMap>
+
+	<sql id="allRefundTimeItems">
+		tmp.`ID`,tmp.`TIME`
+	</sql>
+
+	<sql id="allRefundTimeByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="time != null"> tmp.TIME = #{time} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultMap="RefundTimeMap">
+		SELECT <include refid="allRefundTimeItems" /> from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultMap="RefundTimeMap">
+		SELECT <include refid="allRefundTimeItems" /> from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultType="java.lang.Integer">
+		SELECT count(*) from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allRefundTimeLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="time != null">TIME like '%${time}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultMap="RefundTimeMap">
+		SELECT <include refid="allRefundTimeItems" /> from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultMap="RefundTimeMap">
+		SELECT <include refid="allRefundTimeItems" /> from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultType="java.lang.Integer">
+		SELECT count(*) from refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="RefundTimeMap">
+			SELECT <include refid="allRefundTimeItems" /> FROM refund_time tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" resultMap="RefundTimeMap">
+		SELECT <include refid="allRefundTimeItems" /> FROM refund_time tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundTimeByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO refund_time
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="time != null">TIME,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="time != null">#{time},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime">
+		<![CDATA[delete from refund_time where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime">
+		delete from refund_time
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="time != null"> TIME = #{time} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.refundtime.model.RefundTime">
+		update refund_time
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="time != null">TIME=#{time},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

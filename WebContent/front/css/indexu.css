@@ -1,0 +1,52 @@
+.pay_alery .widget_wrap {
+	z-index: 8000;
+}
+
+.orderStatus {
+	float: left;
+	padding-left: 12px;
+	line-height: 47px;
+	display: inline-block;
+	color: #878a8d;
+}
+
+.buynow {
+	width: 33px;
+	height: 30px;
+	border: 1px solid #00DB00;
+	font-size: 10pt;
+	color: black;
+	text-align: center;
+	line-height: 30px;
+	float: right;
+	margin-right: 10px;
+}
+
+.username {
+	margin-top: 7px;
+	text-align: left;
+	color: green;
+	font-size: 9pt;
+}
+
+.userdesc {
+	margin-top: 3px;
+	font-size: 9pt;
+}
+
+.userdiv {
+	float: left;
+	margin-left: 3px;
+	margin-top: 3px;
+}
+
+.userimg {
+	float: left;
+	margin-left: 10px;
+	margin-top: 7px;
+}
+
+section img {
+	width: 100%;
+	height: auto
+}

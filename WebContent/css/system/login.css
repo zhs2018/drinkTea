@@ -1,0 +1,168 @@
+html {
+	width: 100%; height: 100%; overflow: hidden;
+}
+body {
+	width: 100%; height: 100%; overflow: hidden;
+}
+#login_wrapper {
+	background: url("../../image/system/bg/SidebarBg.png") rgb(55, 55, 55); width: 100%; height: 100%; overflow: hidden;
+}
+#login_main {
+	background: url("../../image/system/bg/LoginBgLine.png") no-repeat 0px 350px; margin: auto; width: 1020px; height: 100%; position: relative;
+}
+.p_login {
+	color: rgb(140, 140, 140); font-size: 20px; float: left; cursor: pointer;
+}
+#login_main .login_active {
+	color: rgb(95, 108, 116);
+}
+.coopeLoginH_title {
+	color: rgb(140, 140, 140); font-size: 18px; float: left;
+}
+.coopeLoginH_switchBtn {
+	color: rgb(53, 134, 193); float: right;
+}
+.coopeLogin_guide {
+	color: rgb(85, 85, 85); font-size: 14px; margin-top: 20px;
+}
+.p_login_Corp {
+	height: 50px; text-align: center; color: rgb(140, 140, 140); overflow: hidden; font-size: 20px;
+}
+.p_register {
+	color: rgb(140, 140, 140); font-size: 18px; vertical-align: middle; float: right; cursor: pointer;
+}
+.img_register {
+	background: url("../../image/system/icon/registerIcon.png") no-repeat; width: 22px; height: 22px; margin-top: 13px; margin-right: 5px; float: left; display: block;
+}
+.login_logo {
+	background: url("../../image/system/logo/LoginLogo.png") no-repeat 0px 280px; left: 120px; top: 0px; width: 290px; bottom: 0px; position: absolute;
+}
+.login_form_header {
+	background: rgb(245, 245, 245); padding: 0px 28px; height: 50px; color: rgb(95, 108, 116); line-height: 50px; border-bottom-color: rgb(221, 221, 221); border-bottom-width: 1px; border-bottom-style: solid; border-top-left-radius: 5px; border-top-right-radius: 5px;
+}
+.IE_alert {
+	top: 280px; width: 374px; right: 160px; color: rgb(148, 148, 148); line-height: 70px; font-size: 14px; display: none; position: absolute;
+}
+.suggestBrowser a {
+	color: rgb(53, 134, 193);
+}
+.suggestBrowser a:visited {
+	color: rgb(53, 134, 193);
+}
+.login_form {
+	background: white; border-radius: 5px; top: 200px; width: 374px; right: 160px; padding-bottom: 20px; display: none; position: absolute; z-index: 10; box-shadow: 0px 4px 12px rgba(0,0,0,0.4); -webkit-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); -moz-box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+.login_items {
+	padding: 0px 30px;
+}
+.register_items {
+	padding: 0px 30px; display: none;
+}
+.input_val .input {
+	background: rgb(255, 255, 255); width: 270px; height: 25px; padding-right: 30px; padding-left: 10px; font-size: 14px; margin-top: 20px;
+}
+.input_val span {
+	left: 10px; top: 15px; font-size: 14px;
+}
+.input_val img {
+	top: 14px; right: 8px; position: absolute;
+}
+.remeber {
+	text-align: center; color: rgb(153, 153, 153); font-size: 12px; margin-top: 8px;
+}
+.remember {
+	margin-left: 5px;
+}
+.remeber a {
+	color: rgb(153, 153, 153);
+}
+.login_btn {
+	background: url("../../image/system/login_btn.png"); border: 0px currentColor; border-image: none; width: 314px; height: 40px; text-align: center; color: rgb(255, 255, 255); line-height: 40px; font-size: 16px; margin-top: 10px; display: block;
+}
+.coopeLogin_title {
+	background: url("../../image/system/bg/coopeLoginBg.png"); width: 100%; height: 17px; text-align: center; color: rgb(153, 153, 153); line-height: 17px; font-size: 12px; margin-top: 20px; cursor: pointer;
+}
+.coopeLogin_mainFiild {
+	margin: 20px auto 11px; width: 155px; display: none;
+}
+.btn_coopeLogin {
+	border-radius: 3px; width: 155px; height: 32px; margin-bottom: 20px; display: inline-block;
+}
+.coopeLogin_weixin {
+	background: url("../../image/system/icon/login_weixin.png") no-repeat 10px rgb(78, 163, 33);
+}
+.coopeLogin_mingdao {
+	background: url("../../image/system/icon/login_mingdao.png") no-repeat 10px rgb(0, 102, 204);
+}
+.coopeLogin_weibo {
+	background: url("../../image/system/icon/login_weibo.png") no-repeat 10px rgb(215, 25, 0);
+}
+.coopeLogin_qq {
+	background: url("../../image/system/icon/login_qq.png") no-repeat 10px rgb(60, 146, 204); margin-bottom: 0px;
+}
+.span_coopeLogin {
+	margin: 8px 0px 8px 37px; color: rgb(255, 255, 255); line-height: 16px; padding-left: 7px; font-size: 14px; border-left-color: rgb(255, 255, 255); border-left-width: 1px; border-left-style: solid; display: inline-block;
+}
+.register_items .remeber a {
+	color: rgb(53, 134, 193);
+}
+.login_msg {
+	height: 22px; margin-top: 5px;
+}
+.login_error {
+	background: rgb(122, 50, 48); border-radius: 3px; border: 1px solid rgb(122, 50, 48); border-image: none; width: 310px; text-align: center; color: white; line-height: 19px; font-size: 12px; display: none;
+}
+.register_email {
+	line-height: 30px; overflow: hidden; font-size: 14px; margin-top: 20px; white-space: nowrap; -ms-text-overflow: ellipsis; -o-text-overflow: ellipsis;
+}
+.registerEmail {
+	color: rgb(153, 153, 153);
+}
+.treaty {
+	position: relative;
+}
+.treaty_content {
+	left: 20px; top: 10px; height: 390px; text-align: left; right: 0px; bottom: 10px; color: rgb(153, 153, 153); line-height: 20px; font-size: 12px; position: absolute; -ms-overflow-y: auto;
+}
+.treaty_content_h2 {
+	color: rgb(51, 51, 51); line-height: 24px;
+}
+.treaty_content_h3 {
+	color: rgb(187, 187, 187); font-size: 12px;
+}
+.contactUs {
+	left: 0px; text-align: center; right: 0px; bottom: 10px; color: rgb(32, 32, 32); font-weight: bold; position: absolute; text-shadow: 0px 1px 0px rgb(95,95,95);
+}
+@media screen and (max-width:1023px)
+{
+#login_wrapper {
+	overflow: auto;
+}
+#login_main {
+	background: none; width: 100%; height: auto;
+}
+.login_logo {
+	margin: 0px auto; left: auto; width: 200px; height: 80px; position: static; background-position-y: 30px; background-size: 200px;
+}
+.login_items {
+	margin: 0px auto;
+}
+.login_error {
+	margin: 0px auto; width: 240px;
+}
+.login_form {
+	border-radius: 0px; width: 100%; padding-bottom: 35px; margin-bottom: 60px; position: static;
+}
+.input_val .input {
+	width: 83%;
+}
+.input_val span {
+	width: 60px;
+}
+.login_btn {
+	margin: 20px auto; width: 250px; background-size: 250px 40px;
+}
+.contactUs {
+	position: static;
+}
+}

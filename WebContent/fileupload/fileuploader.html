@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link href="../css/gl-reset.css" type="text/css" />
+<link
+	href="../system/metronic/assets/global/plugins/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css" />
+<link
+	href="../system/metronic/assets/global/plugins/bootstrap-fileinput/fileinput.min.css"
+	type="text/css" />
+<title>Insert title here</title>
+<style type="text/css">
+.btn-file {
+	position: relative;
+	display: inline-block;
+	background: #D0EEFF;
+	border: 1px solid #99D3F5;
+	border-radius: 4px;
+	padding: 4px 12px;
+	overflow: hidden;
+	color: #1E88C7;
+	text-decoration: none;
+	text-indent: 0;
+	line-height: 20px;
+}
+
+.btn-file input {
+	position: absolute;
+	font-size: 100px;
+	right: 0;
+	top: 0;
+	opacity: 0;
+}
+
+.btn-file:hover {
+	background: #AADFFD;
+	border-color: #78C3F3;
+	color: #004974;
+	text-decoration: none;
+}
+
+.file-actions,.progress {
+	display: none;
+}
+</style>
+</head>
+<body>
+	<div class="col-md-10">
+		<form class="form-horizontal" role="form" id="dataform1" method="post">
+			<input type="file" id="file-thumbnailimg" name="file-thumbnailimg"
+				class="fileinput">
+		</form>
+	</div>
+	<script src="../system/metronic/assets/global/plugins/jquery.min.js"></script>
+	<script
+		src="../system/metronic/assets/global/plugins/bootstrap-fileinput/fileinput.js"
+		type="text/javascript"></script>
+	<script
+		src="../system/metronic/assets/global/plugins/bootstrap-fileinput/fileinput_locale_zh.min.js"
+		type="text/javascript"></script>
+	<script type="text/javascript">
+		var picUrl = "";
+		//初始化fileinput控件（第一次初始化）
+		$('#file-thumbnailimg').fileinput({
+			language : 'zh', //设置语言
+			uploadUrl : "fileinput/upload", //上传的地址
+			allowedFileExtensions : [ 'jpg', 'png', 'gif' ],//接收的文件后缀,
+			maxFileCount : 100,
+			enctype : 'multipart/form-data',
+			showUpload : true, //是否显示上传按钮
+			showCaption : false,//是否显示标题
+			browseClass : "btn btn-primary", //按钮样式
+			previewFileIcon : "<i class='glyphicon glyphicon-king'></i>",
+			msgFilesTooMany : "选择上传的文件数量({n}) 超过允许的最大数值{m}！",
+		});
+		$("#file-thumbnailimg").on("fileuploaded",
+				function(event, data, previewId, index) {
+					picUrl = data.response.url;
+				});
+		$("#file-thumbnailimg").on("filecleared",
+				function(event, data, previewId, index) {
+					picUrl = "";
+				});
+	</script>
+	<script type="text/javascript">
+		$(".file-drop-zone-title").html("");
+	</script>
+</body>
+</html>

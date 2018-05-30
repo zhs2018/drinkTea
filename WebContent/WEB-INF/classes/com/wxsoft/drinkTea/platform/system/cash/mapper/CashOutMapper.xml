@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.cash.mapper.CashOutMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" id="CashOutMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="redMoney" column="RED_MONEY" />
+	</resultMap>
+
+	<sql id="allCashOutItems">
+		tmp.`ID`,tmp.`RED_MONEY`
+	</sql>
+
+	<sql id="allCashOutByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="redMoney != null"> tmp.RED_MONEY = #{redMoney} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultMap="CashOutMap">
+		SELECT <include refid="allCashOutItems" /> from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultMap="CashOutMap">
+		SELECT <include refid="allCashOutItems" /> from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultType="java.lang.Integer">
+		SELECT count(*) from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allCashOutLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="redMoney != null">RED_MONEY like '%${redMoney}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultMap="CashOutMap">
+		SELECT <include refid="allCashOutItems" /> from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultMap="CashOutMap">
+		SELECT <include refid="allCashOutItems" /> from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultType="java.lang.Integer">
+		SELECT count(*) from cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="CashOutMap">
+			SELECT <include refid="allCashOutItems" /> FROM cash_out tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" resultMap="CashOutMap">
+		SELECT <include refid="allCashOutItems" /> FROM cash_out tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashOutByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cash_out
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="redMoney != null">RED_MONEY,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="redMoney != null">#{redMoney},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut">
+		<![CDATA[delete from cash_out where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut">
+		delete from cash_out
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="redMoney != null"> RED_MONEY = #{redMoney} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.cash.model.CashOut">
+		update cash_out
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="redMoney != null">RED_MONEY=#{redMoney},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

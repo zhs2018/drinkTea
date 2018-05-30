@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.WebTemporaryMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" id="WebTemporaryMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="image" column="IMAGE" />
+		<result property="rightCount" column="RIGHT_COUNT" />
+		<result property="allTime" column="ALL_TIME" />
+		<result property="member" column="MEMBER" />
+		<result property="money" column="MONEY" />
+	</resultMap>
+
+	<sql id="allWebTemporaryItems">
+		tmp.`ID`,tmp.`USER_NAME`,tmp.`IMAGE`,tmp.`RIGHT_COUNT`,tmp.`ALL_TIME`,tmp.`MEMBER`,tmp.`MONEY`
+	</sql>
+
+	<sql id="allWebTemporaryByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userName != null"> tmp.USER_NAME = #{userName} AND</if>
+        <if test="image != null"> tmp.IMAGE = #{image} AND</if>
+        <if test="rightCount != null"> tmp.RIGHT_COUNT = #{rightCount} AND</if>
+        <if test="allTime != null"> tmp.ALL_TIME = #{allTime} AND</if>
+        <if test="member != null"> tmp.MEMBER = #{member} AND</if>
+        <if test="money != null"> tmp.MONEY = #{money} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultMap="WebTemporaryMap">
+		SELECT <include refid="allWebTemporaryItems" /> from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultMap="WebTemporaryMap">
+		SELECT <include refid="allWebTemporaryItems" /> from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultType="java.lang.Integer">
+		SELECT count(*) from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allWebTemporaryLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="image != null">IMAGE like '%${image}%' AND </if>
+		<if test="rightCount != null">RIGHT_COUNT like '%${rightCount}%' AND </if>
+		<if test="allTime != null">ALL_TIME like '%${allTime}%' AND </if>
+		<if test="member != null">MEMBER like '%${member}%' AND </if>
+		<if test="money != null">MONEY like '%${money}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultMap="WebTemporaryMap">
+		SELECT <include refid="allWebTemporaryItems" /> from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultMap="WebTemporaryMap">
+		SELECT <include refid="allWebTemporaryItems" /> from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultType="java.lang.Integer">
+		SELECT count(*) from web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="WebTemporaryMap">
+			SELECT <include refid="allWebTemporaryItems" /> FROM web_temporary tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" resultMap="WebTemporaryMap">
+		SELECT <include refid="allWebTemporaryItems" /> FROM web_temporary tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebTemporaryByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO web_temporary
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="rightCount != null">RIGHT_COUNT,</if>
+			<if test="allTime != null">ALL_TIME,</if>
+			<if test="member != null">MEMBER,</if>
+			<if test="money != null">MONEY,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="image != null">#{image},</if>
+			<if test="rightCount != null">#{rightCount},</if>
+			<if test="allTime != null">#{allTime},</if>
+			<if test="member != null">#{member},</if>
+			<if test="money != null">#{money},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary">
+		<![CDATA[delete from web_temporary where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary">
+		delete from web_temporary
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="image != null"> IMAGE = #{image} AND</if>
+            <if test="rightCount != null"> RIGHT_COUNT = #{rightCount} AND</if>
+            <if test="allTime != null"> ALL_TIME = #{allTime} AND</if>
+            <if test="member != null"> MEMBER = #{member} AND</if>
+            <if test="money != null"> MONEY = #{money} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebTemporary">
+		update web_temporary
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="image != null">IMAGE=#{image},</if>
+			<if test="rightCount != null">RIGHT_COUNT=#{rightCount},</if>
+			<if test="allTime != null">ALL_TIME=#{allTime},</if>
+			<if test="member != null">MEMBER=#{member},</if>
+			<if test="money != null">MONEY=#{money},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

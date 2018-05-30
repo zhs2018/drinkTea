@@ -1,0 +1,27 @@
+@charset "utf-8";
+#w-header h1{left: 20%; text-align: center;}
+html,body{min-height: 100%; background: #EEEEEE;}
+.w-main{position: relative; min-height: 100%;}
+.w-marginTop13{margin-top: 13px;}
+.w-marginLR10{margin-right: 10px; margin-left: 10px;}
+.w-couponCenterList{border: 1px solid #fca815; border-radius: 10px; overflow: hidden; background: #FFFFFF;}
+.w-couponCenterListTitle{padding: 23px 15px;}
+.w-amount{height: 100px; -webkit-background-size: contain; background-size: contain; width: 170px; line-height: 100px; text-align: center; font-size: 48px; color: #FFFFFF;}
+.w-amount-effective{background: url("../../images/wap/w-denomination.png")no-repeat center;}
+.w-coupons-title{height: 54px; line-height: 54px;}
+.w-coupons-time{height: 42px; line-height: 42px;}
+.w-reduce-details{display: inline-block; padding-left: 10px;}
+.w-fontsize24{font-size: 24px;}
+.w-color9{color: #999999;}
+.w-fontsize20{font-size: 20px;}
+.w-marginL190{margin-left: 190px;}
+.w-receive{width:80px; padding-left: 10px; padding-right: 25px; font-size:24px; text-align: center; line-height: 28px; /*border-left: 10px dotted #eeeeee;*/ height: 134px;}
+.w-unReceive{background: url('../../images/wap/w-blueRight.png')no-repeat right center; background-position: 30px center; padding-top: 12px;}
+.w-received{background: #e5e5e5; color: #999999; padding: 26px 15px; background-origin: padding-box;}
+.w-paddingTP5{padding-top: 5px; padding-bottom: 5px;}
+.w-falseH{height: 100%; vertical-align: middle; display: inline-block;}
+.w-verticalM{vertical-align: middle;}
+.w-couponlist{height: 145px; width: 620px;}
+.w-couponlist-unReceive{background:url("../../images/wap/w-unReceive.png")no-repeat center;}
+.w-couponlist-Received{background:url("../../images/wap/w-received.png")no-repeat center;}
+.receiveBtn{height: 145px; width: 80px; cursor: pointer;}

@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.SubjectKuMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" id="SubjectKuMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="subNumber" column="SUB_NUMBER" />
+		<result property="name" column="NAME" />
+		<result property="optionA" column="OPTION_A" />
+		<result property="optionB" column="OPTION_B" />
+		<result property="optionC" column="OPTION_C" />
+		<result property="optionD" column="OPTION_D" />
+		<result property="answer" column="ANSWER" />
+	</resultMap>
+
+	<sql id="allSubjectKuItems">
+		tmp.`ID`,tmp.`SUB_NUMBER`,tmp.`NAME`,tmp.`OPTION_A`,tmp.`OPTION_B`,tmp.`OPTION_C`,tmp.`OPTION_D`,tmp.`ANSWER`
+	</sql>
+
+	<sql id="allSubjectKuByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="subNumber != null"> tmp.SUB_NUMBER = #{subNumber} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="optionA != null"> tmp.OPTION_A = #{optionA} AND</if>
+        <if test="optionB != null"> tmp.OPTION_B = #{optionB} AND</if>
+        <if test="optionC != null"> tmp.OPTION_C = #{optionC} AND</if>
+        <if test="optionD != null"> tmp.OPTION_D = #{optionD} AND</if>
+        <if test="answer != null"> tmp.ANSWER = #{answer} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultMap="SubjectKuMap">
+		SELECT <include refid="allSubjectKuItems" /> from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultMap="SubjectKuMap">
+		SELECT <include refid="allSubjectKuItems" /> from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultType="java.lang.Integer">
+		SELECT count(*) from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSubjectKuLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="subNumber != null">SUB_NUMBER like '%${subNumber}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="optionA != null">OPTION_A like '%${optionA}%' AND </if>
+		<if test="optionB != null">OPTION_B like '%${optionB}%' AND </if>
+		<if test="optionC != null">OPTION_C like '%${optionC}%' AND </if>
+		<if test="optionD != null">OPTION_D like '%${optionD}%' AND </if>
+		<if test="answer != null">ANSWER like '%${answer}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultMap="SubjectKuMap">
+		SELECT <include refid="allSubjectKuItems" /> from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultMap="SubjectKuMap">
+		SELECT <include refid="allSubjectKuItems" /> from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultType="java.lang.Integer">
+		SELECT count(*) from subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SubjectKuMap">
+			SELECT <include refid="allSubjectKuItems" /> FROM subject_ku tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" resultMap="SubjectKuMap">
+		SELECT <include refid="allSubjectKuItems" /> FROM subject_ku tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKuByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO subject_ku
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="subNumber != null">SUB_NUMBER,</if>
+			<if test="name != null">NAME,</if>
+			<if test="optionA != null">OPTION_A,</if>
+			<if test="optionB != null">OPTION_B,</if>
+			<if test="optionC != null">OPTION_C,</if>
+			<if test="optionD != null">OPTION_D,</if>
+			<if test="answer != null">ANSWER,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="subNumber != null">#{subNumber},</if>
+			<if test="name != null">#{name},</if>
+			<if test="optionA != null">#{optionA},</if>
+			<if test="optionB != null">#{optionB},</if>
+			<if test="optionC != null">#{optionC},</if>
+			<if test="optionD != null">#{optionD},</if>
+			<if test="answer != null">#{answer},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu">
+		<![CDATA[delete from subject_ku where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu">
+		delete from subject_ku
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="subNumber != null"> SUB_NUMBER = #{subNumber} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="optionA != null"> OPTION_A = #{optionA} AND</if>
+            <if test="optionB != null"> OPTION_B = #{optionB} AND</if>
+            <if test="optionC != null"> OPTION_C = #{optionC} AND</if>
+            <if test="optionD != null"> OPTION_D = #{optionD} AND</if>
+            <if test="answer != null"> ANSWER = #{answer} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SubjectKu">
+		update subject_ku
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="subNumber != null">SUB_NUMBER=#{subNumber},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="optionA != null">OPTION_A=#{optionA},</if>
+			<if test="optionB != null">OPTION_B=#{optionB},</if>
+			<if test="optionC != null">OPTION_C=#{optionC},</if>
+			<if test="optionD != null">OPTION_D=#{optionD},</if>
+			<if test="answer != null">ANSWER=#{answer},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.qrcode.mapper.SmallPackageMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" id="SmallPackageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="updateTime" column="UPDATE_TIME" />
+		<result property="createBy" column="createBy" />
+		<result property="visable" column="visable" />
+		<result property="userId" column="user_id" />
+		<result property="url" column="URL" />
+	</resultMap>
+
+	<sql id="allSmallPackageItems">
+		tmp.`ID`,tmp.`NAME`,tmp.`CREATE_TIME`,tmp.`UPDATE_TIME`,tmp.`createBy`,tmp.`visable`,tmp.`user_id`,tmp.`URL`
+	</sql>
+
+	<sql id="allSmallPackageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="createTime != null"> tmp.CREATE_TIME = #{createTime} AND</if>
+        <if test="updateTime != null"> tmp.UPDATE_TIME = #{updateTime} AND</if>
+        <if test="createBy != null"> tmp.createBy = #{createBy} AND</if>
+        <if test="visable != null"> tmp.visable = #{visable} AND</if>
+        <if test="userId != null"> tmp.user_id = #{userId} AND</if>
+        <if test="url != null"> tmp.URL = #{url} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultMap="SmallPackageMap">
+ 		select
+ 		sp.`id` as id,
+ 		sp.`id` as falseId,
+ 		sp.`name` as name,
+ 		sp.`create_time` as createTime,
+ 		sp.`update_time` as updateTime,
+ 		sp.`visable` as visable,
+ 		sp.`createBy` as createBy,
+ 		sp.`user_id` as userId,
+ 		su.`user_name` as createName
+ 		from small_package sp
+ 		left join sys_user su on sp.`createBy` = su.`id`
+ 		where sp.`visable` = 1
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultType="java.lang.Integer">
+		SELECT count(*) from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+	</select>
+
+   <select id="getListByTime" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultMap="SmallPackageMap">
+   		select * from small_package where update_time &lt; #{endTime}  and  update_time  &gt; #{startTime}
+   </select>
+
+	<sql id="allSmallPackageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="createTime != null">CREATE_TIME like '%${createTime}%' AND </if>
+		<if test="updateTime != null">UPDATE_TIME like '%${updateTime}%' AND </if>
+		<if test="createBy != null">createBy like '%${createBy}%' AND </if>
+		<if test="visable != null">visable like '%${visable}%' AND </if>
+		<if test="userId != null">user_id like '%${userId}%' AND </if>
+		<if test="url != null">URL like '%${url}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultType="java.lang.Integer">
+		SELECT count(*) from small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SmallPackageMap">
+			SELECT <include refid="allSmallPackageItems" /> FROM small_package tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" resultMap="SmallPackageMap">
+		SELECT <include refid="allSmallPackageItems" /> FROM small_package tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSmallPackageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO small_package
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			CREATE_TIME,
+			<if test="updateTime != null">UPDATE_TIME,</if>
+			<if test="createBy != null">createBy,</if>
+			<if test="userId != null">user_id,</if>
+			<if test="url != null">url,</if>
+			visable,
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			now(),
+			<if test="updateTime != null">#{updateTime},</if>
+			<if test="createBy != null">#{createBy},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="url != null">#{url},</if>
+			1,
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage">
+		<![CDATA[delete from small_package where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage">
+		delete from small_package
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="createTime != null"> CREATE_TIME = #{createTime} AND</if>
+            <if test="updateTime != null"> UPDATE_TIME = #{updateTime} AND</if>
+            <if test="createBy != null"> createBy = #{createBy} AND</if>
+            <if test="visable != null"> visable = #{visable} AND</if>
+            <if test="userId != null"> user_id = #{userId} AND</if>
+             <if test="url != null"> url = #{url} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.qrcode.model.SmallPackage">
+		update small_package
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			UPDATE_TIME=now(),
+			<if test="createBy != null">createBy=#{createBy},</if>
+			<if test="visable != null">visable=#{visable},</if>
+			<if test="userId != null">user_id=#{userId},</if>
+			<if test="url != null">url=#{url},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<update id="deleteById" parameterType="int">
+		update small_package
+		<set>
+			visable = 2
+		</set>
+		where id = #{id}
+	</update>
+</mapper>

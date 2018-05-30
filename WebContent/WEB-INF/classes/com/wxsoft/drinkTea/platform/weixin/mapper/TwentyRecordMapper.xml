@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.TwentyRecordMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" id="TwentyRecordMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="startTime" column="START_TIME" />
+		<result property="endTime" column="END_TIME" />
+		<result property="money" column="MONEY" />
+		<result property="count" column="COUNT" />
+		<result property="visable" column="VISABLE" />
+	</resultMap>
+
+	<sql id="allTwentyRecordItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`START_TIME`,tmp.`END_TIME`,tmp.`MONEY`,tmp.`COUNT`,tmp.`VISABLE`
+	</sql>
+
+	<sql id="allTwentyRecordByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="startTime != null"> (tmp.START_TIME is null or tmp.START_TIME &lt;= #{startTime}) AND</if>
+		<if test="endTime != null"> (tmp.END_TIME is null or tmp.END_TIME &gt;= #{endTime}) AND</if>
+        <if test="money != null"> tmp.MONEY = #{money} AND</if>
+        <if test="count != null"> tmp.COUNT = #{count} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultMap="TwentyRecordMap">
+		SELECT <include refid="allTwentyRecordItems" /> from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultMap="TwentyRecordMap">
+		SELECT <include refid="allTwentyRecordItems" /> from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultType="java.lang.Integer">
+		SELECT count(*) from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allTwentyRecordLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="startTime != null">START_TIME like '%${startTime}%' AND </if>
+		<if test="endTime != null">END_TIME like '%${endTime}%' AND </if>
+		<if test="money != null">MONEY like '%${money}%' AND </if>
+		<if test="count != null">COUNT like '%${count}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultMap="TwentyRecordMap">
+		SELECT <include refid="allTwentyRecordItems" /> from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultMap="TwentyRecordMap">
+		SELECT <include refid="allTwentyRecordItems" /> from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultType="java.lang.Integer">
+		SELECT count(*) from twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="TwentyRecordMap">
+			SELECT <include refid="allTwentyRecordItems" /> FROM twenty_record tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" resultMap="TwentyRecordMap">
+		SELECT <include refid="allTwentyRecordItems" /> FROM twenty_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allTwentyRecordByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO twenty_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="startTime != null">START_TIME,</if>
+			<if test="endTime != null">END_TIME,</if>
+			<if test="money != null">MONEY,</if>
+			<if test="count != null">COUNT,</if>
+			<if test="visable != null">VISABLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="startTime != null">#{startTime},</if>
+			<if test="endTime != null">#{endTime},</if>
+			<if test="money != null">#{money},</if>
+			<if test="count != null">#{count},</if>
+			<if test="visable != null">#{visable},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord">
+		<![CDATA[delete from twenty_record where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord">
+		delete from twenty_record
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="startTime != null"> START_TIME = #{startTime} AND</if>
+            <if test="endTime != null"> END_TIME = #{endTime} AND</if>
+            <if test="money != null"> MONEY = #{money} AND</if>
+            <if test="count != null"> COUNT = #{count} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.TwentyRecord">
+		update twenty_record
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="startTime != null">START_TIME=#{startTime},</if>
+			<if test="endTime != null">END_TIME=#{endTime},</if>
+			<if test="money != null">MONEY=#{money},</if>
+			<if test="count != null">COUNT=#{count},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

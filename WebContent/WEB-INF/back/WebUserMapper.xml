@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.WebUserMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.WebUser" id="WebUserMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="phone" column="PHONE" />
+		<result property="marker" column="MARKER" />
+		<result property="image" column="IMAGE" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="visable" column="VISABLE" />
+		<result property="openId" column="OPEN_ID" />
+		<result property="sex" column="SEX" />
+		<result property="focusTime" column="FOCUS_TIME" />
+	</resultMap>
+
+	<sql id="allWebUserItems">
+		tmp.`ID`,tmp.`USER_NAME`,tmp.`PASSWORD`,tmp.`PHONE`,tmp.`MARKER`,tmp.`IMAGE`,tmp.`ADDRESS_ID`,tmp.`ROLE_ID`,tmp.`CREATETIME`,tmp.`VISABLE`,tmp.`OPEN_ID`,tmp.`SEX`,tmp.`FOCUS_TIME`
+	</sql>
+
+	<sql id="allWebUserByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userName != null"> tmp.USER_NAME = #{userName} AND</if>
+        <if test="password != null"> tmp.PASSWORD = #{password} AND</if>
+        <if test="phone != null"> tmp.PHONE = #{phone} AND</if>
+        <if test="marker != null"> tmp.MARKER = #{marker} AND</if>
+        <if test="image != null"> tmp.IMAGE = #{image} AND</if>
+        <if test="addressId != null"> tmp.ADDRESS_ID = #{addressId} AND</if>
+        <if test="roleId != null"> tmp.ROLE_ID = #{roleId} AND</if>
+        <if test="createtime != null"> tmp.CREATETIME = #{createtime} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+        <if test="openId != null"> tmp.OPEN_ID = #{openId} AND</if>
+        <if test="sex != null"> tmp.SEX = #{sex} AND</if>
+        <if test="focusTime != null"> tmp.FOCUS_TIME = #{focusTime} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultType="java.lang.Integer">
+		SELECT count(*) from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allWebUserLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="password != null">PASSWORD like '%${password}%' AND </if>
+		<if test="phone != null">PHONE like '%${phone}%' AND </if>
+		<if test="marker != null">MARKER like '%${marker}%' AND </if>
+		<if test="image != null">IMAGE like '%${image}%' AND </if>
+		<if test="addressId != null">ADDRESS_ID like '%${addressId}%' AND </if>
+		<if test="roleId != null">ROLE_ID like '%${roleId}%' AND </if>
+		<if test="createtime != null">CREATETIME like '%${createtime}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+		<if test="openId != null">OPEN_ID like '%${openId}%' AND </if>
+		<if test="sex != null">SEX like '%${sex}%' AND </if>
+		<if test="focusTime != null">FOCUS_TIME like '%${focusTime}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultType="java.lang.Integer">
+		SELECT count(*) from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="WebUserMap">
+			SELECT <include refid="allWebUserItems" /> FROM web_user tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> FROM web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO web_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="password != null">PASSWORD,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="marker != null">MARKER,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="addressId != null">ADDRESS_ID,</if>
+			<if test="roleId != null">ROLE_ID,</if>
+			<if test="createtime != null">CREATETIME,</if>
+			<if test="visable != null">VISABLE,</if>
+			<if test="openId != null">OPEN_ID,</if>
+			<if test="sex != null">SEX,</if>
+			<if test="focusTime != null">FOCUS_TIME,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="password != null">#{password},</if>
+			<if test="phone != null">#{phone},</if>
+			<if test="marker != null">#{marker},</if>
+			<if test="image != null">#{image},</if>
+			<if test="addressId != null">#{addressId},</if>
+			<if test="roleId != null">#{roleId},</if>
+			<if test="createtime != null">#{createtime},</if>
+			<if test="visable != null">#{visable},</if>
+			<if test="openId != null">#{openId},</if>
+			<if test="sex != null">#{sex},</if>
+			<if test="focusTime != null">#{focusTime},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		<![CDATA[delete from web_user where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		delete from web_user
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="password != null"> PASSWORD = #{password} AND</if>
+            <if test="phone != null"> PHONE = #{phone} AND</if>
+            <if test="marker != null"> MARKER = #{marker} AND</if>
+            <if test="image != null"> IMAGE = #{image} AND</if>
+            <if test="addressId != null"> ADDRESS_ID = #{addressId} AND</if>
+            <if test="roleId != null"> ROLE_ID = #{roleId} AND</if>
+            <if test="createtime != null"> CREATETIME = #{createtime} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+            <if test="openId != null"> OPEN_ID = #{openId} AND</if>
+            <if test="sex != null"> SEX = #{sex} AND</if>
+            <if test="focusTime != null"> FOCUS_TIME = #{focusTime} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		update web_user
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="password != null">PASSWORD=#{password},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+			<if test="marker != null">MARKER=#{marker},</if>
+			<if test="image != null">IMAGE=#{image},</if>
+			<if test="addressId != null">ADDRESS_ID=#{addressId},</if>
+			<if test="roleId != null">ROLE_ID=#{roleId},</if>
+			<if test="createtime != null">CREATETIME=#{createtime},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+			<if test="openId != null">OPEN_ID=#{openId},</if>
+			<if test="sex != null">SEX=#{sex},</if>
+			<if test="focusTime != null">FOCUS_TIME=#{focusTime},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

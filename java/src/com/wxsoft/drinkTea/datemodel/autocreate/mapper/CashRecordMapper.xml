@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.CashRecordMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" id="CashRecordMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="cashTime" column="CASH_TIME" />
+		<result property="cashMoney" column="CASH_MONEY" />
+		<result property="createPeople" column="CREATE_PEOPLE" />
+	</resultMap>
+
+	<sql id="allCashRecordItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`CASH_TIME`,tmp.`CASH_MONEY`,tmp.`CREATE_PEOPLE`
+	</sql>
+
+	<sql id="allCashRecordByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="cashTime != null"> tmp.CASH_TIME = #{cashTime} AND</if>
+        <if test="cashMoney != null"> tmp.CASH_MONEY = #{cashMoney} AND</if>
+        <if test="createPeople != null"> tmp.CREATE_PEOPLE = #{createPeople} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultMap="CashRecordMap">
+		SELECT <include refid="allCashRecordItems" /> from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultMap="CashRecordMap">
+		SELECT <include refid="allCashRecordItems" /> from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultType="java.lang.Integer">
+		SELECT count(*) from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allCashRecordLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="cashTime != null">CASH_TIME like '%${cashTime}%' AND </if>
+		<if test="cashMoney != null">CASH_MONEY like '%${cashMoney}%' AND </if>
+		<if test="createPeople != null">CREATE_PEOPLE like '%${createPeople}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultMap="CashRecordMap">
+		SELECT <include refid="allCashRecordItems" /> from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultMap="CashRecordMap">
+		SELECT <include refid="allCashRecordItems" /> from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultType="java.lang.Integer">
+		SELECT count(*) from cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="CashRecordMap">
+			SELECT <include refid="allCashRecordItems" /> FROM cash_record tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" resultMap="CashRecordMap">
+		SELECT <include refid="allCashRecordItems" /> FROM cash_record tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allCashRecordByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO cash_record
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="cashTime != null">CASH_TIME,</if>
+			<if test="cashMoney != null">CASH_MONEY,</if>
+			<if test="createPeople != null">CREATE_PEOPLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="cashTime != null">#{cashTime},</if>
+			<if test="cashMoney != null">#{cashMoney},</if>
+			<if test="createPeople != null">#{createPeople},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord">
+		<![CDATA[delete from cash_record where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord">
+		delete from cash_record
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="cashTime != null"> CASH_TIME = #{cashTime} AND</if>
+            <if test="cashMoney != null"> CASH_MONEY = #{cashMoney} AND</if>
+            <if test="createPeople != null"> CREATE_PEOPLE = #{createPeople} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.CashRecord">
+		update cash_record
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="cashTime != null">CASH_TIME=#{cashTime},</if>
+			<if test="cashMoney != null">CASH_MONEY=#{cashMoney},</if>
+			<if test="createPeople != null">CREATE_PEOPLE=#{createPeople},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

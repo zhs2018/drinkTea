@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.KingUserAnswerMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" id="KingUserAnswerMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="kingId" column="KING_ID" />
+		<result property="rightCount" column="RIGHT_COUNT" />
+		<result property="wrongCount" column="WRONG_COUNT" />
+		<result property="sumOverTime" column="SUM_OVER_TIME" />
+		<result property="answerTime" column="ANSWER_TIME" />
+		<result property="visiable" column="VISIABLE" />
+	</resultMap>
+
+	<sql id="allKingUserAnswerItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`KING_ID`,tmp.`RIGHT_COUNT`,tmp.`WRONG_COUNT`,tmp.`SUM_OVER_TIME`,tmp.`ANSWER_TIME`,tmp.`VISIABLE`
+	</sql>
+
+	<sql id="allKingUserAnswerByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="kingId != null"> tmp.KING_ID = #{kingId} AND</if>
+        <if test="rightCount != null"> tmp.RIGHT_COUNT = #{rightCount} AND</if>
+        <if test="wrongCount != null"> tmp.WRONG_COUNT = #{wrongCount} AND</if>
+        <if test="sumOverTime != null"> tmp.SUM_OVER_TIME = #{sumOverTime} AND</if>
+        <if test="answerTime != null"> tmp.ANSWER_TIME like '%${answerTime}%' AND</if>
+        <if test="visiable != null"> tmp.VISIABLE = #{visiable} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultMap="KingUserAnswerMap">
+		SELECT <include refid="allKingUserAnswerItems" /> from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultMap="KingUserAnswerMap">
+		SELECT <include refid="allKingUserAnswerItems" /> from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultType="java.lang.Integer">
+		SELECT count(*) from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allKingUserAnswerLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="kingId != null">KING_ID like '%${kingId}%' AND </if>
+		<if test="rightCount != null">RIGHT_COUNT like '%${rightCount}%' AND </if>
+		<if test="wrongCount != null">WRONG_COUNT like '%${wrongCount}%' AND </if>
+		<if test="sumOverTime != null">SUM_OVER_TIME like '%${sumOverTime}%' AND </if>
+		<if test="answerTime != null">ANSWER_TIME like '%${answerTime}%' AND </if>
+		<if test="visiable != null">VISIABLE like '%${visiable}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultMap="KingUserAnswerMap">
+		SELECT <include refid="allKingUserAnswerItems" /> from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultMap="KingUserAnswerMap">
+		SELECT <include refid="allKingUserAnswerItems" /> from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultType="java.lang.Integer">
+		SELECT count(*) from king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="KingUserAnswerMap">
+			SELECT <include refid="allKingUserAnswerItems" /> FROM king_user_answer tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultMap="KingUserAnswerMap">
+		SELECT <include refid="allKingUserAnswerItems" /> FROM king_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingUserAnswerByConditions" />
+ 		</trim>
+	</select>
+
+	<select id="getRankingBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" resultType="java.lang.Integer">
+			SELECT tmp.ranking
+			FROM (
+				SELECT (@rowNum := @rowNum + 1) AS ranking,tmp.* FROM king_user_answer tmp,(SELECT(@rowNum := 0)) b
+				WHERE tmp.KING_ID = #{kingId} AND tmp.ANSWER_TIME like '%${answerTime}%'
+				ORDER BY right_count DESC,sum_over_time DESC,answer_time ) tmp
+		 	WHERE tmp.user_id = #{userId}
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO king_user_answer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="kingId != null">KING_ID,</if>
+			<if test="rightCount != null">RIGHT_COUNT,</if>
+			<if test="wrongCount != null">WRONG_COUNT,</if>
+			<if test="sumOverTime != null">SUM_OVER_TIME,</if>
+			<if test="answerTime != null">ANSWER_TIME,</if>
+			<if test="visiable != null">VISIABLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="kingId != null">#{kingId},</if>
+			<if test="rightCount != null">#{rightCount},</if>
+			<if test="wrongCount != null">#{wrongCount},</if>
+			<if test="sumOverTime != null">#{sumOverTime},</if>
+			<if test="answerTime != null">#{answerTime},</if>
+			<if test="visiable != null">#{visiable},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer">
+		<![CDATA[delete from king_user_answer where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer">
+		delete from king_user_answer
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="kingId != null"> KING_ID = #{kingId} AND</if>
+            <if test="rightCount != null"> RIGHT_COUNT = #{rightCount} AND</if>
+            <if test="wrongCount != null"> WRONG_COUNT = #{wrongCount} AND</if>
+            <if test="sumOverTime != null"> SUM_OVER_TIME = #{sumOverTime} AND</if>
+            <if test="answerTime != null"> ANSWER_TIME = #{answerTime} AND</if>
+            <if test="visiable != null"> VISIABLE = #{visiable} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingUserAnswer">
+		update king_user_answer
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="kingId != null">KING_ID=#{kingId},</if>
+			<if test="rightCount != null">RIGHT_COUNT=#{rightCount},</if>
+			<if test="wrongCount != null">WRONG_COUNT=#{wrongCount},</if>
+			<if test="sumOverTime != null">SUM_OVER_TIME=#{sumOverTime},</if>
+			<if test="answerTime != null">ANSWER_TIME=#{answerTime},</if>
+			<if test="visiable != null">VISIABLE=#{visiable},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

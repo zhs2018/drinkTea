@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.BaseConfigMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" id="BaseConfigMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="companyName" column="COMPANY_NAME" />
+		<result property="contactName" column="CONTACT_NAME" />
+		<result property="tel" column="TEL" />
+		<result property="appid" column="APPID" />
+		<result property="appsecret" column="APPSECRET" />
+		<result property="openTime" column="OPEN_TIME" />
+		<result property="accountConnection" column="ACCOUNT_CONNECTION" />
+		<result property="ghId" column="GH_ID" />
+		<result property="money" column="MONEY" />
+		<result property="apply" column="APPLY" />
+		<result property="qrCode" column="QR_CODE" />
+	</resultMap>
+
+	<sql id="allBaseConfigItems">
+		tmp.`ID`,tmp.`COMPANY_NAME`,tmp.`CONTACT_NAME`,tmp.`TEL`,tmp.`APPID`,tmp.`APPSECRET`,tmp.`OPEN_TIME`,tmp.`ACCOUNT_CONNECTION`,tmp.`GH_ID`,tmp.`MONEY`,tmp.`APPLY`,tmp.`QR_CODE`
+	</sql>
+
+	<sql id="allBaseConfigByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="companyName != null"> tmp.COMPANY_NAME = #{companyName} AND</if>
+        <if test="contactName != null"> tmp.CONTACT_NAME = #{contactName} AND</if>
+        <if test="tel != null"> tmp.TEL = #{tel} AND</if>
+        <if test="appid != null"> tmp.APPID = #{appid} AND</if>
+        <if test="appsecret != null"> tmp.APPSECRET = #{appsecret} AND</if>
+        <if test="openTime != null"> tmp.OPEN_TIME = #{openTime} AND</if>
+        <if test="accountConnection != null"> tmp.ACCOUNT_CONNECTION = #{accountConnection} AND</if>
+        <if test="ghId != null"> tmp.GH_ID = #{ghId} AND</if>
+        <if test="money != null"> tmp.MONEY = #{money} AND</if>
+        <if test="apply != null"> tmp.APPLY = #{apply} AND</if>
+        <if test="qrCode != null"> tmp.QR_CODE = #{qrCode} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultMap="BaseConfigMap">
+		SELECT <include refid="allBaseConfigItems" /> from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultMap="BaseConfigMap">
+		SELECT <include refid="allBaseConfigItems" /> from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultType="java.lang.Integer">
+		SELECT count(*) from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allBaseConfigLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="companyName != null">COMPANY_NAME like '%${companyName}%' AND </if>
+		<if test="contactName != null">CONTACT_NAME like '%${contactName}%' AND </if>
+		<if test="tel != null">TEL like '%${tel}%' AND </if>
+		<if test="appid != null">APPID like '%${appid}%' AND </if>
+		<if test="appsecret != null">APPSECRET like '%${appsecret}%' AND </if>
+		<if test="openTime != null">OPEN_TIME like '%${openTime}%' AND </if>
+		<if test="accountConnection != null">ACCOUNT_CONNECTION like '%${accountConnection}%' AND </if>
+		<if test="ghId != null">GH_ID like '%${ghId}%' AND </if>
+		<if test="money != null">MONEY like '%${money}%' AND </if>
+		<if test="apply != null">APPLY like '%${apply}%' AND </if>
+		<if test="qrCode != null">QR_CODE like '%${qrCode}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultMap="BaseConfigMap">
+		SELECT <include refid="allBaseConfigItems" /> from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultMap="BaseConfigMap">
+		SELECT <include refid="allBaseConfigItems" /> from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultType="java.lang.Integer">
+		SELECT count(*) from base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="BaseConfigMap">
+			SELECT <include refid="allBaseConfigItems" /> FROM base_config tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" resultMap="BaseConfigMap">
+		SELECT <include refid="allBaseConfigItems" /> FROM base_config tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allBaseConfigByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO base_config
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="companyName != null">COMPANY_NAME,</if>
+			<if test="contactName != null">CONTACT_NAME,</if>
+			<if test="tel != null">TEL,</if>
+			<if test="appid != null">APPID,</if>
+			<if test="appsecret != null">APPSECRET,</if>
+			<if test="openTime != null">OPEN_TIME,</if>
+			<if test="accountConnection != null">ACCOUNT_CONNECTION,</if>
+			<if test="ghId != null">GH_ID,</if>
+			<if test="money != null">MONEY,</if>
+			<if test="apply != null">APPLY,</if>
+			<if test="qrCode != null">QR_CODE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="companyName != null">#{companyName},</if>
+			<if test="contactName != null">#{contactName},</if>
+			<if test="tel != null">#{tel},</if>
+			<if test="appid != null">#{appid},</if>
+			<if test="appsecret != null">#{appsecret},</if>
+			<if test="openTime != null">#{openTime},</if>
+			<if test="accountConnection != null">#{accountConnection},</if>
+			<if test="ghId != null">#{ghId},</if>
+			<if test="money != null">#{money},</if>
+			<if test="apply != null">#{apply},</if>
+			<if test="qrCode != null">#{qrCode},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig">
+		<![CDATA[delete from base_config where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig">
+		delete from base_config
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="companyName != null"> COMPANY_NAME = #{companyName} AND</if>
+            <if test="contactName != null"> CONTACT_NAME = #{contactName} AND</if>
+            <if test="tel != null"> TEL = #{tel} AND</if>
+            <if test="appid != null"> APPID = #{appid} AND</if>
+            <if test="appsecret != null"> APPSECRET = #{appsecret} AND</if>
+            <if test="openTime != null"> OPEN_TIME = #{openTime} AND</if>
+            <if test="accountConnection != null"> ACCOUNT_CONNECTION = #{accountConnection} AND</if>
+            <if test="ghId != null"> GH_ID = #{ghId} AND</if>
+            <if test="money != null"> MONEY = #{money} AND</if>
+            <if test="apply != null"> APPLY = #{apply} AND</if>
+            <if test="qrCode != null"> QR_CODE = #{qrCode} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.BaseConfig">
+		update base_config
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="companyName != null">COMPANY_NAME=#{companyName},</if>
+			<if test="contactName != null">CONTACT_NAME=#{contactName},</if>
+			<if test="tel != null">TEL=#{tel},</if>
+			<if test="appid != null">APPID=#{appid},</if>
+			<if test="appsecret != null">APPSECRET=#{appsecret},</if>
+			<if test="openTime != null">OPEN_TIME=#{openTime},</if>
+			<if test="accountConnection != null">ACCOUNT_CONNECTION=#{accountConnection},</if>
+			<if test="ghId != null">GH_ID=#{ghId},</if>
+			<if test="money != null">MONEY=#{money},</if>
+			<if test="apply != null">APPLY=#{apply},</if>
+			<if test="qrCode != null">QR_CODE=#{qrCode},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.userRole.mapper.SysRoleMenuMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" id="SysRoleMenuMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="menuId" column="MENU_ID" />
+	</resultMap>
+
+	<sql id="allSysRoleMenuItems">
+		tmp.`ID`,tmp.`ROLE_ID`,tmp.`MENU_ID`
+	</sql>
+
+	<sql id="allSysRoleMenuByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="roleId != null"> tmp.ROLE_ID = #{roleId} AND</if>
+        <if test="menuId != null"> tmp.MENU_ID = #{menuId} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultMap="SysRoleMenuMap">
+		SELECT <include refid="allSysRoleMenuItems" /> from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultMap="SysRoleMenuMap">
+		SELECT <include refid="allSysRoleMenuItems" /> from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultType="java.lang.Integer">
+		SELECT count(*) from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSysRoleMenuLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="roleId != null">ROLE_ID like '%${roleId}%' AND </if>
+		<if test="menuId != null">MENU_ID like '%${menuId}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultMap="SysRoleMenuMap">
+		SELECT <include refid="allSysRoleMenuItems" /> from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultMap="SysRoleMenuMap">
+		SELECT <include refid="allSysRoleMenuItems" /> from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultType="java.lang.Integer">
+		SELECT count(*) from sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SysRoleMenuMap">
+			SELECT <include refid="allSysRoleMenuItems" /> FROM sys_role_menu tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" resultMap="SysRoleMenuMap">
+		SELECT <include refid="allSysRoleMenuItems" /> FROM sys_role_menu tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRoleMenuByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_role_menu
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">ROLE_ID,</if>
+			<if test="menuId != null">MENU_ID,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="roleId != null">#{roleId},</if>
+			<if test="menuId != null">#{menuId},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu">
+		<![CDATA[delete from sys_role_menu where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu">
+		delete from sys_role_menu
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="roleId != null"> ROLE_ID = #{roleId} AND</if>
+            <if test="menuId != null"> MENU_ID = #{menuId} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu">
+		update sys_role_menu
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="roleId != null">ROLE_ID=#{roleId},</if>
+			<if test="menuId != null">MENU_ID=#{menuId},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<!--根据权限id查找所有对应的一级菜单-->
+	<select id="getMenuByRoleId" parameterType="com.wxsoft.drinkTea.platform.system.userRole.model.SysRoleMenu"
+			resultType="com.wxsoft.drinkTea.platform.system.login.model.SysMenu">
+		select sm.* from sys_menu sm where sm.`parent_id` = 0 and sm.`visable` = 1 and sm.id in
+		(select rm.`menu_id` from sys_role_menu rm where rm.`role_id` = #{roleId}) order by sm.`sort` asc
+	</select>
+
+	<!--根据角色id和菜单id向角色菜单表里循环添加数据-->
+	<insert id="inByRNameMId" parameterType="java.util.Map">
+		insert into sys_role_menu (`role_id`,`menu_id`) values
+		<foreach collection = "menuIds" item = "one"  separator=",">
+			(#{roleId},#{one})
+		</foreach>
+	</insert>
+</mapper>

@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.WebsTebMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" id="WebsTebMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="image" column="IMAGE" />
+		<result property="answerAllcount" column="ANSWER_ALLCOUNT" />
+		<result property="rightAllcount" column="RIGHT_ALLCOUNT" />
+	</resultMap>
+
+	<sql id="allWebsTebItems">
+		tmp.`ID`,tmp.`USER_NAME`,tmp.`IMAGE`,tmp.`ANSWER_ALLCOUNT`,tmp.`RIGHT_ALLCOUNT`
+	</sql>
+
+	<sql id="allWebsTebByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userName != null"> tmp.USER_NAME = #{userName} AND</if>
+        <if test="image != null"> tmp.IMAGE = #{image} AND</if>
+        <if test="answerAllcount != null"> tmp.ANSWER_ALLCOUNT = #{answerAllcount} AND</if>
+        <if test="rightAllcount != null"> tmp.RIGHT_ALLCOUNT = #{rightAllcount} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultMap="WebsTebMap">
+		SELECT <include refid="allWebsTebItems" /> from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultMap="WebsTebMap">
+		SELECT <include refid="allWebsTebItems" /> from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultType="java.lang.Integer">
+		SELECT count(*) from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allWebsTebLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="image != null">IMAGE like '%${image}%' AND </if>
+		<if test="answerAllcount != null">ANSWER_ALLCOUNT like '%${answerAllcount}%' AND </if>
+		<if test="rightAllcount != null">RIGHT_ALLCOUNT like '%${rightAllcount}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultMap="WebsTebMap">
+		SELECT <include refid="allWebsTebItems" /> from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultMap="WebsTebMap">
+		SELECT <include refid="allWebsTebItems" /> from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultType="java.lang.Integer">
+		SELECT count(*) from webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="WebsTebMap">
+			SELECT <include refid="allWebsTebItems" /> FROM webs_teb tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" resultMap="WebsTebMap">
+		SELECT <include refid="allWebsTebItems" /> FROM webs_teb tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebsTebByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO webs_teb
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="answerAllcount != null">ANSWER_ALLCOUNT,</if>
+			<if test="rightAllcount != null">RIGHT_ALLCOUNT,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="image != null">#{image},</if>
+			<if test="answerAllcount != null">#{answerAllcount},</if>
+			<if test="rightAllcount != null">#{rightAllcount},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb">
+		<![CDATA[delete from webs_teb where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb">
+		delete from webs_teb
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="image != null"> IMAGE = #{image} AND</if>
+            <if test="answerAllcount != null"> ANSWER_ALLCOUNT = #{answerAllcount} AND</if>
+            <if test="rightAllcount != null"> RIGHT_ALLCOUNT = #{rightAllcount} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.WebsTeb">
+		update webs_teb
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="image != null">IMAGE=#{image},</if>
+			<if test="answerAllcount != null">ANSWER_ALLCOUNT=#{answerAllcount},</if>
+			<if test="rightAllcount != null">RIGHT_ALLCOUNT=#{rightAllcount},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

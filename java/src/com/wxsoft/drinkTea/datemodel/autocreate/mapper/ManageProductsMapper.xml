@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.ManageProductsMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" id="ManageProductsMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />
+		<result property="price" column="PRICE" />
+		<result property="beforePrice" column="BEFORE_PRICE" />
+		<result property="nowPrice" column="NOW_PRICE" />
+		<result property="picture" column="PICTURE" />
+		<result property="introduce" column="INTRODUCE" />
+		<result property="type" column="TYPE" />
+		<result property="specifications" column="SPECIFICATIONS" />
+		<result property="cost" column="COST" />
+		<result property="typeSort" column="TYPE_SORT" />
+		<result property="restGoods" column="REST_GOODS" />
+		<result property="stat" column="STAT" />
+	</resultMap>
+
+	<sql id="allManageProductsItems">
+		tmp.`ID`,tmp.`NAME`,tmp.`PRICE`,tmp.`BEFORE_PRICE`,tmp.`NOW_PRICE`,tmp.`PICTURE`,tmp.`INTRODUCE`,tmp.`TYPE`,tmp.`SPECIFICATIONS`,tmp.`COST`,tmp.`TYPE_SORT`,tmp.`REST_GOODS`,tmp.`STAT`
+	</sql>
+
+	<sql id="allManageProductsByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="name != null"> tmp.NAME = #{name} AND</if>
+        <if test="price != null"> tmp.PRICE = #{price} AND</if>
+        <if test="beforePrice != null"> tmp.BEFORE_PRICE = #{beforePrice} AND</if>
+        <if test="nowPrice != null"> tmp.NOW_PRICE = #{nowPrice} AND</if>
+        <if test="picture != null"> tmp.PICTURE = #{picture} AND</if>
+        <if test="introduce != null"> tmp.INTRODUCE = #{introduce} AND</if>
+        <if test="type != null"> tmp.TYPE = #{type} AND</if>
+        <if test="specifications != null"> tmp.SPECIFICATIONS = #{specifications} AND</if>
+        <if test="cost != null"> tmp.COST = #{cost} AND</if>
+        <if test="typeSort != null"> tmp.TYPE_SORT = #{typeSort} AND</if>
+        <if test="restGoods != null"> tmp.REST_GOODS = #{restGoods} AND</if>
+        <if test="stat != null"> tmp.STAT = #{stat} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultMap="ManageProductsMap">
+		SELECT <include refid="allManageProductsItems" /> from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultMap="ManageProductsMap">
+		SELECT <include refid="allManageProductsItems" /> from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultType="java.lang.Integer">
+		SELECT count(*) from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allManageProductsLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="name != null">NAME like '%${name}%' AND </if>
+		<if test="price != null">PRICE like '%${price}%' AND </if>
+		<if test="beforePrice != null">BEFORE_PRICE like '%${beforePrice}%' AND </if>
+		<if test="nowPrice != null">NOW_PRICE like '%${nowPrice}%' AND </if>
+		<if test="picture != null">PICTURE like '%${picture}%' AND </if>
+		<if test="introduce != null">INTRODUCE like '%${introduce}%' AND </if>
+		<if test="type != null">TYPE like '%${type}%' AND </if>
+		<if test="specifications != null">SPECIFICATIONS like '%${specifications}%' AND </if>
+		<if test="cost != null">COST like '%${cost}%' AND </if>
+		<if test="typeSort != null">TYPE_SORT like '%${typeSort}%' AND </if>
+		<if test="restGoods != null">REST_GOODS like '%${restGoods}%' AND </if>
+		<if test="stat != null">STAT like '%${stat}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultMap="ManageProductsMap">
+		SELECT <include refid="allManageProductsItems" /> from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultMap="ManageProductsMap">
+		SELECT <include refid="allManageProductsItems" /> from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultType="java.lang.Integer">
+		SELECT count(*) from manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ManageProductsMap">
+			SELECT <include refid="allManageProductsItems" /> FROM manage_products tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" resultMap="ManageProductsMap">
+		SELECT <include refid="allManageProductsItems" /> FROM manage_products tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allManageProductsByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO manage_products
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="name != null">NAME,</if>
+			<if test="price != null">PRICE,</if>
+			<if test="beforePrice != null">BEFORE_PRICE,</if>
+			<if test="nowPrice != null">NOW_PRICE,</if>
+			<if test="picture != null">PICTURE,</if>
+			<if test="introduce != null">INTRODUCE,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="specifications != null">SPECIFICATIONS,</if>
+			<if test="cost != null">COST,</if>
+			<if test="typeSort != null">TYPE_SORT,</if>
+			<if test="restGoods != null">REST_GOODS,</if>
+			<if test="stat != null">STAT,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="name != null">#{name},</if>
+			<if test="price != null">#{price},</if>
+			<if test="beforePrice != null">#{beforePrice},</if>
+			<if test="nowPrice != null">#{nowPrice},</if>
+			<if test="picture != null">#{picture},</if>
+			<if test="introduce != null">#{introduce},</if>
+			<if test="type != null">#{type},</if>
+			<if test="specifications != null">#{specifications},</if>
+			<if test="cost != null">#{cost},</if>
+			<if test="typeSort != null">#{typeSort},</if>
+			<if test="restGoods != null">#{restGoods},</if>
+			<if test="stat != null">#{stat},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts">
+		<![CDATA[delete from manage_products where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts">
+		delete from manage_products
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="name != null"> NAME = #{name} AND</if>
+            <if test="price != null"> PRICE = #{price} AND</if>
+            <if test="beforePrice != null"> BEFORE_PRICE = #{beforePrice} AND</if>
+            <if test="nowPrice != null"> NOW_PRICE = #{nowPrice} AND</if>
+            <if test="picture != null"> PICTURE = #{picture} AND</if>
+            <if test="introduce != null"> INTRODUCE = #{introduce} AND</if>
+            <if test="type != null"> TYPE = #{type} AND</if>
+            <if test="specifications != null"> SPECIFICATIONS = #{specifications} AND</if>
+            <if test="cost != null"> COST = #{cost} AND</if>
+            <if test="typeSort != null"> TYPE_SORT = #{typeSort} AND</if>
+            <if test="restGoods != null"> REST_GOODS = #{restGoods} AND</if>
+            <if test="stat != null"> STAT = #{stat} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.ManageProducts">
+		update manage_products
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="name != null">NAME=#{name},</if>
+			<if test="price != null">PRICE=#{price},</if>
+			<if test="beforePrice != null">BEFORE_PRICE=#{beforePrice},</if>
+			<if test="nowPrice != null">NOW_PRICE=#{nowPrice},</if>
+			<if test="picture != null">PICTURE=#{picture},</if>
+			<if test="introduce != null">INTRODUCE=#{introduce},</if>
+			<if test="type != null">TYPE=#{type},</if>
+			<if test="specifications != null">SPECIFICATIONS=#{specifications},</if>
+			<if test="cost != null">COST=#{cost},</if>
+			<if test="typeSort != null">TYPE_SORT=#{typeSort},</if>
+			<if test="restGoods != null">REST_GOODS=#{restGoods},</if>
+			<if test="stat != null">STAT=#{stat},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

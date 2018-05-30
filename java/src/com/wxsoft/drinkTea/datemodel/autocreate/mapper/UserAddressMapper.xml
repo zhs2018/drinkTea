@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.UserAddressMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" id="UserAddressMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="province" column="PROVINCE" />
+		<result property="city" column="CITY" />
+		<result property="area" column="AREA" />
+		<result property="deleteSign" column="DELETE_SIGN" />
+		<result property="addressDetails" column="ADDRESS_DETAILS" />
+		<result property="userName" column="USER_NAME" />
+		<result property="telPhone" column="TEL_PHONE" />
+		<result property="status" column="STATUS" />
+	</resultMap>
+
+	<sql id="allUserAddressItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`PROVINCE`,tmp.`CITY`,tmp.`AREA`,tmp.`DELETE_SIGN`,tmp.`ADDRESS_DETAILS`,tmp.`USER_NAME`,tmp.`TEL_PHONE`,tmp.`STATUS`
+	</sql>
+
+	<sql id="allUserAddressByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="province != null"> tmp.PROVINCE = #{province} AND</if>
+        <if test="city != null"> tmp.CITY = #{city} AND</if>
+        <if test="area != null"> tmp.AREA = #{area} AND</if>
+        <if test="deleteSign != null"> tmp.DELETE_SIGN = #{deleteSign} AND</if>
+        <if test="addressDetails != null"> tmp.ADDRESS_DETAILS = #{addressDetails} AND</if>
+        <if test="userName != null"> tmp.USER_NAME = #{userName} AND</if>
+        <if test="telPhone != null"> tmp.TEL_PHONE = #{telPhone} AND</if>
+        <if test="status != null"> tmp.STATUS = #{status} AND</if>
+        <if test="statusForIn != null"> tmp.STATUS in (${statusForIn}) AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultMap="UserAddressMap">
+		SELECT <include refid="allUserAddressItems" /> from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultMap="UserAddressMap">
+		SELECT <include refid="allUserAddressItems" /> from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultType="java.lang.Integer">
+		SELECT count(*) from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allUserAddressLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="province != null">PROVINCE like '%${province}%' AND </if>
+		<if test="city != null">CITY like '%${city}%' AND </if>
+		<if test="area != null">AREA like '%${area}%' AND </if>
+		<if test="deleteSign != null">DELETE_SIGN like '%${deleteSign}%' AND </if>
+		<if test="addressDetails != null">ADDRESS_DETAILS like '%${addressDetails}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="telPhone != null">TEL_PHONE like '%${telPhone}%' AND </if>
+		<if test="status != null">STATUS like '%${status}%' AND </if>
+        <if test="statusForIn != null"> tmp.STATUS in ${statusForIn} AND</if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultMap="UserAddressMap">
+		SELECT <include refid="allUserAddressItems" /> from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultMap="UserAddressMap">
+		SELECT <include refid="allUserAddressItems" /> from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultType="java.lang.Integer">
+		SELECT count(*) from user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="UserAddressMap">
+			SELECT <include refid="allUserAddressItems" /> FROM user_address tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" resultMap="UserAddressMap">
+		SELECT <include refid="allUserAddressItems" /> FROM user_address tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allUserAddressByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO user_address
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="province != null">PROVINCE,</if>
+			<if test="city != null">CITY,</if>
+			<if test="area != null">AREA,</if>
+			<if test="deleteSign != null">DELETE_SIGN,</if>
+			<if test="addressDetails != null">ADDRESS_DETAILS,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="telPhone != null">TEL_PHONE,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="statusForIn != null">STATUS,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="province != null">#{province},</if>
+			<if test="city != null">#{city},</if>
+			<if test="area != null">#{area},</if>
+			<if test="deleteSign != null">#{deleteSign},</if>
+			<if test="addressDetails != null">#{addressDetails},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="telPhone != null">#{telPhone},</if>
+			<if test="status != null">#{status},</if>
+			<if test="statusForIn != null">#{statusForIn},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress">
+		<![CDATA[delete from user_address where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress">
+		delete from user_address
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="province != null"> PROVINCE = #{province} AND</if>
+            <if test="city != null"> CITY = #{city} AND</if>
+            <if test="area != null"> AREA = #{area} AND</if>
+            <if test="deleteSign != null"> DELETE_SIGN = #{deleteSign} AND</if>
+            <if test="addressDetails != null"> ADDRESS_DETAILS = #{addressDetails} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="telPhone != null"> TEL_PHONE = #{telPhone} AND</if>
+            <if test="status != null"> STATUS = #{status} AND</if>
+            <if test="statusForIn != null"> STATUS = #{statusForIn} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.UserAddress">
+		update user_address
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="province != null">PROVINCE=#{province},</if>
+			<if test="city != null">CITY=#{city},</if>
+			<if test="area != null">AREA=#{area},</if>
+			<if test="deleteSign != null">DELETE_SIGN=#{deleteSign},</if>
+			<if test="addressDetails != null">ADDRESS_DETAILS=#{addressDetails},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="telPhone != null">TEL_PHONE=#{telPhone},</if>
+			<if test="status != null">STATUS=#{status},</if>
+			<if test="statusForIn != null">STATUS=#{statusForIn},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

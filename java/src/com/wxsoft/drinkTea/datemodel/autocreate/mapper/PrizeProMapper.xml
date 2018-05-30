@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.PrizeProMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" id="PrizeProMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="prizeName" column="PRIZE_NAME" />
+		<result property="restNum" column="REST_NUM" />
+		<result property="prizeType" column="PRIZE_TYPE" />
+		<result property="prizeImg" column="PRIZE_IMG" />
+		<result property="prizeNum" column="PRIZE_NUM" />
+	</resultMap>
+
+	<sql id="allPrizeProItems">
+		tmp.`ID`,tmp.`PRIZE_NAME`,tmp.`REST_NUM`,tmp.`PRIZE_TYPE`,tmp.`PRIZE_IMG`,tmp.`PRIZE_NUM`
+	</sql>
+
+	<sql id="allPrizeProByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="prizeName != null"> tmp.PRIZE_NAME = #{prizeName} AND</if>
+        <if test="restNum != null"> tmp.REST_NUM = #{restNum} AND</if>
+        <if test="prizeType != null"> tmp.PRIZE_TYPE = #{prizeType} AND</if>
+        <if test="prizeImg != null"> tmp.PRIZE_IMG = #{prizeImg} AND</if>
+        <if test="prizeNum != null"> tmp.PRIZE_NUM = #{prizeNum} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultMap="PrizeProMap">
+		SELECT <include refid="allPrizeProItems" /> from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultMap="PrizeProMap">
+		SELECT <include refid="allPrizeProItems" /> from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultType="java.lang.Integer">
+		SELECT count(*) from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allPrizeProLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="prizeName != null">PRIZE_NAME like '%${prizeName}%' AND </if>
+		<if test="restNum != null">REST_NUM like '%${restNum}%' AND </if>
+		<if test="prizeType != null">PRIZE_TYPE like '%${prizeType}%' AND </if>
+		<if test="prizeImg != null">PRIZE_IMG like '%${prizeImg}%' AND </if>
+		<if test="prizeNum != null">PRIZE_NUM like '%${prizeNum}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultMap="PrizeProMap">
+		SELECT <include refid="allPrizeProItems" /> from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultMap="PrizeProMap">
+		SELECT <include refid="allPrizeProItems" /> from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultType="java.lang.Integer">
+		SELECT count(*) from prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="PrizeProMap">
+			SELECT <include refid="allPrizeProItems" /> FROM prize_pro tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" resultMap="PrizeProMap">
+		SELECT <include refid="allPrizeProItems" /> FROM prize_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allPrizeProByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO prize_pro
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="prizeName != null">PRIZE_NAME,</if>
+			<if test="restNum != null">REST_NUM,</if>
+			<if test="prizeType != null">PRIZE_TYPE,</if>
+			<if test="prizeImg != null">PRIZE_IMG,</if>
+			<if test="prizeNum != null">PRIZE_NUM,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="prizeName != null">#{prizeName},</if>
+			<if test="restNum != null">#{restNum},</if>
+			<if test="prizeType != null">#{prizeType},</if>
+			<if test="prizeImg != null">#{prizeImg},</if>
+			<if test="prizeNum != null">#{prizeNum},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro">
+		<![CDATA[delete from prize_pro where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro">
+		delete from prize_pro
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="prizeName != null"> PRIZE_NAME = #{prizeName} AND</if>
+            <if test="restNum != null"> REST_NUM = #{restNum} AND</if>
+            <if test="prizeType != null"> PRIZE_TYPE = #{prizeType} AND</if>
+            <if test="prizeImg != null"> PRIZE_IMG = #{prizeImg} AND</if>
+            <if test="prizeNum != null"> PRIZE_NUM = #{prizeNum} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.PrizePro">
+		update prize_pro
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="prizeName != null">PRIZE_NAME=#{prizeName},</if>
+			<if test="restNum != null">REST_NUM=#{restNum},</if>
+			<if test="prizeType != null">PRIZE_TYPE=#{prizeType},</if>
+			<if test="prizeImg != null">PRIZE_IMG=#{prizeImg},</if>
+			<if test="prizeNum != null">PRIZE_NUM=#{prizeNum},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

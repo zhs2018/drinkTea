@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.KingAnswerDetailMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" id="KingAnswerDetailMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="subId" column="SUB_ID" />
+		<result property="answerId" column="ANSWER_ID" />
+		<result property="kingId" column="KING_ID" />
+		<result property="type" column="TYPE" />
+		<result property="overTime" column="OVER_TIME" />
+		<result property="visable" column="VISABLE" />
+		<result property="answer" column="ANSWER" />
+		<result property="num" column="NUM" />
+	</resultMap>
+
+	<sql id="allKingAnswerDetailItems">
+		tmp.`ID`,tmp.`NUM`,tmp.`SUB_ID`,tmp.`ANSWER_ID`,tmp.`KING_ID`,tmp.`TYPE`,tmp.`OVER_TIME`,tmp.`VISABLE`,tmp.`ANSWER`
+	</sql>
+
+	<sql id="allKingAnswerDetailByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="subId != null"> tmp.SUB_ID = #{subId} AND</if>
+        <if test="answerId != null"> tmp.ANSWER_ID = #{answerId} AND</if>
+        <if test="kingId != null"> tmp.KING_ID = #{kingId} AND</if>
+        <if test="type != null"> tmp.TYPE = #{type} AND</if>
+        <if test="overTime != null"> tmp.OVER_TIME = #{overTime} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+        <if test="answer != null"> tmp.ANSWER = #{answer} AND</if>
+        <if test="num != null"> tmp.NUM = #{num} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultMap="KingAnswerDetailMap">
+		SELECT <include refid="allKingAnswerDetailItems" /> from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultMap="KingAnswerDetailMap">
+		SELECT <include refid="allKingAnswerDetailItems" /> from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultType="java.lang.Integer">
+		SELECT count(*) from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allKingAnswerDetailLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="subId != null">SUB_ID like '%${subId}%' AND </if>
+		<if test="answerId != null">ANSWER_ID like '%${answerId}%' AND </if>
+		<if test="kingId != null">KING_ID like '%${kingId}%' AND </if>
+		<if test="type != null">TYPE like '%${type}%' AND </if>
+		<if test="overTime != null">OVER_TIME like '%${overTime}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+		<if test="answer != null">ANSWER like '%${answer}%' AND </if>
+		<if test="num != null">NUM like '%${num}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultMap="KingAnswerDetailMap">
+		SELECT <include refid="allKingAnswerDetailItems" /> from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultMap="KingAnswerDetailMap">
+		SELECT <include refid="allKingAnswerDetailItems" /> from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultType="java.lang.Integer">
+		SELECT count(*) from king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="KingAnswerDetailMap">
+			SELECT <include refid="allKingAnswerDetailItems" /> FROM king_answer_detail tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" resultMap="KingAnswerDetailMap">
+		SELECT <include refid="allKingAnswerDetailItems" /> FROM king_answer_detail tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allKingAnswerDetailByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO king_answer_detail
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="subId != null">SUB_ID,</if>
+			<if test="answerId != null">ANSWER_ID,</if>
+			<if test="kingId != null">KING_ID,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="overTime != null">OVER_TIME,</if>
+			<if test="visable != null">VISABLE,</if>
+			<if test="answer != null">ANSWER,</if>
+			<if test="num != null">NUM,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="subId != null">#{subId},</if>
+			<if test="answerId != null">#{answerId},</if>
+			<if test="kingId != null">#{kingId},</if>
+			<if test="type != null">#{type},</if>
+			<if test="overTime != null">#{overTime},</if>
+			<if test="visable != null">#{visable},</if>
+			<if test="answer != null">#{answer},</if>
+			<if test="num != null">#{num},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail">
+		<![CDATA[delete from king_answer_detail where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail">
+		delete from king_answer_detail
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="subId != null"> SUB_ID = #{subId} AND</if>
+            <if test="answerId != null"> ANSWER_ID = #{answerId} AND</if>
+            <if test="kingId != null"> KING_ID = #{kingId} AND</if>
+            <if test="type != null"> TYPE = #{type} AND</if>
+            <if test="overTime != null"> OVER_TIME = #{overTime} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+            <if test="answer != null"> ANSWER = #{answer} AND</if>
+            <if test="num != null"> NUM = #{num} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.KingAnswerDetail">
+		update king_answer_detail
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="subId != null">SUB_ID=#{subId},</if>
+			<if test="answerId != null">ANSWER_ID=#{answerId},</if>
+			<if test="kingId != null">KING_ID=#{kingId},</if>
+			<if test="type != null">TYPE=#{type},</if>
+			<if test="overTime != null">OVER_TIME=#{overTime},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+			<if test="answer != null">ANSWER=#{answer},</if>
+			<if test="num != null"> NUM = #{num} AND</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

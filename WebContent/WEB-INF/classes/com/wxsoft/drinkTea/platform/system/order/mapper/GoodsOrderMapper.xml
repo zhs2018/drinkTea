@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.order.mapper.GoodsOrderMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" id="GoodsOrderMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="goodsCount" column="GOODS_COUNT" />
+		<result property="userId" column="USER_ID" />
+	</resultMap>
+
+	<sql id="allGoodsOrderItems">
+		tmp.`ID`,tmp.`GOODS_ID`,tmp.`ORDER_ID`,tmp.`GOODS_COUNT`,tmp.`USER_ID`
+	</sql>
+
+	<sql id="allGoodsOrderByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="goodsId != null"> tmp.GOODS_ID = #{goodsId} AND</if>
+        <if test="orderId != null"> tmp.ORDER_ID = #{orderId} AND</if>
+        <if test="goodsCount != null"> tmp.GOODS_COUNT = #{goodsCount} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultMap="GoodsOrderMap">
+		SELECT <include refid="allGoodsOrderItems" /> from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultMap="GoodsOrderMap">
+		SELECT <include refid="allGoodsOrderItems" /> from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultType="java.lang.Integer">
+		SELECT count(*) from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allGoodsOrderLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="goodsId != null">GOODS_ID like '%${goodsId}%' AND </if>
+		<if test="orderId != null">ORDER_ID like '%${orderId}%' AND </if>
+		<if test="goodsCount != null">GOODS_COUNT like '%${goodsCount}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultMap="GoodsOrderMap">
+		SELECT <include refid="allGoodsOrderItems" /> from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultMap="GoodsOrderMap">
+		SELECT <include refid="allGoodsOrderItems" /> from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultType="java.lang.Integer">
+		SELECT count(*) from goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="GoodsOrderMap">
+			SELECT <include refid="allGoodsOrderItems" /> FROM goods_order tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" resultMap="GoodsOrderMap">
+		SELECT <include refid="allGoodsOrderItems" /> FROM goods_order tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allGoodsOrderByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO goods_order
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="goodsId != null">GOODS_ID,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="goodsCount != null">GOODS_COUNT,</if>
+			<if test="userId != null">USER_ID,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="goodsId != null">#{goodsId},</if>
+			<if test="orderId != null">#{orderId},</if>
+			<if test="goodsCount != null">#{goodsCount},</if>
+			<if test="userId != null">#{userId},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder">
+		<![CDATA[delete from goods_order where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder">
+		delete from goods_order
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="goodsId != null"> GOODS_ID = #{goodsId} AND</if>
+            <if test="orderId != null"> ORDER_ID = #{orderId} AND</if>
+            <if test="goodsCount != null"> GOODS_COUNT = #{goodsCount} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.order.model.GoodsOrder">
+		update goods_order
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="goodsId != null">GOODS_ID=#{goodsId},</if>
+			<if test="orderId != null">ORDER_ID=#{orderId},</if>
+			<if test="goodsCount != null">GOODS_COUNT=#{goodsCount},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

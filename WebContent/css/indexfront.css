@@ -1,0 +1,66 @@
+@charset "utf-8";
+
+/*商品分页样式*/
+.page_and_btn {
+    background-color: #FAFBFD;
+    bottom: 100px;
+    font-family: Microsoft Yahei,Arial,sans-serif;
+    font-size: 14px;
+    left: 0;
+    margin: 0;
+    right: 0;
+    text-align: center;
+    height: auto;
+    overflow: hidden;
+    padding: 10px 0 0;
+    width: 100%;
+    clear: both;
+}
+.page_and_btn .selected2,.page_and_btn input,.page_and_btn .pageinfo,.page_and_btn .selected,.page_and_btn .current,.page_and_btn ul li 
+{
+	display:inline-block;
+	line-height: 25px;
+	padding:0 10px;
+	text-align:center;
+	cursor:pointer;
+}
+.page_and_btn input
+{
+	margin:0 8px;
+}
+.page_and_btn .selected,.page_and_btn .current
+{
+	color:f00;
+	font-weight:600;
+}
+.page_and_btn ul {
+    float: right;
+    height: 28px;
+    list-style: none outside none;
+    margin: 0;
+    overflow: hidden;
+    padding: 0;
+    width: auto;
+}
+.page_and_btn ul li {
+    border: 1px solid #CCCCCC;
+    float: left;
+    /*height: 20px;
+    line-height: 20px;*/
+    margin: 0 2px;
+}
+.page_and_btn ul li a {
+    color: #333333;
+    text-decoration: none;
+}
+.page_and_btn ul li a, .pageinfo {
+    /**background: none repeat scroll 0 0 #FAFBFD;**/
+    display: block;
+   /* padding: 0 6px;*/
+}
+.page_and_btn {
+    color: #555555;
+}
+.page_and_btn div {
+    float: left;
+}

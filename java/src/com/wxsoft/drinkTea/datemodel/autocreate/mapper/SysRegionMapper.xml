@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.SysRegionMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" id="SysRegionMap">
+		<id property="regionid" column="REGIONID" />
+		<result property="regionid" column="REGIONID" />
+		<result property="regionname" column="REGIONNAME" />
+		<result property="parentid" column="PARENTID" />
+		<result property="sn" column="SN" />
+		<result property="levels" column="LEVELS" />
+		<result property="alphabetic" column="ALPHABETIC" />
+	</resultMap>
+
+	<sql id="allSysRegionItems">
+		tmp.`REGIONID`,tmp.`REGIONNAME`,tmp.`PARENTID`,tmp.`SN`,tmp.`LEVELS`,tmp.`ALPHABETIC`
+	</sql>
+
+	<sql id="allSysRegionByConditions">
+        <if test="regionid != null"> tmp.REGIONID = #{regionid} AND</if>
+        <if test="regionname != null"> tmp.REGIONNAME = #{regionname} AND</if>
+        <if test="parentid != null"> tmp.PARENTID = #{parentid} AND</if>
+        <if test="sn != null"> tmp.SN = #{sn} AND</if>
+        <if test="levels != null"> tmp.LEVELS = #{levels} AND</if>
+        <if test="alphabetic != null"> tmp.ALPHABETIC = #{alphabetic} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultMap="SysRegionMap">
+		SELECT <include refid="allSysRegionItems" /> from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY REGIONID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultMap="SysRegionMap">
+		SELECT <include refid="allSysRegionItems" /> from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY REGIONID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultType="java.lang.Integer">
+		SELECT count(*) from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSysRegionLikeConditions">
+		<if test="regionid != null">REGIONID like '%${regionid}%' AND </if>
+		<if test="regionname != null">REGIONNAME like '%${regionname}%' AND </if>
+		<if test="parentid != null">PARENTID like '%${parentid}%' AND </if>
+		<if test="sn != null">SN like '%${sn}%' AND </if>
+		<if test="levels != null">LEVELS like '%${levels}%' AND </if>
+		<if test="alphabetic != null">ALPHABETIC like '%${alphabetic}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultMap="SysRegionMap">
+		SELECT <include refid="allSysRegionItems" /> from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY REGIONID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultMap="SysRegionMap">
+		SELECT <include refid="allSysRegionItems" /> from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY REGIONID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultType="java.lang.Integer">
+		SELECT count(*) from sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SysRegionMap">
+			SELECT <include refid="allSysRegionItems" /> FROM sys_region tmp WHERE tmp.REGIONID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" resultMap="SysRegionMap">
+		SELECT <include refid="allSysRegionItems" /> FROM sys_region tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysRegionByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion" useGeneratedKeys="true" keyProperty="regionid">
+		INSERT INTO sys_region
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="regionid != null">REGIONID,</if>
+			<if test="regionname != null">REGIONNAME,</if>
+			<if test="parentid != null">PARENTID,</if>
+			<if test="sn != null">SN,</if>
+			<if test="levels != null">LEVELS,</if>
+			<if test="alphabetic != null">ALPHABETIC,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="regionid != null">#{regionid},</if>
+			<if test="regionname != null">#{regionname},</if>
+			<if test="parentid != null">#{parentid},</if>
+			<if test="sn != null">#{sn},</if>
+			<if test="levels != null">#{levels},</if>
+			<if test="alphabetic != null">#{alphabetic},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion">
+		<![CDATA[delete from sys_region where REGIONID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion">
+		delete from sys_region
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="regionid != null"> REGIONID = #{regionid} AND</if>
+            <if test="regionname != null"> REGIONNAME = #{regionname} AND</if>
+            <if test="parentid != null"> PARENTID = #{parentid} AND</if>
+            <if test="sn != null"> SN = #{sn} AND</if>
+            <if test="levels != null"> LEVELS = #{levels} AND</if>
+            <if test="alphabetic != null"> ALPHABETIC = #{alphabetic} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SysRegion">
+		update sys_region
+		<set>
+			<if test="regionid != null">REGIONID=#{regionid},</if>
+			<if test="regionname != null">REGIONNAME=#{regionname},</if>
+			<if test="parentid != null">PARENTID=#{parentid},</if>
+			<if test="sn != null">SN=#{sn},</if>
+			<if test="levels != null">LEVELS=#{levels},</if>
+			<if test="alphabetic != null">ALPHABETIC=#{alphabetic},</if>
+		</set>
+		where REGIONID = #{regionid}
+	</update>
+
+</mapper>

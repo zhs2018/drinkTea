@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.SubUserAnswerMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" id="SubUserAnswerMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="packetId" column="PACKET_ID" />
+		<result property="twentyRecordId" column="TWENTY_RECORD_ID" />
+		<result property="userAnswer" column="USER_ANSWER" />
+		<result property="rightOrWrong" column="RIGHT_OR_WRONG" />
+		<result property="visable" column="VISABLE" />
+		<result property="subjectKuId" column="SUBJECT_KU_ID" />
+		<result property="subjectSign" column="SUBJECT_SIGN" />
+	</resultMap>
+
+	<sql id="allSubUserAnswerItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`PACKET_ID`,tmp.`TWENTY_RECORD_ID`,tmp.`USER_ANSWER`,tmp.`RIGHT_OR_WRONG`,tmp.`VISABLE`,tmp.`SUBJECT_KU_ID`,tmp.`SUBJECT_SIGN`
+	</sql>
+
+	<sql id="allSubUserAnswerByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="packetId != null"> tmp.PACKET_ID = #{packetId} AND</if>
+        <if test="twentyRecordId != null"> tmp.TWENTY_RECORD_ID = #{twentyRecordId} AND</if>
+        <if test="userAnswer != null"> tmp.USER_ANSWER = #{userAnswer} AND</if>
+        <if test="rightOrWrong != null"> tmp.RIGHT_OR_WRONG = #{rightOrWrong} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+        <if test="subjectKuId != null"> tmp.SUBJECT_KU_ID = #{subjectKuId} AND</if>
+        <if test="subjectSign != null"> tmp.SUBJECT_SIGN = #{subjectSign} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultMap="SubUserAnswerMap">
+		SELECT <include refid="allSubUserAnswerItems" /> from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultMap="SubUserAnswerMap">
+		SELECT <include refid="allSubUserAnswerItems" /> from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultType="java.lang.Integer">
+		SELECT count(*) from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSubUserAnswerLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="packetId != null">PACKET_ID like '%${packetId}%' AND </if>
+		<if test="twentyRecordId != null">TWENTY_RECORD_ID like '%${twentyRecordId}%' AND </if>
+		<if test="userAnswer != null">USER_ANSWER like '%${userAnswer}%' AND </if>
+		<if test="rightOrWrong != null">RIGHT_OR_WRONG like '%${rightOrWrong}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+		<if test="subjectKuId != null">SUBJECT_KU_ID like '%${subjectKuId}%' AND </if>
+		<if test="subjectSign != null">SUBJECT_SIGN like '%${subjectSign}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultMap="SubUserAnswerMap">
+		SELECT <include refid="allSubUserAnswerItems" /> from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultMap="SubUserAnswerMap">
+		SELECT <include refid="allSubUserAnswerItems" /> from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultType="java.lang.Integer">
+		SELECT count(*) from sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SubUserAnswerMap">
+			SELECT <include refid="allSubUserAnswerItems" /> FROM sub_user_answer tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" resultMap="SubUserAnswerMap">
+		SELECT <include refid="allSubUserAnswerItems" /> FROM sub_user_answer tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubUserAnswerByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sub_user_answer
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="packetId != null">PACKET_ID,</if>
+			<if test="twentyRecordId != null">TWENTY_RECORD_ID,</if>
+			<if test="userAnswer != null">USER_ANSWER,</if>
+			<if test="rightOrWrong != null">RIGHT_OR_WRONG,</if>
+			<if test="visable != null">VISABLE,</if>
+			<if test="subjectKuId != null">SUBJECT_KU_ID,</if>
+			<if test="subjectSign != null">SUBJECT_SIGN,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="packetId != null">#{packetId},</if>
+			<if test="twentyRecordId != null">#{twentyRecordId},</if>
+			<if test="userAnswer != null">#{userAnswer},</if>
+			<if test="rightOrWrong != null">#{rightOrWrong},</if>
+			<if test="visable != null">#{visable},</if>
+			<if test="subjectKuId != null">#{subjectKuId},</if>
+			<if test="subjectSign != null">#{subjectSign},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer">
+		<![CDATA[delete from sub_user_answer where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer">
+		delete from sub_user_answer
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="packetId != null"> PACKET_ID = #{packetId} AND</if>
+            <if test="twentyRecordId != null"> TWENTY_RECORD_ID = #{twentyRecordId} AND</if>
+            <if test="userAnswer != null"> USER_ANSWER = #{userAnswer} AND</if>
+            <if test="rightOrWrong != null"> RIGHT_OR_WRONG = #{rightOrWrong} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+            <if test="subjectKuId != null"> SUBJECT_KU_ID = #{subjectKuId} AND</if>
+            <if test="subjectSign != null"> SUBJECT_SIGN = #{subjectSign} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubUserAnswer">
+		update sub_user_answer
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="packetId != null">PACKET_ID=#{packetId},</if>
+			<if test="twentyRecordId != null">TWENTY_RECORD_ID=#{twentyRecordId},</if>
+			<if test="userAnswer != null">USER_ANSWER=#{userAnswer},</if>
+			<if test="rightOrWrong != null">RIGHT_OR_WRONG=#{rightOrWrong},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+			<if test="subjectKuId != null">SUBJECT_KU_ID=#{subjectKuId},</if>
+			<if test="subjectSign != null">SUBJECT_SIGN=#{subjectSign},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.SeasonManageMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" id="SeasonManageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="seasonName" column="SEASON_NAME" />
+		<result property="addTime" column="ADD_TIME" />
+		<result property="isVisable" column="IS_VISABLE" />
+	</resultMap>
+
+	<sql id="allSeasonManageItems">
+		tmp.`ID`,tmp.`SEASON_NAME`,tmp.`ADD_TIME`,tmp.`IS_VISABLE`
+	</sql>
+
+	<sql id="allSeasonManageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="seasonName != null"> tmp.SEASON_NAME = #{seasonName} AND</if>
+        <if test="addTime != null"> tmp.ADD_TIME = #{addTime} AND</if>
+        <if test="isVisable != null"> tmp.IS_VISABLE = #{isVisable} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultMap="SeasonManageMap">
+		SELECT <include refid="allSeasonManageItems" /> from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultMap="SeasonManageMap">
+		SELECT <include refid="allSeasonManageItems" /> from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultType="java.lang.Integer">
+		SELECT count(*) from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSeasonManageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="seasonName != null">SEASON_NAME like '%${seasonName}%' AND </if>
+		<if test="addTime != null">ADD_TIME like '%${addTime}%' AND </if>
+		<if test="isVisable != null">IS_VISABLE like '%${isVisable}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultMap="SeasonManageMap">
+		SELECT <include refid="allSeasonManageItems" /> from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultMap="SeasonManageMap">
+		SELECT <include refid="allSeasonManageItems" /> from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultType="java.lang.Integer">
+		SELECT count(*) from season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SeasonManageMap">
+			SELECT <include refid="allSeasonManageItems" /> FROM season_manage tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" resultMap="SeasonManageMap">
+		SELECT <include refid="allSeasonManageItems" /> FROM season_manage tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSeasonManageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO season_manage
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="seasonName != null">SEASON_NAME,</if>
+			<if test="addTime != null">ADD_TIME,</if>
+			<if test="isVisable != null">IS_VISABLE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="seasonName != null">#{seasonName},</if>
+			<if test="addTime != null">#{addTime},</if>
+			<if test="isVisable != null">#{isVisable},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage">
+		<![CDATA[delete from season_manage where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage">
+		delete from season_manage
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="seasonName != null"> SEASON_NAME = #{seasonName} AND</if>
+            <if test="addTime != null"> ADD_TIME = #{addTime} AND</if>
+            <if test="isVisable != null"> IS_VISABLE = #{isVisable} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.SeasonManage">
+		update season_manage
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="seasonName != null">SEASON_NAME=#{seasonName},</if>
+			<if test="addTime != null">ADD_TIME=#{addTime},</if>
+			<if test="isVisable != null">IS_VISABLE=#{isVisable},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

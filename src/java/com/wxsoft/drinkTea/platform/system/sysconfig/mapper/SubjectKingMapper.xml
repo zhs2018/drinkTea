@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.sysconfig.mapper.SubjectKingMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" id="SubjectKingMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="subNumber" column="SUB_NUMBER" />
+		<result property="img" column="IMG" />
+		<result property="answer" column="ANSWER" />
+		<result property="createTime" column="CREATE_TIME" />
+		<result property="intro" column="INTRO" />
+	</resultMap>
+
+	<sql id="allSubjectKingItems">
+		tmp.`ID`,tmp.`SUB_NUMBER`,tmp.`IMG`,tmp.`ANSWER`,tmp.`CREATE_TIME`,tmp.`INTRO`
+	</sql>
+
+	<sql id="allSubjectKingByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="subNumber != null"> tmp.SUB_NUMBER = #{subNumber} AND</if>
+        <if test="img != null"> tmp.IMG = #{img} AND</if>
+        <if test="answer != null"> tmp.ANSWER = #{answer} AND</if>
+        <if test="createTime != null"> tmp.CREATE_TIME like '%${createTime}%' AND</if>
+        <if test="intro != null"> tmp.INTRO like '%${intro}%' AND</if>
+
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultMap="SubjectKingMap">
+		SELECT <include refid="allSubjectKingItems" /> from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultMap="SubjectKingMap">
+		SELECT <include refid="allSubjectKingItems" /> from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultType="java.lang.Integer">
+		SELECT count(*) from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSubjectKingLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="subNumber != null">SUB_NUMBER like '%${subNumber}%' AND </if>
+		<if test="img != null">IMG like '%${img}%' AND </if>
+		<if test="answer != null">ANSWER like '%${answer}%' AND </if>
+		<if test="createTime != null">CREATE_TIME like '%${createTime}%' AND </if>
+		<if test="intro != null">INTRO like '%${intro}%' AND </if>
+
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultMap="SubjectKingMap">
+		SELECT <include refid="allSubjectKingItems" /> from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultMap="SubjectKingMap">
+		SELECT <include refid="allSubjectKingItems" /> from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultType="java.lang.Integer">
+		SELECT count(*) from subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SubjectKingMap">
+			SELECT <include refid="allSubjectKingItems" /> FROM subject_king tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" resultMap="SubjectKingMap">
+		SELECT <include refid="allSubjectKingItems" /> FROM subject_king tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubjectKingByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO subject_king
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="subNumber != null">SUB_NUMBER,</if>
+			<if test="img != null">IMG,</if>
+			<if test="answer != null">ANSWER,</if>
+			<if test="createTime != null">CREATE_TIME,</if>
+			<if test="intro != null">INTRO,</if>
+
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="subNumber != null">#{subNumber},</if>
+			<if test="img != null">#{img},</if>
+			<if test="answer != null">#{answer},</if>
+			<if test="createTime != null">#{createTime},</if>
+			<if test="intro != null">#{intro},</if>
+
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing">
+		<![CDATA[delete from subject_king where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing">
+		delete from subject_king
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="subNumber != null"> SUB_NUMBER = #{subNumber} AND</if>
+            <if test="img != null"> IMG = #{img} AND</if>
+            <if test="answer != null"> ANSWER = #{answer} AND</if>
+            <if test="createTime != null"> CREATE_TIME = #{createTime} AND</if>
+            <if test="intro != null"> INTRO= #{intro} AND</if>
+
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.sysconfig.model.SubjectKing">
+		update subject_king
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="subNumber != null">SUB_NUMBER=#{subNumber},</if>
+			<if test="img != null">IMG=#{img},</if>
+			<if test="answer != null">ANSWER=#{answer},</if>
+			<if test="createTime != null">CREATE_TIME=#{createTime},</if>
+			<if test="intro != null">INTRO=#{intro},</if>
+
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

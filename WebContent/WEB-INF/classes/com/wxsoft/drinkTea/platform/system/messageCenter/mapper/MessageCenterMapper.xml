@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.messageCenter.mapper.MessageCenterMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" id="MessageCenterMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="headTitle" column="HEAD_TITLE" />
+		<result property="centerContent" column="CENTER_CONTENT" />
+		<result property="releaseTime" column="RELEASE_TIME" />
+		<result property="revokeSign" column="REVOKE_SIGN" />
+		<result property="revokeTime" column="REVOKE_TIME" />
+		<result property="delSign" column="DEL_SIGN" />
+		<result property="delTime" column="DEL_TIME" />
+		<result property="priority" column="PRIORITY" />
+		<result property="userNum" column="USER_NUM" />
+		<result property="userType" column="USER_TYPE" />
+		<result property="readSign" column="READ_SIGN" />
+		<result property="readTime" column="READ_TIME" />
+	</resultMap>
+
+	<sql id="allMessageCenterItems">
+		tmp.`ID`,tmp.`HEAD_TITLE`,tmp.`CENTER_CONTENT`,tmp.`RELEASE_TIME`,tmp.`REVOKE_SIGN`,tmp.`REVOKE_TIME`,tmp.`DEL_SIGN`,tmp.`DEL_TIME`,tmp.`PRIORITY`,tmp.`USER_NUM`,tmp.`USER_TYPE`,tmp.`READ_SIGN`,tmp.`READ_TIME`
+	</sql>
+
+	<sql id="allMessageCenterByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="headTitle != null"> tmp.HEAD_TITLE = #{headTitle} AND</if>
+        <if test="centerContent != null"> tmp.CENTER_CONTENT = #{centerContent} AND</if>
+        <if test="releaseTime != null"> tmp.RELEASE_TIME = #{releaseTime} AND</if>
+        <if test="revokeSign != null"> tmp.REVOKE_SIGN = #{revokeSign} AND</if>
+        <if test="revokeTime != null"> tmp.REVOKE_TIME = #{revokeTime} AND</if>
+        <if test="delSign != null"> tmp.DEL_SIGN = #{delSign} AND</if>
+        <if test="delTime != null"> tmp.DEL_TIME = #{delTime} AND</if>
+        <if test="priority != null"> tmp.PRIORITY = #{priority} AND</if>
+        <if test="userNum != null"> tmp.USER_NUM = #{userNum} AND</if>
+        <if test="userType != null"> tmp.USER_TYPE = #{userType} AND</if>
+        <if test="readSign != null"> tmp.READ_SIGN = #{readSign} AND</if>
+        <if test="readTime != null"> tmp.READ_TIME = #{readTime} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		SELECT <include refid="allMessageCenterItems" /> from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+	<select id="getListByTime" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		select * from message_center where release_time &gt; #{userCreateTime} and user_type =#{userType};
+	</select>
+
+<select id="getListBySex" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		select * from message_center where release_time &gt; #{userCreateTime} and user_type =#{userType} or user_type=10;
+	</select>
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		SELECT <include refid="allMessageCenterItems" /> from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultType="java.lang.Integer">
+		SELECT count(*) from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allMessageCenterLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="headTitle != null">HEAD_TITLE like '%${headTitle}%' AND </if>
+		<if test="centerContent != null">CENTER_CONTENT like '%${centerContent}%' AND </if>
+		<if test="releaseTime != null">RELEASE_TIME like '%${releaseTime}%' AND </if>
+		<if test="revokeSign != null">REVOKE_SIGN like '%${revokeSign}%' AND </if>
+		<if test="revokeTime != null">REVOKE_TIME like '%${revokeTime}%' AND </if>
+		<if test="delSign != null">DEL_SIGN like '%${delSign}%' AND </if>
+		<if test="delTime != null">DEL_TIME like '%${delTime}%' AND </if>
+		<if test="priority != null">PRIORITY like '%${priority}%' AND </if>
+		<if test="userNum != null">USER_NUM like '%${userNum}%' AND </if>
+		<if test="userType != null">USER_TYPE like '%${userType}%' AND </if>
+		<if test="readSign != null">READ_SIGN like '%${readSign}%' AND </if>
+		<if test="readTime != null">READ_TIME like '%${readTime}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		SELECT <include refid="allMessageCenterItems" /> from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		SELECT <include refid="allMessageCenterItems" /> from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultType="java.lang.Integer">
+		SELECT count(*) from message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="MessageCenterMap">
+			SELECT <include refid="allMessageCenterItems" /> FROM message_center tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" resultMap="MessageCenterMap">
+		SELECT <include refid="allMessageCenterItems" /> FROM message_center tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageCenterByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO message_center
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="headTitle != null">HEAD_TITLE,</if>
+			<if test="centerContent != null">CENTER_CONTENT,</if>
+			<if test="releaseTime != null">RELEASE_TIME,</if>
+			<if test="revokeSign != null">REVOKE_SIGN,</if>
+			<if test="revokeTime != null">REVOKE_TIME,</if>
+			<if test="delSign != null">DEL_SIGN,</if>
+			<if test="delTime != null">DEL_TIME,</if>
+			<if test="priority != null">PRIORITY,</if>
+			<if test="userNum != null">USER_NUM,</if>
+			<if test="userType != null">USER_TYPE,</if>
+			<if test="readSign != null">READ_SIGN,</if>
+			<if test="readTime != null">READ_TIME,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="headTitle != null">#{headTitle},</if>
+			<if test="centerContent != null">#{centerContent},</if>
+			<if test="releaseTime != null">#{releaseTime},</if>
+			<if test="revokeSign != null">#{revokeSign},</if>
+			<if test="revokeTime != null">#{revokeTime},</if>
+			<if test="delSign != null">#{delSign},</if>
+			<if test="delTime != null">#{delTime},</if>
+			<if test="priority != null">#{priority},</if>
+			<if test="userNum != null">#{userNum},</if>
+			<if test="userType != null">#{userType},</if>
+			<if test="readSign != null">#{readSign},</if>
+			<if test="readTime != null">#{readTime},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter">
+		<![CDATA[delete from message_center where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter">
+		delete from message_center
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="headTitle != null"> HEAD_TITLE = #{headTitle} AND</if>
+            <if test="centerContent != null"> CENTER_CONTENT = #{centerContent} AND</if>
+            <if test="releaseTime != null"> RELEASE_TIME = #{releaseTime} AND</if>
+            <if test="revokeSign != null"> REVOKE_SIGN = #{revokeSign} AND</if>
+            <if test="revokeTime != null"> REVOKE_TIME = #{revokeTime} AND</if>
+            <if test="delSign != null"> DEL_SIGN = #{delSign} AND</if>
+            <if test="delTime != null"> DEL_TIME = #{delTime} AND</if>
+            <if test="priority != null"> PRIORITY = #{priority} AND</if>
+            <if test="userNum != null"> USER_NUM = #{userNum} AND</if>
+            <if test="userType != null"> USER_TYPE = #{userType} AND</if>
+            <if test="readSign != null"> READ_SIGN = #{readSign} AND</if>
+            <if test="readTime != null"> READ_TIME = #{readTime} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.messageCenter.model.MessageCenter">
+		update message_center
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="headTitle != null">HEAD_TITLE=#{headTitle},</if>
+			<if test="centerContent != null">CENTER_CONTENT=#{centerContent},</if>
+			<if test="releaseTime != null">RELEASE_TIME=#{releaseTime},</if>
+			<if test="revokeSign != null">REVOKE_SIGN=#{revokeSign},</if>
+			<if test="revokeTime != null">REVOKE_TIME=#{revokeTime},</if>
+			<if test="delSign != null">DEL_SIGN=#{delSign},</if>
+			<if test="delTime != null">DEL_TIME=#{delTime},</if>
+			<if test="priority != null">PRIORITY=#{priority},</if>
+			<if test="userNum != null">USER_NUM=#{userNum},</if>
+			<if test="userType != null">USER_TYPE=#{userType},</if>
+			<if test="readSign != null">READ_SIGN=#{readSign},</if>
+			<if test="readTime != null">READ_TIME=#{readTime},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

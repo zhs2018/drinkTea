@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.SubOptionMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.SubOption" id="SubOptionMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="subId" column="SUB_ID" />
+		<result property="option" column="OPTION" />
+		<result property="type" column="TYPE" />
+		<result property="visable" column="VISABLE" />
+		<result property="sign" column="SIGN" />
+	</resultMap>
+
+	<sql id="allSubOptionItems">
+		tmp.`ID`,tmp.`SUB_ID`,tmp.`OPTION`,tmp.`TYPE`,tmp.`VISABLE`,tmp.`SIGN`
+	</sql>
+
+	<sql id="allSubOptionByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="subId != null"> tmp.SUB_ID = #{subId} AND</if>
+        <if test="option != null"> tmp.OPTION = #{option} AND</if>
+        <if test="type != null"> tmp.TYPE = #{type} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+        <if test="sign != null"> tmp.SIGN = #{sign} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultMap="SubOptionMap">
+		SELECT <include refid="allSubOptionItems" /> from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultMap="SubOptionMap">
+		SELECT <include refid="allSubOptionItems" /> from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultType="java.lang.Integer">
+		SELECT count(*) from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSubOptionLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="subId != null">SUB_ID like '%${subId}%' AND </if>
+		<if test="option != null">`OPTION` like '%${option}%' AND </if>
+		<if test="type != null">TYPE like '%${type}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+		<if test="sign != null">SIGN like '%${sign}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultMap="SubOptionMap">
+		SELECT <include refid="allSubOptionItems" /> from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultMap="SubOptionMap">
+		SELECT <include refid="allSubOptionItems" /> from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultType="java.lang.Integer">
+		SELECT count(*) from sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SubOptionMap">
+			SELECT <include refid="allSubOptionItems" /> FROM sub_option tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" resultMap="SubOptionMap">
+		SELECT <include refid="allSubOptionItems" /> FROM sub_option tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSubOptionByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sub_option
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="subId != null">SUB_ID,</if>
+			<if test="option != null">`OPTION`,</if>
+			<if test="type != null">TYPE,</if>
+			<if test="visable != null">VISABLE,</if>
+			<if test="sign != null">SIGN,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="subId != null">#{subId},</if>
+			<if test="option != null">#{option},</if>
+			<if test="type != null">#{type},</if>
+			<if test="visable != null">#{visable},</if>
+			<if test="sign != null">#{sign},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption">
+		<![CDATA[delete from sub_option where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption">
+		delete from sub_option
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="subId != null"> SUB_ID = #{subId} AND</if>
+            <if test="option != null"> `OPTION` = #{option} AND</if>
+            <if test="type != null"> TYPE = #{type} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+            <if test="sign != null"> SIGN = #{sign} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.SubOption">
+		update sub_option
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="subId != null">SUB_ID=#{subId},</if>
+			<if test="option != null">`OPTION`=#{option},</if>
+			<if test="type != null">TYPE=#{type},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+			<if test="sign != null">SIGN=#{sign},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+  <!-- <insert id="insertParam" parameterType="map" keyProperty="id" useGeneratedKeys="true" >
+	INSERT INTO sub_option(sub_id,`option`,type,visable)
+	values
+	<foreach collection="options" item="op" index="index" separator=",">
+      (#{subId},#{op},#{type},1)
+    </foreach>
+</insert>
+
+<insert id="insertshiyan" parameterType="map">
+	INSERT INTO sub_option(sub_id,`option`,visable)
+	values
+	<foreach collection="options" item="op" index="index" separator=",">
+      (#{subId},#{op},1)
+    </foreach>
+</insert> -->
+</mapper>

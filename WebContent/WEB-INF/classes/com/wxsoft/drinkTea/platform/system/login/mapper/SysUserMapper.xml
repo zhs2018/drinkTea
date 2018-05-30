@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.login.mapper.SysUserMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.login.model.SysUser" id="SysUserMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="phone" column="PHONE" />
+		<result property="marker" column="MARKER" />
+		<result property="image" column="IMAGE" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="createTime" column="CREATETIME" />
+		<result property="jobNumber" column="JOB_NUMBER" />
+		<result property="roleName" column="ROLE_NAME" />
+	</resultMap>
+
+	<sql id="allSysUserItems">
+		tmp.`ID`,tmp.`USER_NAME`,tmp.`PASSWORD`,tmp.`PHONE`,tmp.`MARKER`,tmp.`IMAGE`,tmp.`ADDRESS_ID`,tmp.`ROLE_ID`,tmp.`CREATETIME`,tmp.`visable`,tmp.`job_number`,tmp.`ROLE_NAME`
+	</sql>
+
+	<sql id="allSysUserByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userName != null and userName != ''"> tmp.USER_NAME = #{userName} AND</if>
+        <if test="password != null"> tmp.PASSWORD = #{password} AND</if>
+        <if test="phone != null"> tmp.PHONE = #{phone} AND</if>
+        <if test="marker != null"> tmp.MARKER = #{marker} AND</if>
+        <if test="image != null"> tmp.IMAGE = #{image} AND</if>
+        <if test="addressId != null"> tmp.ADDRESS_ID = #{addressId} AND</if>
+        <if test="roleId != null"> tmp.ROLE_ID = #{roleId} AND</if>
+        <if test="createTime != null"> tmp.CREATETIME = #{createTime} AND</if>
+        <if test="jobNumber != null"> tmp.JOB_NUMBER = #{jobNumber} AND</if>
+         <if test="roleName != null"> tmp.ROLE_NAME = #{roleName} AND</if>
+        tmp.visable = 1 AND
+	</sql>
+
+
+
+<!--根据员工编号查询订单-->
+ <select id="getPageListBysql" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+    SELECT
+    po.TABS as tabs,
+    po.ID as orderId,
+    po.ORDER_NUMBER as orderNumber,
+    po.PRICE as price,
+    po.SYS_TIME as sysTime,
+    po.ORDER_TIME as orderTime,
+    po.GOODS_TIME as goodsTime,
+    po.ADDRESS_ID as addressId,
+    po.ORDER_STATE as orderState,
+    po.CUSTOMER_MESSAGE as customerMessage,
+    mp.`name` as mpName,
+    ua.`user_name` as uaName,
+    ua.`tel_phone` as uaPhone
+    from product_order po
+    left join goods_order go on po.`id` = go.`goods_id`
+    LEFT JOIN  manage_products mp on go.`goods_id` = mp.`id`
+    left join user_address ua on po.`address_id`=ua.`id`
+    where
+    po.`user_id` = any(select wu.`id` from web_user wu where wu.`sys_user_id` = #{id})
+   </select>
+
+<!--根据员工编号查询订单并分不同状态-->
+ <select id="getPageListByOrderState" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+    SELECT
+    po.ID as orderId,
+    po.ORDER_NUMBER as orderNumber,
+    po.PRICE as price,
+    po.SYS_TIME as sysTime,
+    po.ORDER_TIME as orderTime,
+    po.GOODS_TIME as goodsTime,
+    po.ADDRESS_ID as addressId,
+    po.ORDER_STATE as orderState,
+    po.CUSTOMER_MESSAGE as customerMessage,
+    mp.`name` as mpName,
+    ua.`user_name` as uaName,
+    ua.`tel_phone` as uaPhone
+    from product_order po
+    left join goods_order go on po.`id` = go.`goods_id`
+    LEFT JOIN  manage_products mp on go.`goods_id` = mp.`id`
+    left join user_address ua on po.`address_id`=ua.`id`
+    where
+    po.`user_id` = any(select wu.`id` from web_user wu where wu.`sys_user_id` = #{id})
+    and po.`order_state` = #{orderState}
+   </select>
+
+<!--根据员工编号查询订单并根据不同时间-->
+ <select id="getPageListByTimeOrState" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+    SELECT
+    po.ID as orderId,
+    po.ORDER_NUMBER as orderNumber,
+    po.PRICE as price,
+    po.SYS_TIME as sysTime,
+    po.ORDER_TIME as orderTime,
+    po.GOODS_TIME as goodsTime,
+    po.ADDRESS_ID as addressId,
+    po.ORDER_STATE as orderState,
+    po.CUSTOMER_MESSAGE as customerMessage,
+    mp.`name` as mpName,
+    ua.`user_name` as uaName,
+    ua.`tel_phone` as uaPhone
+    from product_order po
+    left join goods_order go on po.`id` = go.`goods_id`
+    LEFT JOIN  manage_products mp on go.`goods_id` = mp.`id`
+    left join user_address ua on po.`address_id`=ua.`id`
+    where
+    po.`user_id` = any(select wu.`id` from web_user wu where wu.`sys_user_id` = #{id})
+    and po.`order_time` &lt; #{endTime}  and  po.`order_time`  &gt; #{startTime}
+     and po.`order_state` = #{orderState}
+   </select>
+
+   <!--根据员工编号查询订单并根据不同时间不同状态-->
+ <select id="getPageListByTime" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+    SELECT
+    po.ID as orderId,
+    po.ORDER_NUMBER as orderNumber,
+    po.PRICE as price,
+    po.SYS_TIME as sysTime,
+    po.ORDER_TIME as orderTime,
+    po.GOODS_TIME as goodsTime,
+    po.ADDRESS_ID as addressId,
+    po.ORDER_STATE as orderState,
+    po.CUSTOMER_MESSAGE as customerMessage,
+    mp.`name` as mpName,
+    ua.`user_name` as uaName,
+    ua.`tel_phone` as uaPhone
+    from product_order po
+    left join goods_order go on po.`id` = go.`goods_id`
+    LEFT JOIN  manage_products mp on go.`goods_id` = mp.`id`
+    left join user_address ua on po.`address_id`=ua.`id`
+    where
+    po.`user_id` = any(select wu.`id` from web_user wu where wu.`sys_user_id` = #{id})
+    and po.`order_time` &lt; #{endTime}  and  po.`order_time`  &gt; #{startTime}
+   </select>
+
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultMap="SysUserMap">
+		SELECT <include refid="allSysUserItems" /> from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultMap="SysUserMap">
+		SELECT <include refid="allSysUserItems" /> from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="java.lang.Integer">
+		SELECT count(*) from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allSysUserLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="password != null">PASSWORD like '%${password}%' AND </if>
+		<if test="phone != null">PHONE like '%${phone}%' AND </if>
+		<if test="marker != null">MARKER like '%${marker}%' AND </if>
+		<if test="image != null">IMAGE like '%${image}%' AND </if>
+		<if test="addressId != null">ADDRESS_ID like '%${addressId}%' AND </if>
+		<if test="roleId != null">ROLE_ID like '%${roleId}%' AND </if>
+		<if test="jobNumber != null">JOB_NUMBER like '%${jobNumber}%' AND </if>
+		<if test="roleName != null">ROLE_NAME like '%${roleName}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultMap="SysUserMap">
+		SELECT <include refid="allSysUserItems" /> from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultMap="SysUserMap">
+		SELECT <include refid="allSysUserItems" /> from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultType="java.lang.Integer">
+		SELECT count(*) from sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="SysUserMap">
+			SELECT <include refid="allSysUserItems" /> FROM sys_user tmp WHERE tmp.ID = #{id} and visable = 1
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" resultMap="SysUserMap">
+		SELECT <include refid="allSysUserItems" /> FROM sys_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allSysUserByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO sys_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="password != null">PASSWORD,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="marker != null">MARKER,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="addressId != null">ADDRESS_ID,</if>
+			<if test="roleId != null">ROLE_ID,</if>
+			<if test="jobNumber != null">JOB_NUMBER,</if>
+			<if test="roleName != null">ROLE_NAME,</if>
+			createTime,
+			visable,
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="password != null">#{password},</if>
+			<if test="phone != null">#{phone},</if>
+			<if test="marker != null">#{marker},</if>
+			<if test="image != null">#{image},</if>
+			<if test="addressId != null">#{addressId},</if>
+			<if test="roleId != null">#{roleId},</if>
+			<if test="jobNumber != null">#{jobNumber},</if>
+			<if test="roleName != null">#{roleName},</if>
+			now(),
+			1
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+		<![CDATA[delete from sys_user where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+		delete from sys_user
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="password != null"> PASSWORD = #{password} AND</if>
+            <if test="phone != null"> PHONE = #{phone} AND</if>
+            <if test="marker != null"> MARKER = #{marker} AND</if>
+            <if test="image != null"> IMAGE = #{image} AND</if>
+            <if test="addressId != null"> ADDRESS_ID = #{addressId} AND</if>
+            <if test="roleId != null"> ROLE_ID = #{roleId} AND</if>
+            <if test="jobNumber != null"> JOB_NUMBER = #{jobNumber} AND</if>
+             <if test="roleName != null"> ROLE_NAME= #{roleName} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.login.model.SysUser">
+		update sys_user
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="password != null">PASSWORD=#{password},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+			<if test="marker != null">MARKER=#{marker},</if>
+			<if test="image != null">IMAGE=#{image},</if>
+			<if test="addressId != null">ADDRESS_ID=#{addressId},</if>
+			<if test="roleId != null">ROLE_ID=#{roleId},</if>
+			<if test="visable != null">visable=#{visable},</if>
+			<if test="jobNumber != null">JOB_NUMBER=#{jobNumber},</if>
+			<if test="roleName != null">ROLE_NAME=#{roleName},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

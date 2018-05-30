@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.RefundMessageMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" id="RefundMessageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="orderId" column="ORDER_ID" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="refundMoney" column="REFUND_MONEY" />
+		<result property="refTime" column="REF_TIME" />
+		<result property="refundReason" column="REFUND_REASON" />
+		<result property="remarkMesssage" column="REMARK_MESSSAGE" />
+	</resultMap>
+
+	<sql id="allRefundMessageItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`ORDER_ID`,tmp.`ADDRESS_ID`,tmp.`REFUND_MONEY`,tmp.`REF_TIME`,tmp.`REFUND_REASON`,tmp.`REMARK_MESSSAGE`
+	</sql>
+
+	<sql id="allRefundMessageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="orderId != null"> tmp.ORDER_ID = #{orderId} AND</if>
+        <if test="addressId != null"> tmp.ADDRESS_ID = #{addressId} AND</if>
+        <if test="refundMoney != null"> tmp.REFUND_MONEY = #{refundMoney} AND</if>
+        <if test="refTime != null"> tmp.REF_TIME = #{refTime} AND</if>
+        <if test="refundReason != null"> tmp.REFUND_REASON = #{refundReason} AND</if>
+        <if test="remarkMesssage != null"> tmp.REMARK_MESSSAGE = #{remarkMesssage} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultMap="RefundMessageMap">
+		SELECT <include refid="allRefundMessageItems" /> from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultMap="RefundMessageMap">
+		SELECT <include refid="allRefundMessageItems" /> from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultType="java.lang.Integer">
+		SELECT count(*) from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allRefundMessageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="orderId != null">ORDER_ID like '%${orderId}%' AND </if>
+		<if test="addressId != null">ADDRESS_ID like '%${addressId}%' AND </if>
+		<if test="refundMoney != null">REFUND_MONEY like '%${refundMoney}%' AND </if>
+		<if test="refTime != null">REF_TIME like '%${refTime}%' AND </if>
+		<if test="refundReason != null">REFUND_REASON like '%${refundReason}%' AND </if>
+		<if test="remarkMesssage != null">REMARK_MESSSAGE like '%${remarkMesssage}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultMap="RefundMessageMap">
+		SELECT <include refid="allRefundMessageItems" /> from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultMap="RefundMessageMap">
+		SELECT <include refid="allRefundMessageItems" /> from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultType="java.lang.Integer">
+		SELECT count(*) from refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="RefundMessageMap">
+			SELECT <include refid="allRefundMessageItems" /> FROM refund_message tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" resultMap="RefundMessageMap">
+		SELECT <include refid="allRefundMessageItems" /> FROM refund_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allRefundMessageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO refund_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="orderId != null">ORDER_ID,</if>
+			<if test="addressId != null">ADDRESS_ID,</if>
+			<if test="refundMoney != null">REFUND_MONEY,</if>
+			<if test="refTime != null">REF_TIME,</if>
+			<if test="refundReason != null">REFUND_REASON,</if>
+			<if test="remarkMesssage != null">REMARK_MESSSAGE,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="orderId != null">#{orderId},</if>
+			<if test="addressId != null">#{addressId},</if>
+			<if test="refundMoney != null">#{refundMoney},</if>
+			<if test="refTime != null">#{refTime},</if>
+			<if test="refundReason != null">#{refundReason},</if>
+			<if test="remarkMesssage != null">#{remarkMesssage},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage">
+		<![CDATA[delete from refund_message where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage">
+		delete from refund_message
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="orderId != null"> ORDER_ID = #{orderId} AND</if>
+            <if test="addressId != null"> ADDRESS_ID = #{addressId} AND</if>
+            <if test="refundMoney != null"> REFUND_MONEY = #{refundMoney} AND</if>
+            <if test="refTime != null"> REF_TIME = #{refTime} AND</if>
+            <if test="refundReason != null"> REFUND_REASON = #{refundReason} AND</if>
+            <if test="remarkMesssage != null"> REMARK_MESSSAGE = #{remarkMesssage} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.RefundMessage">
+		update refund_message
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="orderId != null">ORDER_ID=#{orderId},</if>
+			<if test="addressId != null">ADDRESS_ID=#{addressId},</if>
+			<if test="refundMoney != null">REFUND_MONEY=#{refundMoney},</if>
+			<if test="refTime != null">REF_TIME=#{refTime},</if>
+			<if test="refundReason != null">REFUND_REASON=#{refundReason},</if>
+			<if test="remarkMesssage != null">REMARK_MESSSAGE=#{remarkMesssage},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

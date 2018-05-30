@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.evaluate.mapper.EvaluateProMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" id="EvaluateProMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="goodsId" column="GOODS_ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="rank" column="RANK" />
+		<result property="content" column="CONTENT" />
+		<result property="evaluateTime" column="EVALUATE_TIME" />
+		<result property="checkoutTime" column="CHECKOUT_TIME" />
+		<result property="status" column="STATUS" />
+		<!-- <association  property="webUser" resultMap="shiyan">
+		</association> -->
+	</resultMap>
+
+	<!-- <resultMap id="shiyan" type="com.wxsoft.drinkTea.platform.system.order.model.WebUser">
+		<id property="id" column="ID" />
+		<result property="userName" column="user_name" />
+		<result property="password" column="password" />
+		<result property="phone" column="phone" />
+	</resultMap> -->
+
+	<sql id="allEvaluateProItems">
+		tmp.`ID`,tmp.`GOODS_ID`,tmp.`USER_ID`,tmp.`RANK`,tmp.`CONTENT`,tmp.`EVALUATE_TIME`,tmp.`CHECKOUT_TIME`,tmp.`STATUS`
+	</sql>
+
+	<sql id="allEvaluateProByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="goodsId != null"> tmp.GOODS_ID = #{goodsId} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="rank != null"> tmp.RANK = #{rank} AND</if>
+        <if test="content != null"> tmp.CONTENT = #{content} AND</if>
+        <if test="evaluateTime != null"> tmp.EVALUATE_TIME = #{evaluateTime} AND</if>
+        <if test="checkoutTime != null"> tmp.CHECKOUT_TIME = #{checkoutTime} AND</if>
+        <if test="status != null"> tmp.STATUS = #{status} AND</if>
+        <if test="statusForIn != null"> tmp.STATUS in (${statusForIn}) AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultMap="EvaluateProMap">
+		SELECT <include refid="allEvaluateProItems" /> from evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro">
+ 		select
+ 		ep.`id` as id,
+		ep.`goods_id` as goodsId,
+		ep.`user_id` as userId,
+		ep.`rank` as rank,
+		ep.`content` as content,
+		ep.`evaluate_time` as evaluateTime,
+		ep.`checkout_time` as checkoutTime,
+		ep.`status` as status,
+		wu.`user_name` as wuName,
+		mp.`name` as mpName
+		from evaluate_pro ep
+		left join web_user wu on ep.`user_id` = wu.`id`
+		left join manage_products mp on ep.`goods_id` = mp.`id` where ep.`status` = #{status}
+		group by ep.`id`
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultType="java.lang.Integer">
+		SELECT count(*) from evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allEvaluateProLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="goodsId != null">GOODS_ID like '%${goodsId}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="rank != null">RANK like '%${rank}%' AND </if>
+		<if test="content != null">CONTENT like '%${content}%' AND </if>
+		<if test="evaluateTime != null">EVALUATE_TIME like '%${evaluateTime}%' AND </if>
+		<if test="checkoutTime != null">CHECKOUT_TIME like '%${checkoutTime}%' AND </if>
+		<if test="status != null">STATUS like '%${status}%' AND </if>
+        <if test="statusForIn != null"> tmp.STATUS in ${statusForIn} AND</if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultMap="EvaluateProMap">
+		SELECT <include refid="allEvaluateProItems" /> from evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultMap="EvaluateProMap">
+		SELECT <include refid="allEvaluateProItems" /> from evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultType="java.lang.Integer">
+		SELECT count(*) from evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="EvaluateProMap">
+			SELECT <include refid="allEvaluateProItems" /> FROM evaluate_pro tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" resultMap="EvaluateProMap">
+		SELECT <include refid="allEvaluateProItems" /> FROM evaluate_pro tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allEvaluateProByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO evaluate_pro
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="goodsId != null">GOODS_ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="rank != null">RANK,</if>
+			<if test="content != null">CONTENT,</if>
+			<if test="evaluateTime != null">EVALUATE_TIME,</if>
+			<if test="checkoutTime != null">CHECKOUT_TIME,</if>
+			<if test="status != null">STATUS,</if>
+			<if test="statusForIn != null">STATUS,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="goodsId != null">#{goodsId},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="rank != null">#{rank},</if>
+			<if test="content != null">#{content},</if>
+			<if test="evaluateTime != null">#{evaluateTime},</if>
+			<if test="checkoutTime != null">#{checkoutTime},</if>
+			<if test="status != null">#{status},</if>
+			<if test="statusForIn != null">#{statusForIn},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro">
+		<![CDATA[delete from evaluate_pro where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro">
+		delete from evaluate_pro
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="goodsId != null"> GOODS_ID = #{goodsId} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="rank != null"> RANK = #{rank} AND</if>
+            <if test="content != null"> CONTENT = #{content} AND</if>
+            <if test="evaluateTime != null"> EVALUATE_TIME = #{evaluateTime} AND</if>
+            <if test="checkoutTime != null"> CHECKOUT_TIME = #{checkoutTime} AND</if>
+            <if test="status != null"> STATUS = #{status} AND</if>
+            <if test="statusForIn != null"> STATUS = #{statusForIn} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro">
+		update evaluate_pro
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="goodsId != null">GOODS_ID=#{goodsId},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="rank != null">RANK=#{rank},</if>
+			<if test="content != null">CONTENT=#{content},</if>
+			<if test="evaluateTime != null">EVALUATE_TIME=#{evaluateTime},</if>
+			CHECKOUT_TIME=now(),
+			<if test="status != null">STATUS=#{status},</if>
+			<if test="statusForIn != null">STATUS=#{statusForIn},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+	<!-- 查询所有的评论，每一条评论里面有关于评论者的名字-->
+	<select id="getEvaAndWebUser" parameterType="int" resultType="com.wxsoft.drinkTea.platform.system.evaluate.model.EvaluatePro">
+		select
+		ep.`goods_id` as goodsId,
+		ep.`user_id` as userId,
+		ep.`rank` as rank,
+		ep.`content` as content,
+		ep.`evaluate_time` as evaluateTime,
+		ep.`checkout_time` as checkoutTime,
+		ep.`status` as status,
+		wu.`user_name` as wuName,
+		mp.`name` as mpName
+		from evaluate_pro ep
+		left join web_user wu on ep.`user_id` = wu.`id`
+		left join manage_products mp on ep.`goods_id` = mp.`id`
+		group by ep.`id`
+	</select>
+
+</mapper>

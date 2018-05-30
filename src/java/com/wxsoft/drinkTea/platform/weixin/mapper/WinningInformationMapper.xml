@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.WinningInformationMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" id="WinningInformationMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userid" column="USERID" />
+		<result property="prizeid" column="PRIZEID" />
+		<result property="time" column="TIME" />
+		<result property="visible" column="VISIBLE" />
+		<result property="sendSign" column="SEND_SIGN" />
+	</resultMap>
+
+	<sql id="allWinningInformationItems">
+		tmp.`ID`,tmp.`USERID`,tmp.`PRIZEID`,tmp.`TIME`,tmp.`VISIBLE`,tmp.`SEND_SIGN`
+	</sql>
+
+	<sql id="allWinningInformationByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userid != null"> tmp.USERID = #{userid} AND</if>
+        <if test="prizeid != null"> tmp.PRIZEID = #{prizeid} AND</if>
+        <if test="time != null"> tmp.TIME = #{time} AND</if>
+        <if test="visible != null"> tmp.VISIBLE = #{visible} AND</if>
+         <if test="sendSign != null"> tmp.SEND_SIGN = #{sendSign} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultMap="WinningInformationMap">
+		SELECT <include refid="allWinningInformationItems" /> from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultMap="WinningInformationMap">
+		SELECT <include refid="allWinningInformationItems" /> from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultType="java.lang.Integer">
+		SELECT count(*) from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allWinningInformationLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userid != null">USERID like '%${userid}%' AND </if>
+		<if test="prizeid != null">PRIZEID like '%${prizeid}%' AND </if>
+		<if test="time != null">TIME like '%${time}%' AND </if>
+		<if test="visible != null">VISIBLE like '%${visible}%' AND </if>
+		<if test="sendSign != null">SEND_SIGN like '%${sendSign}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultMap="WinningInformationMap">
+		SELECT <include refid="allWinningInformationItems" /> from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultMap="WinningInformationMap">
+		SELECT <include refid="allWinningInformationItems" /> from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultType="java.lang.Integer">
+		SELECT count(*) from winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="WinningInformationMap">
+			SELECT <include refid="allWinningInformationItems" /> FROM winning_information tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" resultMap="WinningInformationMap">
+		SELECT <include refid="allWinningInformationItems" /> FROM winning_information tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWinningInformationByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO winning_information
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userid != null">USERID,</if>
+			<if test="prizeid != null">PRIZEID,</if>
+			<if test="time != null">TIME,</if>
+			<if test="visible != null">VISIBLE,</if>
+			<if test="sendSign != null">SEND_SIGN,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userid != null">#{userid},</if>
+			<if test="prizeid != null">#{prizeid},</if>
+			<if test="time != null">#{time},</if>
+			<if test="visible != null">#{visible},</if>
+		    <if test="sendSign != null">#{sendSign},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation">
+		<![CDATA[delete from winning_information where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation">
+		delete from winning_information
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userid != null"> USERID = #{userid} AND</if>
+            <if test="prizeid != null"> PRIZEID = #{prizeid} AND</if>
+            <if test="time != null"> TIME = #{time} AND</if>
+            <if test="visible != null"> VISIBLE = #{visible} AND</if>
+            <if test="sendSign != null"> SEND_SIGN= #{sendSign} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WinningInformation">
+		update winning_information
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userid != null">USERID=#{userid},</if>
+			<if test="prizeid != null">PRIZEID=#{prizeid},</if>
+			<if test="time != null">TIME=#{time},</if>
+			<if test="visible != null">VISIBLE=#{visible},</if>
+			<if test="sendSign != null">SEND_SIGN=#{sendSign},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

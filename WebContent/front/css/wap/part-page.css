@@ -1,0 +1,205 @@
+/*分类开始*/
+.sousuo{width:640px; padding-left:36px; position:relative;}
+.sousuo .search{width:566px; height:53px; border:1px solid #eeeeee; border-radius:10px; padding:0 10px; font-size:22px; color:#999; margin:15px 0; line-height:55px;}
+.sousuo .search-img{position:absolute; top:-8px; right:18px; cursor:pointer;}
+#w-content1{width:640px; margin:0 auto; overflow:hidden; border-top:1px solid #e5e5e5;}
+#w-content1 .nav-tabs{width:180px; float:left; background:#eeeeee;}
+#w-content1 .nav-tabs li{width:180px; height:120px; border-bottom:1px solid #e1e1e1;}
+#w-content1 .nav-tabs li a{margin:0; padding:0; font-size:30px; color:#333; text-align:center; line-height:120px;}
+#w-content1 .tab-content{width:460px; float:right; padding-right:10px;}
+#w-content1 .nav-tabs .first{border:none;}
+.tab-content .classification a{text-decoration:none;}
+.tab-content .classification li{width:146px; text-align:center; display:inline-block; vertical-align:top; margin-top:9px;}
+.tab-content .classification li img{width:100px; height:100px;}
+.tab-content .classification li h3{margin:0; font-size:24px; color:#888; line-height:30px; font-family:微软雅黑;}
+/*分类结束*/
+/*水果页面开始*/
+.fruit{padding:0;}
+.fruit .return{margin:0 15px; width:20px; height:32px;}
+#w-content{width:640px; margin:0 auto; overflow:hidden; background:#eeeeee;}
+#w-content .screening{border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; background-color:#fff; height:85px; margin-bottom:15px;}
+#w-content .screening ul li{width:150px; display:inline-block; vertical-align:top; text-align:center; margin-top:25px;}
+#w-content .screening ul li a{text-decoration:none; font-size:25px; color:#333;}
+#w-content .screening ul li a img{width:12px; height:7px;}
+#w-content .screening ul .on a{color:#fca815;}
+#w-content .frs_column ul li{float:left;width:317px; border:1px solid #e5e5e5; background:#fff; padding-bottom:15px; margin-bottom:8px;}
+#w-content .frs_column ul .last{margin-bottom:0;}
+#w-content .frs_column ul .spacing:nth-child(2n){margin-left:6px;}
+#w-content .frs_column ul li h3{font-size:24px; color:#333; font-weight:100; margin:0; padding:20px 0 0 20px;}
+#w-content .frs_column ul li .price{width:314px; font-size:24px; color:#fe0000; padding:0 20px;}
+#w-content .frs_column ul li .price span{color:#333;}
+#w-content .frs_column ul li .price .sp-cart{width:33px; height:33px; float:right;}
+#w-content .frs_column ul li .fruits-img{width:314px; height:314px; border-bottom:1px solid #e5e5e5;}
+/*水果页面结束*/
+/*详情页面开始*/
+.details{display:inline-block; vertical-align:top; text-align:center;}
+.details h1{font-size:16px; color:#333; font-weight:100;}
+.details .search-img1{margin-left:500px;}
+#details-banner{border-top:1px solid #e5e5e4; border-bottom:1px solid #e5e5e4;}
+#details-banner .dtlner{box-shadow:none; position:relative;}
+#details-banner .dtlner .slides li img{height:640px;}
+#details-banner .dtlner .collection{width:35px; height:32px; position:absolute; bottom:20px; right:40px; z-index:999;}
+.details-cn{padding-left:25px;}
+.details-cn h2{font-size:34px; color:#333; font-weight:100;}
+.details-cn h3{font-size:30px; color:#fca815; font-weight:100;}
+.details-cn .price{color:#fe0000; padding-bottom:10px;}
+.discount{background:#eeeeee; padding:15px 0; padding-left:25px;}
+.discount .fold{font-size:24px; color:#666; margin-bottom:25px;}
+.discount img.rotate135{width:10px; height:10px; margin-right:37px;margin-top:12px; cursor:pointer; transform:rotate(135deg); -ms-transform:rotate(135deg);/* IE 9 */ -moz-transform:rotate(135deg);/* Firefox */ -webkit-transform:rotate(135deg); /* Safari 和 Chrome */ -o-transform:rotate(135deg);}
+.discount img.rotate-45{width:10px; height:10px; margin-right:37px;margin-top:12px; cursor:pointer; transform:rotate(-45deg); -ms-transform:rotate(-45deg);/* IE 9 */ -moz-transform:rotate(-45deg);/* Firefox */ -webkit-transform:rotate(-45deg); /* Safari 和 Chrome */ -o-transform:rotate(-45deg);}
+.discount .full-cut{background:#fe0000; border:none; padding:8px 15px; border-radius:5px; font-size:20px; color:#fff; margin-right:10px; float:left;}
+.discount .full-cut1{background:#fe0000; border:none; padding:8px 15px; border-radius:5px; font-size:20px; color:#fff; margin-right:10px;}
+.w-displayNone{display: none;}
+.w-couponTitle1FontSize24{font-size: 24px;}
+.w-couponDetails1{font-size: 20px;}
+.w-markP{color: #999; font-size: 24px;}
+.w-noProduct{position: fixed; bottom: 90px; height: 50px; line-height: 50px; left: 0; right: 0; width: 640px; margin: 0 auto; color: white; font-size: 24px; text-align: center; background:rgba(0,0,0,0.5);}
+.w-couponMon{display: inline-block; padding-top: 5px;}
+.w-marginT10{display: block; margin-top: 30px;}
+.discount .dtls{display:none;}
+.discount p{font-size:24px; color:#666;}
+.discount .hde{display:none;}
+.gauge{font-size:24px; color:#999; line-height:80px; padding-left:25px; padding-top: 20px;padding-bottom: 20px;}
+.gauge .gunge-bt{width:125px; height:55px; background:#fff; border:1px solid #999; border-radius:10px; margin-left:5px; font-size:24px; color:#999;}
+.slide{background:#eeeeee; text-align:center; font-size:24px; color:#333; line-height:90px;}
+.shopping{height:90px; position:fixed;bottom:0;background:#fca815;width: 640px;}
+.shopping .spleft,.spcenter,.spright{display:inline-block; vertical-align:top;}
+.shopping .spleft{width:115px; text-align:center; position:relative;}
+.shopping .spleft img{width:39px; height:39px; margin-top:25px;}
+.shopping .spleft .number{width:27px; height:27px; background:#fff; border-radius:20px; font-family:"Arial"; font-size:24px; color:#fca815; line-height:27px; text-align:center; position:absolute; top:15px; left:65px;}
+.shopping .spright{width:210px; text-align:center; line-height:90px; font-size:30px; color:#fff; cursor:pointer;}
+.shopping .spcenter{width:300px; height:88px; background:#fff; margin-top:1px; text-align:center; padding-top:16px;}
+.shopping .spcenter img{width:32px; height:32px; cursor:pointer;}
+.shopping .spcenter .buy{margin:0 20px; width:145px; height:58px; background:#fff; border:2px solid #fca815; border-radius:10px; font-family:"Arial"; font-size:30px; color:#fca815; text-align:center; line-height:58px;}
+.shopping1{height:90px; position:fixed;bottom:0;width: 640px;}
+.shopping1 .spleft,.spcenter,.spright{display:inline-block; vertical-align:top;}
+.shopping1 .spleft{width:115px; height: 90px;background:#fca815; text-align:center; position:relative;}
+.shopping1 .spleft img{width:39px; height:39px; margin-top:25px;}
+.shopping1 .spleft .number{width:27px; height:27px; background:#fff; border-radius:20px; font-family:"Arial"; font-size:24px; color:#fca815; line-height:27px; text-align:center; position:absolute; top:15px; left:65px;}
+.shopping1 .spright{width:225px; background:#fca815; text-align:center; line-height:90px; font-size:30px; color:#fff; cursor:pointer;}
+.shopping1 .spright2{width:225px; background:#999; text-align:center; line-height:90px; font-size:30px; color:#fff; cursor:pointer;}
+.shopping1 .spcenter{width:300px; height:88px; background:#fff; margin-top:1px; text-align:center; padding-top:16px;}
+.shopping1 .spcenter img{width:32px; height:32px; cursor:pointer;}
+.shopping1 .spcenter .buy{margin:0 20px; width:145px; height:58px; background:#fff; border:2px solid #fca815; border-radius:10px; font-family:"Arial"; font-size:30px; color:#fca815; text-align:center; line-height:58px;}
+/*详情页面结束*/
+/*商品详情页面开始*/
+.commodity-nav{border-bottom:8px solid #eeeeee; margin-bottom:10px; padding:0 80px;}
+.commodity-nav ul a{text-decoration:none;}
+.commodity-nav ul a li{display:inline-block; vertical-align:top; font-size:24px; color:#333; line-height:85px; border-bottom:4px solid #fff;}
+.commodity-nav ul a .two{float:right;}
+.commodity-nav ul a .on{border-bottom:4px solid #fca815; color:#fca815;}
+.poster1,.poster2,.poster3,.poster4,.poster5,.poster6{overflow:hidden;}
+.poster1,.poster1 img{width:640px; height:623px;}
+.poster2,.poster2 img{width:640px; height:621px;}
+.poster3,.poster3 img{width:640px; height:663px;}
+.poster4,.poster4 img{width:640px; height:667px;}
+.poster5,.poster5 img{width:640px; height:520px;}
+.poster6,.poster6 img{width:640px; height:430px;}
+/*商品详情页面结束*/
+/*商品评价页面开始*/
+.evaluation{background:#eeeeee; padding:20px 0; border-top:1px solid #e5e5e5;}
+.evaluation button{width:120px; height:58px; background:#fff; border:1px solid #e5e5e5; font-size:24px; color:#333; text-align:center; line-height:58px; margin-left:29px;}
+.evaluation .on{background:#fca815; color:#fff; border:1px solid #fca815;}
+.cdity-content{background:#eeeeee;}
+.cdity-content li{background:#fff; margin-bottom:10px;}
+.cdity-content .lag{margin-bottom:0;}
+.cdity-content .title{width:615px; margin:0 auto; border-bottom:1px solid #e5e5e5; padding:0 20px; font-size:24px; color:#333; line-height:60px;}
+.cdity-content .title span{float:right; font-size:18px; color:#999;}
+.eltinct{width:615px; margin:0 auto; padding:0 20px;}
+.eltinct .star{margin:15px 0 25px 0;}
+.eltinct .star img{width:24px; height:24px; margin-right:15px;}
+.eltinct p{font-size:24px; color:#333; line-height:30px;}
+.eltinct h3{margin:0; font-size:20px; color:#999; font-weight:100; padding:25px 0;}
+.btm{background:#eeeeee; padding:38px 0; text-align:center; font-size:24px; color:#999;}
+.btm .left{margin-right:10px;}
+.btm .right{margin-left:10px;}
+/*商品评价页面结束*/
+/*购物车开始*/
+.information{background:#fff7d1; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5; font-size:24px; color:#fd9c02; line-height:54px; text-align:center;}
+.information img{width:20px; height:30px; margin-left:70px;}
+.shopping-cart{margin-bottom:120px;}
+.shopping-cart li{border-bottom:1px solid #e5e5e5; padding:13px;}
+.shopping-cart .check,.select-number,.payable{display:inline-block; vertical-align:top;}
+.shopping-cart .check{margin-right:10px;}
+.shopping-cart .check img{width:33px; height:33px; text-align:center; margin-top:60px;}
+.shopping-cart .select-number{margin-right:15px;}
+.shopping-cart .select-number .picture{width:162px;position:relative; height:162px; border:1px solid #e5e5e5;}
+.shopping-cart .select-number .picture img{width:160px; height:160px;}
+.shopping-cart .select-number .add-subtract{border:2px solid #fca815; border-radius:10px; margin-top:13px; text-align:center;}
+.shopping-cart .select-number .add-subtract img{width:26px; height:26px;}
+.shopping-cart .select-number .add-subtract button{width:55px; height:44px; background:#fff; border-left:2px solid #fca815; border-right:2px solid #fca815; border-top:none; border-bottom:none; line-height:44px; text-align:center; font-size:24px; color:#fca815; margin:0 9px;}
+.shopping-cart .payable h2{font-size:24px; color:#333; font-weight:100; padding-top:40px; width:380px; overflow:hidden; white-space:nowrap; text-overflow:ellipsis;}
+.shopping-cart .payable h3{font-size:24px; color:#999; font-weight:100; line-height:50px;}
+.shopping-cart .payable h4{font-size:24px; color:#ff0000;}
+.shopping-cart .payable .del{weight:34px; height:34px; float:right; margin-top:-40px;}
+.shopping .total{display:inline-block; vertical-align:top; width:415px; height:90px; background:#fff; padding-left:45px; line-height:90px; font-size:24px; color:#333;}
+.shopping .total span{font-size:34px; color:#ff0000;}
+/*购物车结束*/
+/*确认订单开始*/
+.address{padding:10px 0;}
+.address .bg{width:640px; height:200px; background-image:url(../images/bg.jpg); text-align:center; line-height:200px; font-size:34px; color:#999;}
+.address .bg img{width:19px; height:30px; margin-left:15px;}
+.shopping-cart .payable h4 span{float:right; color:#333;}
+.purchase-information{padding:0px 0 15px 0;}
+.purchase-information .pcifmt{margin-bottom:15px; border-bottom:1px solid #e5e5e5; background:#fff; padding:20px 30px; font-size:24px; color:#333;}
+.purchase-information .pcifmt span{float:right;}
+.purchase-information .pcifmt span img{width:18px; height:32px; margin-left:10px;}
+.purchase-information .pcifmt button{background:#ff0000; border:none; border-radius:10px; font-size:20px; color:#fff; padding:0 5px; margin-left:25px;}
+.purchase-information .pcifmt .divBtn{background:#ff0000; display:inline-block; border:none; border-radius:10px; font-size:20px; color:#fff; padding:0 5px; margin-left:25px;}
+.purchase-information .pcifmt .money{color:#ff0000;}
+.purchase-information .one{margin-bottom:0; white-space: normal}
+/*确认订单结束*/
+/*支付成功开始*/
+.receiving{background:#fff; padding:20px 30px; margin-top:13px; border-top:1px solid #e5e5e5; border-bottom:1px solid #e5e5e5;}
+.receiving .location,.pyptlet{display:inline-block; vertical-align:top;}
+.receiving .location img{width:50px; padding:35px 0;}
+.receiving .pyptlet h2{margin:0; font-size:30px; color:#333; font-weight:100;}
+.receiving .pyptlet h2 span{margin-left:110px;}
+.receiving .pyptlet p{font-size:24px; color:#333; line-height:30px; width:510px; margin-top:10px;}
+.oddetls{border-bottom:1px solid #e5e5e5; background:#fff; padding:20px 30px; font-size:24px; color:#333;}
+.oddetls span{color:#ff0000;}
+.oddetls .pagean{text-align:right;}
+.oddetls .pagean button{background:#fff; border:1px solid #e8e8e8; padding:5px 10px; margin-left:20px;}
+.safety{margin-top:25px;}
+.safety h3{font-size:24px; color:#333; margin:0; font-weight:100;}
+.safety p{font-size:18px; color:#333; line-height:25px;}
+.safety p span{color:#ff0000;}
+/*支付成功结束*/
+/*新增收货地址开始*/
+.first{margin-top:13px;}
+.new-address{padding:0 25px; background:#fff;}
+.new-address .tle{border-bottom:1px solid #e5e5e5; font-size:30px; color:#333; line-height:90px;}
+.new-address .tle input{width:400px; font-size:18px; line-height:50px; border:none;}
+.default{text-align:right; margin-top:13px; font-size:24px; color:#333; padding-right:40px;}
+.default img{width:35px; margin-right:15px;}
+/*新增收货地址结束*/
+/*购物车编辑开始*/
+.shopping-cart .payable .add-subtract{width:162px; border:2px solid #fca815; border-radius:10px; margin-top:13px; text-align:center;}
+.shopping-cart .payable .add-subtract img{width:26px; height:26px;}
+.shopping-cart .payable .add-subtract button{width:55px; height:44px; background:#fff; border-left:2px solid #fca815; border-right:2px solid #fca815; border-top:none; border-bottom:none; line-height:44px; text-align:center; font-size:24px; color:#fca815; margin:0 9px;}
+.shopping-cart .payable .pstg{float:right; margin-top:-40px;}
+.shopping .total .al{width:33px; margin-right:17px;}
+/*购物车编辑结束*/
+.w-Hbox-cancleBtn:hover, .w-Hbox-cancleBtn:active, .w-Hbox-cancleBtn:focus{color: #333; text-decoration: none;}
+.w-Hbox-okBtn:hover,.w-Hbox-okBtn:active,.w-Hbox-okBtn:focus{color: #FFFFFF;}
+/*选择配送方式弹窗*/
+.w-checkWay{cursor: pointer;}
+#HBox{border-radius: 10px;}
+#HBox1{border-radius: 10px;}
+.w-Hbox-title{height: 90px; line-height: 90px; border-bottom: 1px solid #e5e5e5; text-align: center; font-size: 30px; margin: 0 10px;}
+.w-HboxChecked{background: url("../../images/wap/w-success.png")no-repeat 40px center;}
+.w-HboxUnchecked{background: url("../../images/wap/w-unchecked.png")no-repeat 40px center;}
+.w-HboxChecked1{background: url("../../images/wap/w-success.png")no-repeat 40px center;}
+.w-HboxUnchecked1{background: url("../../images/wap/w-unchecked.png")no-repeat 40px center;}
+.w-Hbox-listDetails{height: 70px; line-height: 70px; border-bottom: 1px solid #e5e5e5; padding-left: 100px; font-size: 24px; margin: 0 10px;}
+.w-Hbox-listDetails1{height: 70px; line-height: 70px; border-bottom: 1px solid #e5e5e5; padding-left: 100px; font-size: 24px; margin: 0 10px;}
+.w-Hbox-listDetails2{height: 70px; line-height: 70px; border-bottom: 1px solid #e5e5e5; padding-left: 50px; font-size: 24px; margin: 0 10px;}
+.w-Hbox-foot{margin-top: 30px; text-align: center;}
+.w-Hbox-cancleBtn{padding:8px 50px; display:inline-block; border-radius:3px; border: none; background-color: #EEEEEE; color:#333; padding: 8px 50px; font-size: 30px; display: inline-block;}
+.w-Hbox-okBtn{margin-left: 30px; padding: 8px 50px; border: none; display:inline-block; border-radius:3px; background-color:#96b72c; color:#fff; font-size: 30px; display: inline-block;}
+.paddingL13{padding-left: 13px;}
+.w-allcheckd{padding: 20px 0; overflow: hidden; border-bottom: 1px solid #e5e5e5;}
+.w-allcheckd .paddingL13 img{margin-top: 0; float: left; margin-top: 4px;}
+.w-allcheck span{float: left; margin-left: 15px; font-size: 30px; height: 40px; line-height: 40px;}
+.w-allcheck img{width: 33px; height: 33px; text-align: center;}
+.w-marginT3{display: inline-block; margin-top: -7px;}

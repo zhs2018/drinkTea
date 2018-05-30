@@ -1,0 +1,684 @@
+@charset "UTF-8";/*css reset*/
+body, nav, dl, dt, dd, p, h1, h2, h3, h4, h5, ul, ol, li, input, button, textarea, footer {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: "SF Pro SC","SF Pro Text","SF Pro Icons","PingFang SC","Helvetica Neue","Helvetica","Arial",sans-serif;
+    -webkit-overflow-scrolling: touch;
+    font-size: 1rem;
+    background: #eeeeee;
+}
+
+ul, ol {
+    list-style: none;
+}
+
+i {
+    font-style: normal;
+}
+
+a {
+    text-decoration: none;
+    color: #222;
+}
+
+.block {
+    display: block !important;
+}
+
+.height_50 {
+    height: 50px;
+    overflow: hidden;
+}
+
+.clear {
+    clear: both;
+}
+/* @font-face {
+    /* font-family: SketchRockwell; */
+    src: url('../../fonts/HYChengXingJ.ttf');
+}
+ */
+body{
+
+}
+.index-body{
+    background: url(../../image/weixin/teaking/bg.png);
+    background-size:100% 100% ;
+    overflow-y: auto;
+    height: 100%;
+}
+.start_btn{
+    position: absolute;
+    bottom: 2.8125rem;
+    width: 18rem;
+    height: 5rem;
+    line-height:6rem ;
+    background: url(../../image/weixin/teaking/btn01.png);
+    background-size: 100% 100%;
+    left: 50%;
+    /* font-family: SketchRockwell; */
+    margin-left: -9rem;
+    font-size:1.875rem ;
+    color: #fff;
+    text-align: center;
+}
+
+.start_btn2{
+    position: absolute;
+    bottom: 7.33125rem;
+    width: 18rem;
+    height: 5rem;
+    line-height:6rem ;
+    background: url(../../image/weixin/teaking/btn01.png);
+    background-size: 100% 100%;
+    left: 50%;
+    /* font-family: SketchRockwell; */
+    margin-left: -9rem;
+    font-size:1.875rem ;
+    color: #fff;
+    text-align: center;
+}
+.tea1{
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    height: 2.7rem;
+    width: 2.7rem;
+    background: url(../../image/weixin/teaking/yz.png);
+    background-size: 100% 100%;
+}
+.tea2{
+    position: absolute;
+    bottom: 1.875rem;
+    right: 0;
+    height: 6.46875rem;
+    width: 5.1875rem;
+    background: url(../../image/weixin/teaking/tea.png);
+    background-size: 100% 100%;
+}
+.index-gz{
+    /* font-family: SketchRockwell; */
+    position: absolute;
+    bottom: 0.625rem;
+    text-align: center;
+    background:url('../../image/weixin/teaking/btn02.png') ;
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;
+    width: 4.5625rem;
+    height:1.5625rem ;
+    line-height: 1.5625rem ;
+    color: #fff;
+    left: 50%;
+    margin-left: -2.28125rem;
+}
+
+/**answer.html**/
+.answer-bg{
+    background: url(../../image/weixin/teaking/bg2.png);
+    background-size:100% 100% ;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.time {
+   /*  font-family: SketchRockwell; */
+    font-size: 1.875rem;
+    position: absolute;
+    text-align: center;
+    right: 1rem;
+    height: 0.78125rem;
+    background: url("../../image/weixin/teaking/img01.png");
+    background-size: 100% 100%;
+    width: 3.4375rem;
+    height:3.59375rem ;
+    line-height: 3.7rem ;
+   /* top: 0.87125rem;*/
+}
+.answer-div{
+    margin: 0 0.75rem;
+    /*padding-top:2.0625rem; ;*/
+    box-sizing: border-box;
+}
+.answer-number{
+    /* font-family: SketchRockwell; */
+    font-size: 1.5rem;
+}
+.answer-number label{
+    color: #227d3c;
+}
+.answer-title{
+    /* font-family: SketchRockwell; */
+    font-size: 1.125rem;
+    width: 80%;
+    margin-top: 1.3rem;
+    float: left;
+}
+.answer-ul{
+    /*margin-top: 3.125rem;*/
+    clear: both;
+    overflow: hidden;
+}
+.height_7{
+overflow: hidden;
+}
+.answer-ul li{
+    position: relative;
+    display: inline-block;
+    float: left;
+    width: 50%;
+    height: 3rem;
+    line-height:3rem ;
+    background: url("../../image/weixin/teaking/img02.png");
+    margin-bottom: 1rem;
+    background-size: 100% 100%;
+    /* font-family: SketchRockwell; */
+    font-size: 1.2rem;
+    color: #227d3c  ;
+    padding-left: 1.75rem;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+}
+.answer-ul li.right label{
+    position:absolute ;
+    left: 2.75rem;
+    top: -0.3124rem;
+    display: inline-block;
+    height: 3.125rem;
+    width: 2.925rem;
+    background: url("../../image/weixin/teaking/img04.png");
+    background-size: 100% 100%;
+}
+.answer-ul li.wrong label{
+    position:absolute ;
+    left: 2.75rem;
+    top: -0.3124rem;
+    display: inline-block;
+    height: 3.125rem;
+    width: 2.625rem;
+    background: url("../../image/weixin/teaking/img03.png");
+    background-size: 100% 100%;
+}
+
+/***achievement.html**/
+.achievement-bg{
+    background: url(../../image/weixin/teaking/bg3.png);
+    background-size:100% 100% ;
+    overflow-y: auto;
+    height: 100%;
+}
+.achievement-nmb{
+    /* font-family: SketchRockwell; */
+    width: 13rem;
+    height: 13rem;
+    line-height: 13rem;
+    text-align: center;
+    font-size: 2.5rem;
+    color: #d70c0c;
+    background: #eee;
+    margin:0 auto;
+    background: url('../../image/weixin/teaking/img05.png');
+    background-size: 100% 100%;
+    box-sizing:border-box;
+    -moz-box-sizing:border-box; /* Firefox */
+    -webkit-box-sizing:border-box; /* Safari */
+    margin-bottom: 1.5625rem;
+}
+.achievement-surplus{
+  height:  2.8125rem;
+}
+.achievement-p{
+    /* font-family: SketchRockwell; */
+    text-align: center;
+    font-size: 1.25rem;
+}
+.achievement-p label{
+    color: #d70c0c;
+    font-size: 2rem;
+}
+.achievement-ul{
+    width: 18.4375rem;
+    margin: 0 auto;
+    margin-top: 7.3215rem;
+}
+.achievement-ul li.see{
+    /* font-family: SketchRockwell; */
+    background: url("../../image/weixin/teaking/btn01.png");
+    background-size: 100% 100%;
+    height: 4rem;
+    color: #fff;
+    line-height: 5rem;
+    margin-top: -0.875rem;
+    font-size: 1.5625rem;
+    text-align: center;
+}
+.achievement-ul li.again{
+    /* font-family: SketchRockwell; */
+    background: url("../../image/weixin/teaking/btn01.png");
+    background-size: 100% 100%;
+    height: 5rem;
+    line-height: 4rem;
+    margin-top: -0.875rem;
+    color: #fff;
+    font-size: 1.5625rem;
+    text-align: center;
+}
+
+.achievement-ul li.ranking{
+   /*  font-family: SketchRockwell; */
+    background: url("../../image/weixin/teaking/btn01.png");
+    background-size: 100% 100%;
+    height: 4rem;
+    line-height: 5rem;
+    color: #fff;
+    font-size: 1.5625rem;
+    text-align: center;
+}
+
+/**rankingList.html**/
+
+.ranking-bg{
+    background: url("../../image/weixin/teaking/bg3.png");
+    background-size: 100% 100%;
+    overflow-y: auto;
+    height: 100%;
+}
+.ranking-top{
+    position: relative;
+    height: 7.8124rem;
+    background: url("../../image/weixin/teaking/img13.png");
+    background-size:100% 100% ;
+}
+
+.ranking-headbg{
+    position: absolute;
+    bottom: -1.45rem;
+    left: 50%;
+    margin-left: -2.1875rem;;
+    height: 4.375rem;
+    width:4.375rem;
+    border-radius: 50%;
+    background: #fff;
+}
+.ranking-head{
+    height: 4rem;
+    width:4rem;
+    margin-left:0.1875rem ;
+    margin-top: 0.1875rem;
+    border-radius: 50%;
+    background: #fff;
+}
+.ranking-r{
+    width: 16.875rem;
+    margin: 0 auto;
+    margin-top: 1.875rem ;
+    font-size: 1.0rem;
+    overflow: hidden;
+    /* font-family: SketchRockwell; */
+}
+.ranking-r label{
+    color: #227d3c  ;
+    font-size: 1.2rem;
+}
+.ranking-r .ranking-pm{
+    float: left;
+}
+.ranking-r .ranking-jl{
+    float: right;
+}
+.ranking-hr{
+    height: 0.15625rem;
+    background:url("../../image/weixin/teaking/img12.png") ;
+    background-size: 100% 100%;
+    margin-top: 1.25rem;
+}
+.ranking-bd{
+
+}
+.ranking-bd ul li{
+    display: inline-block;
+    width: 100%;
+    height: 3.5rem;
+    border-bottom: 1px solid #c1c0bd;
+}
+.ranking-bd ul li .ranking-div{
+    width: 19.375rem;
+    margin: 0 auto;
+    height: 3.5rem;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: flex;
+}
+.ranking-champion{
+    float: left;
+    background: url("../../image/weixin/teaking/img14.png");
+    background-size: 100% 100%;
+    height: 1.875rem;
+    width:4.375rem;
+    margin-top: 0.8125rem;
+}
+.ranking-michael{
+    float: left;
+    background: url("../../image/weixin/teaking/img15.png");
+    background-size: 100% 100%;
+    height: 1.875rem;
+    width:4.375rem;
+    margin-top: 0.8125rem;
+}
+.ranking-third{
+    float: left;
+    background: url("../../image/weixin/teaking/img16.png");
+    background-size: 100% 100%;
+    height: 1.875rem;
+    width:4.375rem;
+    margin-top: 0.8125rem;
+}
+
+.ranking-phead{
+    float: left;
+    -webkit-box-flex: 1;
+    -moz-box-flex: 1;
+    -webkit-flex: 1;
+    -ms-flex: 1;
+    flex: 1;
+    /* flex-grow: 1; */
+    font-size: 0.9375rem;
+    color: #227d3c;
+}
+.ranking-frame{
+    float: left;
+    margin-left: 0.75rem;
+    height: 2.0625rem;
+    width: 2.0625rem;
+    border-radius: 50%;
+    margin-top: 0.71875rem;
+    background: #fff;
+}
+.ranking-frame img{
+    width:1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    margin-top: 0.13125rem;
+    margin-left: 0.13125rem;
+}
+.champion .ranking-frame{
+  background: #f6de68;
+}
+.michael .ranking-frame{
+    background: #7cd0fd;
+}
+
+.third .ranking-frame{
+    background: #83ecbe;
+}
+
+
+.ranking-phead .name{
+    float: left;
+    line-height: 3.5rem;
+    margin-left: 0.8125rem;
+}
+.ranking-reward{
+    float: right;
+    line-height: 3.5rem;
+    color: #227d3c;
+}
+.ranking-reward label{
+   color: #fed100;
+}
+
+.ranking-nmb{
+    height: 1.125rem;
+    width: 1.125rem;
+    line-height:1.125rem ;
+    text-align: center;
+    border-radius: 50%;
+    background:#fed100;
+    color: #fff;
+    /* font-family: SketchRockwell; */
+    font-size: 1.25rem;
+    margin-top: 1.1875rem;
+}
+
+/***checkError.html***/
+.checkError-bg{
+    background: url("../../image/weixin/teaking/bg3.png");
+    background-size: 100% 100%;
+    overflow-y: auto;
+    height: 100%;
+    /* font-family: SketchRockwell; */
+}
+.checkError-w{
+    width: 19.125rem;
+    margin: 0 auto;
+}
+.checkError-title{
+    font-size: 1.5rem;
+    margin-top: 2.1875rem;
+}
+.checkError-p{
+    margin-top: 1.5rem;
+    font-size: 1.125rem;
+}
+.checkError-ts{
+    margin-top: 4.375rem;
+    font-size: 1.5rem;
+}
+.checkError-answer{
+    font-size: 1.5rem;
+    margin-top: 1.4375rem;
+}
+
+.checkError-template-div{
+    position: absolute;
+    height: 20.8125rem;
+    width: 100%;
+    /*background: #fff;*/
+    bottom: 0;
+    font-size: 1.25rem;
+  /*   font-family: SketchRockwell; */
+}
+.checkError-template{
+    position: absolute;
+    height: 20.8125rem;
+    width: 100%;
+    background: #fff;
+    opacity: 0.6;
+    bottom: 0;
+}
+.checkError-template-div .checkError-c{
+    float: left;
+    padding: 0.3125rem;
+    background: #d9ddd5;
+    border:1px solid #35874c;
+    margin: 0 0.375rem;
+    border-radius: 1.5rem;
+    margin-top: 1.875rem;
+}
+.checkError-template-div .checkError-c.active{
+    background: #48915b;
+    color: #fff;
+}
+.checkError-hr{
+    height: 0.15625rem;
+   background: url("../../image/weixin/teaking/img12.png");
+    background-size: 100% 100%;
+    width: 100%;
+    margin-top: 0.3125rem;
+}
+.checkError-button{
+    position: absolute;
+    bottom: 1rem;
+    width: 19.3125rem;
+    height: 6.03125rem;
+    font-size: 2rem;
+    background: url(../../image/weixin/teaking/img09.png);
+    background-size: 100% 100%;
+    left: 50%;
+    margin-left: -9.65625rem;
+    bottom: 3.875rem;
+}
+.verticalScreen{
+    height: 100%;
+}
+.crossScreen{
+    position: absolute;
+    display: none;
+    width: 100%;
+    text-align: center;
+     top:40%;
+}
+
+@media(max-width: 320px){
+    .checkError-template{
+        height: 16rem;
+    }
+    .checkError-template-div{
+        height: 16rem;
+    }
+    .checkError-button{
+        position: absolute;
+        bottom: 1rem;
+        width: 19.3125rem;
+        height: 6.03125rem;
+        font-size: 2rem;
+        background: url(../../image/weixin/teaking/img09.png);
+        background-size: 100% 100%;
+        left: 50%;
+        margin-left: -9.65625rem;
+
+    }
+}
+@media(min-width: 768px){
+
+    .checkError-template-div{
+        position: absolute;
+        height: 15.8125rem;
+        width: 100%;
+        /*background: #fff;*/
+        bottom: 0;
+        font-size: 1.25rem;
+        /* font-family: SketchRockwell; */
+    }
+    .checkError-template{
+        position: absolute;
+        height: 15.8125rem;
+        width: 100%;
+        background: #fff;
+        opacity: 0.6;
+        bottom: 0;
+    }
+
+    .checkError-button{
+        position: absolute;
+        bottom: 1rem;
+        width: 19.3125rem;
+        height: 6.03125rem;
+        font-size: 2rem;
+        background: url(../../image/weixin/teaking/img09.png);
+        background-size: 100% 100%;
+        left: 50%;
+        margin-left: -9.65625rem;
+
+    }
+    .checkError-ts{
+        margin-top: 3.375rem;
+        font-size: 1.5rem;
+    }
+}
+
+
+/*
+@media only screen and (min-width: 769px) {
+    html {
+        font-size: 1.2rem !important
+    }
+}*/
+
+.layer-Popup-div{
+    float: left;
+    /* font-family:SketchRockwell ; */
+    width: 100%;
+    height:10.3125rem;
+    background: url("../../image/weixin/teaking/btn03.png");
+    -webkit-background-size:100% 100%;
+    background-size:100% 100%;;
+}
+
+.layui-m-layercont .layer-Popup-div h1{
+     font-size: 1.5625rem;
+     color: #fe0000;
+    margin-top: 1.8625rem;
+    font-weight: 500;
+}
+
+.layui-m-layercont .layer-Popup-div p{
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+}
+.layui-m-layercont .layer-Popup-div .p1{
+    margin-top: 1.78rem;
+}
+
+.layui-m-layerchild .layui-m-layercont{
+    border-bottom: none;
+    padding:0;
+}
+.rule-div{
+
+/*     height: 100%; */
+/*     padding:0.75rem; */
+    font-family:SketchRockwell ;
+    font-size: 1rem;
+    padding-left:0.75rem;
+    padding-right:0.75rem;
+
+}
+.rule-div p{
+	margin:0.25rem 0
+}
+.rule-div h3{
+    margin: 1.175rem 0;
+    font-size: 1.25rem;
+    font-weight: 500;
+}
+.rule-div p{
+/*     line-height: 1.45rem; */
+    padding-top: 0.3125rem;
+}
+.answer-banner{
+    width: 100%;
+}
+
+.view-r{
+    /* font-family:SketchRockwell ; */
+    /*margin-top: 1.5625rem;*/
+    font-size: 1.25rem;
+}
+.view-r label{
+    color: #227d3c;
+}
+.wiew-bg{
+    background: url(../../image/weixin/teaking/bg3.png);
+    background-size: 100% 100%;
+    overflow-y: auto;
+    height: 100%;
+}
+.answer-banner-d{
+     width: 100%;
+     padding: 0.3125rem;
+     background: #fff;
+     box-sizing: border-box;
+    float: left;
+    margin: 1.25rem 0;
+ }
+.answer-banner-d img{
+    width: 100%;
+}

@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.system.shareConfig.mapper.ModelMessageMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" id="ModelMessageMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="submitKey" column="SUBMIT_KEY" />
+		<result property="submitHead" column="SUBMIT_HEAD" />
+		<result property="submitFoot" column="SUBMIT_FOOT" />
+		<result property="sendRemind" column="SEND_REMIND" />
+		<result property="sendHead" column="SEND_HEAD" />
+		<result property="sendFoot" column="SEND_FOOT" />
+		<result property="applySucc" column="APPLY_SUCC" />
+		<result property="applyHead" column="APPLY_HEAD" />
+		<result property="resultInfo" column="RESULT_INFO" />
+		<result property="resultHead" column="RESULT_HEAD" />
+		<result property="resultFoot" column="RESULT_FOOT" />
+		<result property="refundInfo" column="REFUND_INFO" />
+		<result property="refundHead" column="REFUND_HEAD" />
+		<result property="refundFoot" column="REFUND_FOOT" />
+		<result property="newUserInfo" column="NEW_USER_INFO" />
+		<result property="newUserHead" column="NEW_USER_HEAD" />
+		<result property="accountInfo" column="ACCOUNT_INFO" />
+		<result property="qrCode" column="QR_CODE" />
+		<result property="drawInfo" column="DRAW_INFO" />
+		<result property="drawHead" column="DRAW_HEAD" />
+		<result property="drawFoot" column="DRAW_FOOT" />
+	</resultMap>
+
+	<sql id="allModelMessageItems">
+		tmp.`ID`,tmp.`SUBMIT_KEY`,tmp.`SUBMIT_HEAD`,tmp.`SUBMIT_FOOT`,tmp.`SEND_REMIND`,tmp.`SEND_HEAD`,tmp.`SEND_FOOT`,tmp.`APPLY_SUCC`,tmp.`APPLY_HEAD`,tmp.`RESULT_INFO`,tmp.`RESULT_HEAD`,tmp.`RESULT_FOOT`,tmp.`REFUND_INFO`,tmp.`REFUND_HEAD`,tmp.`REFUND_FOOT`,tmp.`NEW_USER_INFO`,tmp.`NEW_USER_HEAD`,tmp.`ACCOUNT_INFO`,tmp.`QR_CODE`,tmp.`DRAW_INFO`,tmp.`DRAW_HEAD`,tmp.`DRAW_FOOT`
+	</sql>
+
+	<sql id="allModelMessageByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="submitKey != null"> tmp.SUBMIT_KEY = #{submitKey} AND</if>
+        <if test="submitHead != null"> tmp.SUBMIT_HEAD = #{submitHead} AND</if>
+        <if test="submitFoot != null"> tmp.SUBMIT_FOOT = #{submitFoot} AND</if>
+        <if test="sendRemind != null"> tmp.SEND_REMIND = #{sendRemind} AND</if>
+        <if test="sendHead != null"> tmp.SEND_HEAD = #{sendHead} AND</if>
+        <if test="sendFoot != null"> tmp.SEND_FOOT = #{sendFoot} AND</if>
+        <if test="applySucc != null"> tmp.APPLY_SUCC = #{applySucc} AND</if>
+        <if test="applyHead != null"> tmp.APPLY_HEAD = #{applyHead} AND</if>
+        <if test="resultInfo != null"> tmp.RESULT_INFO = #{resultInfo} AND</if>
+        <if test="resultHead != null"> tmp.RESULT_HEAD = #{resultHead} AND</if>
+        <if test="resultFoot != null"> tmp.RESULT_FOOT = #{resultFoot} AND</if>
+        <if test="refundInfo != null"> tmp.REFUND_INFO = #{refundInfo} AND</if>
+        <if test="refundHead != null"> tmp.REFUND_HEAD = #{refundHead} AND</if>
+        <if test="refundFoot != null"> tmp.REFUND_FOOT = #{refundFoot} AND</if>
+        <if test="newUserInfo != null"> tmp.NEW_USER_INFO = #{newUserInfo} AND</if>
+        <if test="newUserHead != null"> tmp.NEW_USER_HEAD = #{newUserHead} AND</if>
+        <if test="accountInfo != null"> tmp.ACCOUNT_INFO = #{accountInfo} AND</if>
+        <if test="qrCode != null"> tmp.QR_CODE = #{qrCode} AND</if>
+        <if test="drawInfo != null"> tmp.DRAW_INFO = #{drawInfo} AND</if>
+        <if test="drawHead != null"> tmp.DRAW_HEAD = #{drawHead} AND</if>
+        <if test="drawFoot != null"> tmp.DRAW_FOOT = #{drawFoot} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultMap="ModelMessageMap">
+		SELECT <include refid="allModelMessageItems" /> from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultMap="ModelMessageMap">
+		SELECT <include refid="allModelMessageItems" /> from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultType="java.lang.Integer">
+		SELECT count(*) from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allModelMessageLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="submitKey != null">SUBMIT_KEY like '%${submitKey}%' AND </if>
+		<if test="submitHead != null">SUBMIT_HEAD like '%${submitHead}%' AND </if>
+		<if test="submitFoot != null">SUBMIT_FOOT like '%${submitFoot}%' AND </if>
+		<if test="sendRemind != null">SEND_REMIND like '%${sendRemind}%' AND </if>
+		<if test="sendHead != null">SEND_HEAD like '%${sendHead}%' AND </if>
+		<if test="sendFoot != null">SEND_FOOT like '%${sendFoot}%' AND </if>
+		<if test="applySucc != null">APPLY_SUCC like '%${applySucc}%' AND </if>
+		<if test="applyHead != null">APPLY_HEAD like '%${applyHead}%' AND </if>
+		<if test="resultInfo != null">RESULT_INFO like '%${resultInfo}%' AND </if>
+		<if test="resultHead != null">RESULT_HEAD like '%${resultHead}%' AND </if>
+		<if test="resultFoot != null">RESULT_FOOT like '%${resultFoot}%' AND </if>
+		<if test="refundInfo != null">REFUND_INFO like '%${refundInfo}%' AND </if>
+		<if test="refundHead != null">REFUND_HEAD like '%${refundHead}%' AND </if>
+		<if test="refundFoot != null">REFUND_FOOT like '%${refundFoot}%' AND </if>
+		<if test="newUserInfo != null">NEW_USER_INFO like '%${newUserInfo}%' AND </if>
+		<if test="newUserHead != null">NEW_USER_HEAD like '%${newUserHead}%' AND </if>
+		<if test="accountInfo != null">ACCOUNT_INFO like '%${accountInfo}%' AND </if>
+		<if test="qrCode != null">QR_CODE like '%${qrCode}%' AND </if>
+		<if test="drawInfo != null">DRAW_INFO like '%${drawInfo}%' AND </if>
+		<if test="drawHead != null">DRAW_HEAD like '%${drawHead}%' AND </if>
+		<if test="drawFoot != null">DRAW_FOOT like '%${drawFoot}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultMap="ModelMessageMap">
+		SELECT <include refid="allModelMessageItems" /> from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultMap="ModelMessageMap">
+		SELECT <include refid="allModelMessageItems" /> from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultType="java.lang.Integer">
+		SELECT count(*) from model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="ModelMessageMap">
+			SELECT <include refid="allModelMessageItems" /> FROM model_message tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" resultMap="ModelMessageMap">
+		SELECT <include refid="allModelMessageItems" /> FROM model_message tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allModelMessageByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO model_message
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="submitKey != null">SUBMIT_KEY,</if>
+			<if test="submitHead != null">SUBMIT_HEAD,</if>
+			<if test="submitFoot != null">SUBMIT_FOOT,</if>
+			<if test="sendRemind != null">SEND_REMIND,</if>
+			<if test="sendHead != null">SEND_HEAD,</if>
+			<if test="sendFoot != null">SEND_FOOT,</if>
+			<if test="applySucc != null">APPLY_SUCC,</if>
+			<if test="applyHead != null">APPLY_HEAD,</if>
+			<if test="resultInfo != null">RESULT_INFO,</if>
+			<if test="resultHead != null">RESULT_HEAD,</if>
+			<if test="resultFoot != null">RESULT_FOOT,</if>
+			<if test="refundInfo != null">REFUND_INFO,</if>
+			<if test="refundHead != null">REFUND_HEAD,</if>
+			<if test="refundFoot != null">REFUND_FOOT,</if>
+			<if test="newUserInfo != null">NEW_USER_INFO,</if>
+			<if test="newUserHead != null">NEW_USER_HEAD,</if>
+			<if test="accountInfo != null">ACCOUNT_INFO,</if>
+			<if test="qrCode != null">QR_CODE,</if>
+			<if test="drawInfo != null">DRAW_INFO,</if>
+			<if test="drawHead != null">DRAW_HEAD,</if>
+			<if test="drawFoot != null">DRAW_FOOT,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="submitKey != null">#{submitKey},</if>
+			<if test="submitHead != null">#{submitHead},</if>
+			<if test="submitFoot != null">#{submitFoot},</if>
+			<if test="sendRemind != null">#{sendRemind},</if>
+			<if test="sendHead != null">#{sendHead},</if>
+			<if test="sendFoot != null">#{sendFoot},</if>
+			<if test="applySucc != null">#{applySucc},</if>
+			<if test="applyHead != null">#{applyHead},</if>
+			<if test="resultInfo != null">#{resultInfo},</if>
+			<if test="resultHead != null">#{resultHead},</if>
+			<if test="resultFoot != null">#{resultFoot},</if>
+			<if test="refundInfo != null">#{refundInfo},</if>
+			<if test="refundHead != null">#{refundHead},</if>
+			<if test="refundFoot != null">#{refundFoot},</if>
+			<if test="newUserInfo != null">#{newUserInfo},</if>
+			<if test="newUserHead != null">#{newUserHead},</if>
+			<if test="accountInfo != null">#{accountInfo},</if>
+			<if test="qrCode != null">#{qrCode},</if>
+			<if test="drawInfo != null">#{drawInfo},</if>
+			<if test="drawHead != null">#{drawHead},</if>
+			<if test="drawFoot != null">#{drawFoot},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage">
+		<![CDATA[delete from model_message where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage">
+		delete from model_message
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="submitKey != null"> SUBMIT_KEY = #{submitKey} AND</if>
+            <if test="submitHead != null"> SUBMIT_HEAD = #{submitHead} AND</if>
+            <if test="submitFoot != null"> SUBMIT_FOOT = #{submitFoot} AND</if>
+            <if test="sendRemind != null"> SEND_REMIND = #{sendRemind} AND</if>
+            <if test="sendHead != null"> SEND_HEAD = #{sendHead} AND</if>
+            <if test="sendFoot != null"> SEND_FOOT = #{sendFoot} AND</if>
+            <if test="applySucc != null"> APPLY_SUCC = #{applySucc} AND</if>
+            <if test="applyHead != null"> APPLY_HEAD = #{applyHead} AND</if>
+            <if test="resultInfo != null"> RESULT_INFO = #{resultInfo} AND</if>
+            <if test="resultHead != null"> RESULT_HEAD = #{resultHead} AND</if>
+            <if test="resultFoot != null"> RESULT_FOOT = #{resultFoot} AND</if>
+            <if test="refundInfo != null"> REFUND_INFO = #{refundInfo} AND</if>
+            <if test="refundHead != null"> REFUND_HEAD = #{refundHead} AND</if>
+            <if test="refundFoot != null"> REFUND_FOOT = #{refundFoot} AND</if>
+            <if test="newUserInfo != null"> NEW_USER_INFO = #{newUserInfo} AND</if>
+            <if test="newUserHead != null"> NEW_USER_HEAD = #{newUserHead} AND</if>
+            <if test="accountInfo != null"> ACCOUNT_INFO = #{accountInfo} AND</if>
+            <if test="qrCode != null"> QR_CODE = #{qrCode} AND</if>
+            <if test="drawInfo != null"> DRAW_INFO = #{drawInfo} AND</if>
+            <if test="drawHead != null"> DRAW_HEAD = #{drawHead} AND</if>
+            <if test="drawFoot != null"> DRAW_FOOT = #{drawFoot} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.system.shareConfig.model.ModelMessage">
+		update model_message
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="submitKey != null">SUBMIT_KEY=#{submitKey},</if>
+			<if test="submitHead != null">SUBMIT_HEAD=#{submitHead},</if>
+			<if test="submitFoot != null">SUBMIT_FOOT=#{submitFoot},</if>
+			<if test="sendRemind != null">SEND_REMIND=#{sendRemind},</if>
+			<if test="sendHead != null">SEND_HEAD=#{sendHead},</if>
+			<if test="sendFoot != null">SEND_FOOT=#{sendFoot},</if>
+			<if test="applySucc != null">APPLY_SUCC=#{applySucc},</if>
+			<if test="applyHead != null">APPLY_HEAD=#{applyHead},</if>
+			<if test="resultInfo != null">RESULT_INFO=#{resultInfo},</if>
+			<if test="resultHead != null">RESULT_HEAD=#{resultHead},</if>
+			<if test="resultFoot != null">RESULT_FOOT=#{resultFoot},</if>
+			<if test="refundInfo != null">REFUND_INFO=#{refundInfo},</if>
+			<if test="refundHead != null">REFUND_HEAD=#{refundHead},</if>
+			<if test="refundFoot != null">REFUND_FOOT=#{refundFoot},</if>
+			<if test="newUserInfo != null">NEW_USER_INFO=#{newUserInfo},</if>
+			<if test="newUserHead != null">NEW_USER_HEAD=#{newUserHead},</if>
+			<if test="accountInfo != null">ACCOUNT_INFO=#{accountInfo},</if>
+			<if test="qrCode != null">QR_CODE=#{qrCode},</if>
+			<if test="drawInfo != null">DRAW_INFO=#{drawInfo},</if>
+			<if test="drawHead != null">DRAW_HEAD=#{drawHead},</if>
+			<if test="drawFoot != null">DRAW_FOOT=#{drawFoot},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

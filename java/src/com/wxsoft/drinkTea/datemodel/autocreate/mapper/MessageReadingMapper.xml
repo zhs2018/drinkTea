@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.datemodel.autocreate.mapper.MessageReadingMapper">
+	<resultMap type="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" id="MessageReadingMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userId" column="USER_ID" />
+		<result property="messageId" column="MESSAGE_ID" />
+		<result property="readTime" column="READ_TIME" />
+		<result property="readSign" column="READ_SIGN" />
+	</resultMap>
+
+	<sql id="allMessageReadingItems">
+		tmp.`ID`,tmp.`USER_ID`,tmp.`MESSAGE_ID`,tmp.`READ_TIME`,tmp.`READ_SIGN`
+	</sql>
+
+	<sql id="allMessageReadingByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userId != null"> tmp.USER_ID = #{userId} AND</if>
+        <if test="messageId != null"> tmp.MESSAGE_ID = #{messageId} AND</if>
+        <if test="readTime != null"> tmp.READ_TIME = #{readTime} AND</if>
+        <if test="readSign != null"> tmp.READ_SIGN = #{readSign} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultMap="MessageReadingMap">
+		SELECT <include refid="allMessageReadingItems" /> from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultMap="MessageReadingMap">
+		SELECT <include refid="allMessageReadingItems" /> from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultType="java.lang.Integer">
+		SELECT count(*) from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingByConditions" />
+ 		</trim>
+	</select>
+
+	<sql id="allMessageReadingLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userId != null">USER_ID like '%${userId}%' AND </if>
+		<if test="messageId != null">MESSAGE_ID like '%${messageId}%' AND </if>
+		<if test="readTime != null">READ_TIME like '%${readTime}%' AND </if>
+		<if test="readSign != null">READ_SIGN like '%${readSign}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultMap="MessageReadingMap">
+		SELECT <include refid="allMessageReadingItems" /> from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultMap="MessageReadingMap">
+		SELECT <include refid="allMessageReadingItems" /> from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultType="java.lang.Integer">
+		SELECT count(*) from message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="MessageReadingMap">
+			SELECT <include refid="allMessageReadingItems" /> FROM message_reading tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" resultMap="MessageReadingMap">
+		SELECT <include refid="allMessageReadingItems" /> FROM message_reading tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allMessageReadingByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO message_reading
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userId != null">USER_ID,</if>
+			<if test="messageId != null">MESSAGE_ID,</if>
+			<if test="readTime != null">READ_TIME,</if>
+			<if test="readSign != null">READ_SIGN,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userId != null">#{userId},</if>
+			<if test="messageId != null">#{messageId},</if>
+			<if test="readTime != null">#{readTime},</if>
+			<if test="readSign != null">#{readSign},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading">
+		<![CDATA[delete from message_reading where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading">
+		delete from message_reading
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userId != null"> USER_ID = #{userId} AND</if>
+            <if test="messageId != null"> MESSAGE_ID = #{messageId} AND</if>
+            <if test="readTime != null"> READ_TIME = #{readTime} AND</if>
+            <if test="readSign != null"> READ_SIGN = #{readSign} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.datemodel.autocreate.model.MessageReading">
+		update message_reading
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userId != null">USER_ID=#{userId},</if>
+			<if test="messageId != null">MESSAGE_ID=#{messageId},</if>
+			<if test="readTime != null">READ_TIME=#{readTime},</if>
+			<if test="readSign != null">READ_SIGN=#{readSign},</if>
+		</set>
+		where ID = #{id}
+	</update>
+
+</mapper>

@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wxsoft.drinkTea.platform.weixin.mapper.WebUserMapper">
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.WebUser" id="WebUserMap">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="phone" column="PHONE" />
+		<result property="marker" column="MARKER" />
+		<result property="image" column="IMAGE" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="visable" column="VISABLE" />
+		<result property="openId" column="OPEN_ID" />
+		<result property="sex" column="SEX" />
+		<result property="focusTime" column="FOCUS_TIME" />
+		<result property="answerCount" column="ANSWER_COUNT" />
+		<result property="money" column="MONEY" />
+		<result property="sysUserId" column="SYS_USER_ID" />
+		<result property="age" column="AGE" />
+		<result property="restMoney" column="REST_MONEY" />
+		<result property="qrcode" column="qrcode" />
+		<result property="name" column="name" />
+		<result property="rederSign" column="REDER_SIGN" />
+		<result property="drawCount" column="DRAW_COUNT" />
+			<result property="freeRec" column="FREE_REC" />
+
+	</resultMap>
+
+	<sql id="allWebUserItems">
+		tmp.`name`,tmp.`ID`,tmp.`USER_NAME`,tmp.`PASSWORD`,tmp.`PHONE`,tmp.`MARKER`,tmp.`IMAGE`,tmp.`ADDRESS_ID`,tmp.`ROLE_ID`,tmp.`CREATETIME`,tmp.`VISABLE`,tmp.`OPEN_ID`,tmp.`SEX`,tmp.`FOCUS_TIME`,tmp.`ANSWER_COUNT`,tmp.`MONEY`,tmp.`SYS_USER_ID`,tmp.`AGE`,tmp.`REST_MONEY`,tmp.`qrcode`,tmp.`REDER_SIGN`,tmp.`DRAW_COUNT`,tmp.`FREE_REC`
+	</sql>
+
+
+	<sql id="allWebUserByConditions">
+        <if test="id != null"> tmp.ID = #{id} AND</if>
+        <if test="userName != null"> tmp.USER_NAME like '%${userName}%' AND</if>
+        <if test="password != null"> tmp.PASSWORD = #{password} AND</if>
+        <if test="phone != null"> tmp.PHONE = #{phone} AND</if>
+        <if test="marker != null"> tmp.MARKER = #{marker} AND</if>
+        <if test="image != null"> tmp.IMAGE = #{image} AND</if>
+        <if test="addressId != null"> tmp.ADDRESS_ID = #{addressId} AND</if>
+        <if test="roleId != null"> tmp.ROLE_ID = #{roleId} AND</if>
+        <if test="createtime != null"> tmp.CREATETIME = #{createtime} AND</if>
+        <if test="visable != null"> tmp.VISABLE = #{visable} AND</if>
+        <if test="openId != null"> tmp.OPEN_ID = #{openId} AND</if>
+        <if test="sex != null"> tmp.SEX = #{sex} AND</if>
+        <if test="focusTime != null"> tmp.FOCUS_TIME = #{focusTime} AND</if>
+        <if test="answerCount != null"> tmp.ANSWER_COUNT = #{answerCount} AND</if>
+        <if test="money != null"> tmp.MONEY = #{money} AND</if>
+        <if test="sysUserId != null"> tmp.SYS_USER_ID = #{sysUserId} AND</if>
+        <if test="age != null"> tmp.AGE = #{age} AND</if>
+        <if test="restMoney != null"> tmp.REST_MONEY = #{restMoney} AND</if>
+        <if test="qrcode != null"> tmp.qrcode = #{qrcode} AND</if>
+        <if test="name != null"> tmp.name = #{name} AND</if>
+        <if test="rederSign != null"> tmp.REDER_SIGN= #{rederSign} AND</if>
+          <if test="drawCount != null"> tmp.DRAW_COUNT= #{drawCount} AND</if>
+           <if test="freeRec != null"> tmp.FREE_REC= #{freeRec} AND</if>
+	</sql>
+
+	<select id="getListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+<!--根据员工编号查询订单-->
+ <select id="getPageListBysql" parameterType="int" resultType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+    SELECT
+    po.ID as id,
+    po.ORDER_NUMBER as orderNumber,
+    po.PRICE as price,
+    Po.SYS_TIME as sysTime,
+    po.ORDER_TIME as orderTime,
+    po.GOODS_TIME as goodsTime,
+    po.ADDRESS_ID as addressId,
+    po.ORDER_STATE as orderState,
+    po.CUSTOMER_MESSAGE as customerMessage,
+    mp.`name` as mpName,
+    ua.`user_name` as uaName,
+    ua.`tel_phone` as uaPhone
+    from product_order po
+    left join goods_order go on po.`id` = go.`goods_id`
+    LEFT JOIN  manage_products mp on go.`goods_id` = mp.`id`
+    left join user_address ua on po.`address_id`=ua.`id`
+    where
+    po.`user_id` = any(select wu.`id` from web_user wu where wu.`sys_user_id` = #{userId})
+   </select>
+
+	<select id="getPageListBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultType="java.lang.Integer">
+		SELECT count(*) from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+	</select>
+	<select id="getCountByMap" parameterType="map" resultType="java.lang.Integer">
+		SELECT count(*) from web_user tmp where createTime BETWEEN '${beginTime}000000' AND '${endTime}240000' AND sys_user_id = #{userId}
+	</select>
+
+	<select id="getPageListByMap" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<if test="beginTime != null">  tmp.createTime BETWEEN '${beginTime}000000' AND '${endTime}240000' AND</if>
+			<if test="sysUserId != null"> tmp.SYS_USER_ID = #{sysUserId} AND</if>
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY createTime DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+
+	<resultMap type="com.wxsoft.drinkTea.platform.weixin.model.WebUser" id="WebUserMap2">
+		<id property="id" column="ID" />
+		<result property="id" column="ID" />
+		<result property="userName" column="USER_NAME" />
+		<result property="password" column="PASSWORD" />
+		<result property="phone" column="PHONE" />
+		<result property="marker" column="MARKER" />
+		<result property="image" column="IMAGE" />
+		<result property="addressId" column="ADDRESS_ID" />
+		<result property="roleId" column="ROLE_ID" />
+		<result property="createtime" column="CREATETIME" />
+		<result property="visable" column="VISABLE" />
+		<result property="openId" column="OPEN_ID" />
+		<result property="sex" column="SEX" />
+		<result property="focusTime" column="FOCUS_TIME" />
+		<result property="answerCount" column="ANSWER_COUNT" />
+		<result property="money" column="MONEY" />
+		<result property="sysUserId" column="SYS_USER_ID" />
+		<result property="age" column="AGE" />
+		<result property="rederSign" column="REDER_SIGN" />
+		<result property="rightCount" column="rightCount" />
+		<result property="allTime" column="allTime" />
+		<result property="qrcode" column="qrcode" />
+		<result property="name" column="name" />
+		<result property="drawCount" column="drawCount" />
+		<result property="freeRec" column="freeRec" />
+	</resultMap>
+<!-- 扫码答题 SELECT count(*) FROM (sub_user_answer,web_user)
+	where sub_user_answer.user_id = web_user.id-->
+<select id="getPageListByQrecord" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap2">
+		SELECT wb.* FROM (
+		SELECT DISTINCT web_user.*,(SELECT count(*) FROM sub_user_answer
+		WHERE sub_user_answer.user_id = tmp.user_id) as allCount,
+     (SELECT count(*) FROM sub_user_answer
+		WHERE sub_user_answer.user_id = tmp.user_id and sub_user_answer.right_or_wrong=2) as rightCount,
+		  (SELECT sum(twenty_record.money) FROM twenty_record
+		WHERE  twenty_record.user_id = tr.user_id) as moneyAll
+		FROM web_user  INNER JOIN sub_user_answer tmp ON web_user.id = tmp.user_id
+		INNER JOIN twenty_record tr ON   web_user.id =tr.user_id
+		WHERE tmp.user_id IN (SELECT DISTINCT user_id FROM sub_user_answer)
+		)AS wb  ORDER BY wb.moneyAll desc
+	</select>
+
+
+	<select id="getPageListByKingAnswer" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap2">
+		SELECT wb.* FROM (
+		SELECT DISTINCT web_user.*,(SELECT count(*) FROM (king_user_answer,subject_king)
+		WHERE king_user_answer.user_anwser = subject_king.answer AND king_user_answer.user_id = tmp.user_id) as rightCount,
+		  (SELECT sum(over_time) FROM (king_user_answer,subject_king)
+		WHERE king_user_answer.user_anwser = subject_king.answer AND king_user_answer.user_id = tmp.user_id) as allTime
+		FROM king_user_answer tmp INNER JOIN subject_king ON tmp.user_anwser = subject_king.answer
+		INNER JOIN web_user ON tmp.user_id = web_user.id
+		WHERE tmp.user_id IN (SELECT DISTINCT user_id FROM king_user_answer)
+		)AS wb  ORDER BY wb.rightCount desc
+	</select>
+
+	<!-- 根据时间  -->
+	<select id="getPageListByKingAnswerAndTime" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap2">
+SELECT wb.* FROM (
+	SELECT DISTINCT web_user.*,(SELECT count(*) FROM (king_user_answer,subject_king)
+	WHERE king_user_answer.user_anwser = subject_king.answer AND king_user_answer.user_id = tmp.user_id
+   AND  king_user_answer.answer_time BETWEEN '${beginTime}240000' AND '${endTime}240000'
+     ) as rightCount,
+		(SELECT sum(over_time) FROM (king_user_answer,subject_king)
+		WHERE king_user_answer.user_anwser = subject_king.answer AND king_user_answer.user_id = tmp.user_id
+ AND  king_user_answer.answer_time BETWEEN '${beginTime}240000' AND '${endTime}240000'
+		 ) as allTime
+		FROM king_user_answer tmp INNER JOIN subject_king ON tmp.user_anwser = subject_king.answer
+		INNER JOIN web_user ON tmp.user_id = web_user.id
+		WHERE tmp.user_id IN (SELECT DISTINCT user_id FROM king_user_answer)   AND  tmp.answer_time BETWEEN '${beginTime}240000' AND '${endTime}240000'
+	 )AS wb  ORDER BY wb.rightCount desc
+	</select>
+
+	<sql id="allWebUserLikeConditions">
+		<if test="id != null">ID like '%${id}%' AND </if>
+		<if test="userName != null">USER_NAME like '%${userName}%' AND </if>
+		<if test="password != null">PASSWORD like '%${password}%' AND </if>
+		<if test="phone != null">PHONE like '%${phone}%' AND </if>
+		<if test="marker != null">MARKER like '%${marker}%' AND </if>
+		<if test="image != null">IMAGE like '%${image}%' AND </if>
+		<if test="addressId != null">ADDRESS_ID like '%${addressId}%' AND </if>
+		<if test="roleId != null">ROLE_ID like '%${roleId}%' AND </if>
+		<if test="createtime != null">CREATETIME like '%${createtime}%' AND </if>
+		<if test="visable != null">VISABLE like '%${visable}%' AND </if>
+		<if test="openId != null">OPEN_ID like '%${openId}%' AND </if>
+		<if test="sex != null">SEX like '%${sex}%' AND </if>
+		<if test="focusTime != null">FOCUS_TIME like '%${focusTime}%' AND </if>
+		<if test="answerCount != null">ANSWER_COUNT like '%${answerCount}%' AND </if>
+		<if test="money != null">MONEY like '%${money}%' AND </if>
+		<if test="sysUserId != null">SYS_USER_ID like '%${sysUserId}%' AND </if>
+		<if test="age != null">AGE like '%${age}%' AND </if>
+		<if test="rederSign != null">REDER_SIGN like '%${rederSign}%' AND </if>
+		<if test="restMoney != null">REST_MONEY like '%${restMoney}%' AND </if>
+		<if test="qrcode != null">qrcode like '%${qrcode}%' AND </if>
+		<if test="name != null">name like '%${name}%' AND </if>
+		<if test="drawCount != null">drawCount like '%${drawCount}%' AND </if>
+		<if test="freeRec != null">freeRec like '%${freeRec}%' AND </if>
+	</sql>
+
+	<select id="getListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+ 	    <choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getPageListLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+ 		<choose>
+	 		<when test="orderBy != null and orderBy != ''">
+	 			ORDER BY ${orderBy}
+	 		</when>
+	 		<otherwise>
+	 		 	ORDER BY ID DESC
+	 		</otherwise>
+ 		</choose>
+	</select>
+
+	<select id="getCountLike" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultType="java.lang.Integer">
+		SELECT count(*) from web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserLikeConditions" />
+ 		</trim>
+	</select>
+
+	<select id="selectByPrimaryKey" parameterType="Integer"	resultMap="WebUserMap">
+			SELECT <include refid="allWebUserItems" /> FROM web_user tmp WHERE tmp.ID = #{id}
+	</select>
+
+	<select id="selectBy" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" resultMap="WebUserMap">
+		SELECT <include refid="allWebUserItems" /> FROM web_user tmp
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+			<include refid="allWebUserByConditions" />
+ 		</trim>
+	</select>
+
+	<insert id="insert" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO web_user
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">ID,</if>
+			<if test="userName != null">USER_NAME,</if>
+			<if test="password != null">PASSWORD,</if>
+			<if test="phone != null">PHONE,</if>
+			<if test="marker != null">MARKER,</if>
+			<if test="image != null">IMAGE,</if>
+			<if test="addressId != null">ADDRESS_ID,</if>
+			<if test="roleId != null">ROLE_ID,</if>
+			<if test="createtime != null">CREATETIME,</if>
+			<if test="visable != null">VISABLE,</if>
+			<if test="openId != null">OPEN_ID,</if>
+			<if test="sex != null">SEX,</if>
+			<if test="focusTime != null">FOCUS_TIME,</if>
+			<if test="answerCount != null">ANSWER_COUNT,</if>
+			<if test="money != null">MONEY,</if>
+			<if test="sysUserId != null">SYS_USER_ID,</if>
+			<if test="age != null">AGE,</if>
+			<if test="rederSign != null">REDER_SIGN,</if>
+			<if test="restMoney != null">REST_MONEY,</if>
+			<if test="qrcode != null">qrcode,</if>
+			<if test="name != null">name,</if>
+			<if test="drawCount != null">drawCount,</if>
+			<if test="freeRec != null">freeRec,</if>
+		</trim>
+		values
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null">#{id},</if>
+			<if test="userName != null">#{userName},</if>
+			<if test="password != null">#{password},</if>
+			<if test="phone != null">#{phone},</if>
+			<if test="marker != null">#{marker},</if>
+			<if test="image != null">#{image},</if>
+			<if test="addressId != null">#{addressId},</if>
+			<if test="roleId != null">#{roleId},</if>
+			<if test="createtime != null">#{createtime},</if>
+			<if test="visable != null">#{visable},</if>
+			<if test="openId != null">#{openId},</if>
+			<if test="sex != null">#{sex},</if>
+			<if test="focusTime != null">#{focusTime},</if>
+			<if test="answerCount != null">#{answerCount},</if>
+			<if test="money != null">#{money},</if>
+			<if test="sysUserId != null">#{sysUserId},</if>
+			<if test="age != null">#{age},</if>
+			<if test="rederSign != null">#{rederSign},</if>
+			<if test="restMoney != null">#{restMoney},</if>
+			<if test="qrcode != null">#{qrcode},</if>
+			<if test="name != null">#{name},</if>
+			<if test="drawCount != null">#{drawCount},</if>
+			<if test="freeRec != null">#{freeRec},</if>
+		</trim>
+	</insert>
+
+	<delete id="deleteByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		<![CDATA[delete from web_user where ID=#{id}]]>
+	</delete>
+
+	<delete id="delete" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		delete from web_user
+		<trim prefix="WHERE" prefixOverrides="AND" suffixOverrides ="AND">
+            <if test="id != null"> ID = #{id} AND</if>
+            <if test="userName != null"> USER_NAME = #{userName} AND</if>
+            <if test="password != null"> PASSWORD = #{password} AND</if>
+            <if test="phone != null"> PHONE = #{phone} AND</if>
+            <if test="marker != null"> MARKER = #{marker} AND</if>
+            <if test="image != null"> IMAGE = #{image} AND</if>
+            <if test="addressId != null"> ADDRESS_ID = #{addressId} AND</if>
+            <if test="roleId != null"> ROLE_ID = #{roleId} AND</if>
+            <if test="createtime != null"> CREATETIME = #{createtime} AND</if>
+            <if test="visable != null"> VISABLE = #{visable} AND</if>
+            <if test="openId != null"> OPEN_ID = #{openId} AND</if>
+            <if test="sex != null"> SEX = #{sex} AND</if>
+            <if test="focusTime != null"> FOCUS_TIME = #{focusTime} AND</if>
+            <if test="answerCount != null"> ANSWER_COUNT = #{answerCount} AND</if>
+            <if test="money != null"> MONEY = #{money} AND</if>
+            <if test="sysUserId != null"> SYS_USER_ID = #{sysUserId} AND</if>
+            <if test="age != null"> AGE = #{age} AND</if>
+            <if test="rederSign != null"> REDER_SIGN= #{rederSign} AND</if>
+             <if test="restMoney != null"> REST_MONEY = #{restMoney} AND</if>
+              <if test="qrcode != null"> qrcode = #{qrcode} AND</if>
+              <if test="name != null"> name = #{name} AND</if>
+              <if test="drawCount != null"> DRAW_COUNT = #{drawCount} AND</if>
+                <if test="freeRec != null"> FREE_REC = #{freeRec} AND</if>
+ 		</trim>
+	</delete>
+
+	<update id="updateByPrimaryKey" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		update web_user
+		<set>
+			<if test="id != null">ID=#{id},</if>
+			<if test="userName != null">USER_NAME=#{userName},</if>
+			<if test="password != null">PASSWORD=#{password},</if>
+			<if test="phone != null">PHONE=#{phone},</if>
+			<if test="marker != null">MARKER=#{marker},</if>
+			<if test="image != null">IMAGE=#{image},</if>
+			<if test="addressId != null">ADDRESS_ID=#{addressId},</if>
+			<if test="roleId != null">ROLE_ID=#{roleId},</if>
+			<if test="createtime != null">CREATETIME=#{createtime},</if>
+			<if test="visable != null">VISABLE=#{visable},</if>
+			<if test="openId != null">OPEN_ID=#{openId},</if>
+			<if test="sex != null">SEX=#{sex},</if>
+			<if test="focusTime != null">FOCUS_TIME=#{focusTime},</if>
+			<if test="answerCount != null">ANSWER_COUNT=#{answerCount},</if>
+			<if test="money != null">MONEY=#{money},</if>
+			<if test="sysUserId != null">SYS_USER_ID=#{sysUserId},</if>
+			<if test="age != null">AGE=#{age},</if>
+			<if test="rederSign != null">REDER_SIGN=#{rederSign},</if>
+			<if test="restMoney != null">REST_MONEY=#{restMoney},</if>
+			<if test="qrcode != null">qrcode=#{qrcode},</if>
+			<if test="name != null">name=#{name},</if>
+			<if test="drawCount != null">DRAW_COUNT=#{drawCount},</if>
+			<if test="freeRec != null">FREE_REC=#{freeRec},</if>
+		</set>
+		where ID = #{id}
+	</update>
+	<update id="updateAll" parameterType="com.wxsoft.drinkTea.platform.weixin.model.WebUser">
+		update web_user set SYS_USER_ID=#{sysUserId} where SYS_USER_ID = #{id}
+	</update>
+
+</mapper>

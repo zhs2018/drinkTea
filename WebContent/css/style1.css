@@ -1,0 +1,147 @@
+body {
+	width: 100%;
+	height: 100%;
+	background: url("../image/01_02.png") 0 top no-repeat, url("../image/01_03.png") 0px 203px no-repeat, url("../image/01_04.png") 0px 406px no-repeat;
+	background-size: 100% 203px, 100% 203px, 100% 210px;
+	overflow: hidden;
+}
+
+.cj {
+	width: 100%;
+	height: auto;
+	position: relative;
+}
+
+.cj-list {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	/*border: 1px solid #000000;*/
+	position: absolute;
+	top: 200px;
+}
+
+.cj-list li {
+	list-style: none;
+	width: 33.333%;
+	float: left;
+	text-align: center;
+	margin: 5px 0;
+}
+
+.cj-list img {
+	width: 81px;
+	height: 84px;
+}
+
+.dj-cj {
+	width: 100%;
+	height: 70px;
+	position: absolute;
+	top: 520px;
+	text-align: center;
+	padding-top: 10px;
+	/*border: 1px solid #000000;*/
+}
+
+.dj-cj img {
+	width: 153px;
+	height: 45px;
+}
+
+
+/*抽奖结果*/
+
+.cj-result {
+	width: 100%;
+	height: 667px;
+	background-image: url(../image/jieguo1.png);
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	z-index: 9999;
+	background-attachment: fixed;
+	position: relative;
+	overflow: hidden;
+}
+
+.layui-layer-title {
+	display: none !important;
+}
+
+.layui-layer {
+	width: 100% !important;
+}
+
+.layui-layer-content {
+	height: 100% !important;
+}
+
+.jl {
+	position: absolute;
+    top: 40%;
+    left: 28%;
+    width: 47%;
+/*     border: 1px solid red; */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.jl p:first-child {
+	color: #c74832;
+	font-size: 28px;
+margin-bottom:0
+}
+
+.jl p:last-child {
+	color: #c74832;
+	font-size: 18px;
+	margin:0
+}
+.jl div{
+	width:80px;
+	height:80px;
+	padding-right:10px;
+	text-align:center;
+	margin:0 auto;
+}
+.jl div img{
+	width:80px;
+	height:80px;
+	border-radius:10px
+}
+
+/*.close {
+				position: absolute;
+				top: 58px;
+				right: 10px;
+			}
+			*/
+
+.layui-layer-shade {
+	opacity: 0 !important;
+}
+
+.layui-layer-setwin {
+	top: 50px !important;
+}
+
+.layui-layer-setwin .layui-layer-close2 {
+	position: absolute;
+	top: 20px !important;
+	right: 0 !important;
+}
+.config{
+	width: 38%;
+    height: 35px;
+    line-height: 35px;
+    background:#D20E14;
+    margin: 0 auto;
+    text-align: center;
+    border-radius: 5px;
+    position: absolute;
+    bottom: 10%;
+    left: 29%;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+}
